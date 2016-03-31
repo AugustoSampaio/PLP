@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import plp.expressions1.util.Tipo;
+import plp.functional1.declaration.DecVariavel;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.AmbienteExecucao;
 import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
-import plp.functional1.declaration.DecVariavel;
 
 public class ExpDeclaracao implements Expressao {
 
