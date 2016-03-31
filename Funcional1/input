@@ -1,0 +1,2 @@
+let fun dobro x = x + x in
+	dobro(5)
