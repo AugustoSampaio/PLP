@@ -1,0 +1,17 @@
+  {
+      classe Contador {
+          int valor = 10;
+          proc print() {
+            write(this.valor)
+          }
+      }     
+      ;
+
+      {
+        Contador c := new Contador
+        ;
+	write("Teste do write");
+        c.print()
+     }
+
+   }
