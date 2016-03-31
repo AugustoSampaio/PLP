@@ -6,13 +6,14 @@ import java.util.Map.Entry;
 
 import plp.expressions2.expression.Id;
 import plp.expressions2.expression.Valor;
+import plp.functional1.memory.ContextoExecucaoFuncional;
 
 
 public class ContextoExecucao extends Contexto<Valor>
         implements AmbienteExecucao {
 
 	public ContextoExecucao clone() {
-		ContextoExecucao retorno = new ContextoExecucao();
+		ContextoExecucaoFuncional retorno = new ContextoExecucaoFuncional();
 		
 		Stack<HashMap<Id, Valor>> novaPilha = new Stack<HashMap<Id, Valor>>();
 		

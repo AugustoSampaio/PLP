@@ -1,0 +1,3 @@
+let fun soma x y = x + y in
+	let var a = soma(1,3) in
+		a
