@@ -1,5 +1,7 @@
 package plp.expressions1.expression;
 
+import plp.expressions2.memory.AmbienteCompilacao;
+
 /**
  * Uma expressao unaria contem uma expressao e um operador sobre a mesma.
  */
@@ -59,16 +61,16 @@ public abstract class ExpUnaria implements Expressao {
 	 * 
 	 * @param amb
 	 *            o ambiente de compilação.
-	 * @return <code>true</code> se o tipo da subexpressao &eacute; valido;
+	 * @return <code>true</code> se os tipos das subexpressoes sao validos;
 	 *         <code>false</code> caso contrario.
 	 */
-	public boolean checaTipo() {
-		return getExp().checaTipo() && this.checaTipoElementoTerminal();
+	public boolean checaTipo(AmbienteCompilacao amb) {
+		return getExp().checaTipo(amb) && this.checaTipoElementoTerminal(amb);
 	}
 
 	/**
 	 * Método 'template' que será implementado nas subclasses para checar o tipo
 	 * do head terminal
 	 */
-	protected abstract boolean checaTipoElementoTerminal();
+	protected abstract boolean checaTipoElementoTerminal(AmbienteCompilacao amb);
 }

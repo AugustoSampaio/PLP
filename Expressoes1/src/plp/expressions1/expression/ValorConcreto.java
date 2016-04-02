@@ -1,6 +1,7 @@
 package plp.expressions1.expression;
 
-import plp.expressions1.expression.Valor;
+import plp.expressions2.memory.AmbienteCompilacao;
+import plp.expressions2.memory.AmbienteExecucao;
 
 /**
  * @author bldb, efas, jcbr, srmq
@@ -49,7 +50,7 @@ public abstract class ValorConcreto<T> implements Valor {
 	/**
 	 * Retorna o valor deste valor primitivo, i.e., ele mesmo.
 	 */
-	public Valor avaliar () {
+	public Valor avaliar (AmbienteExecucao amb) {
 		return this;
 	}
 
@@ -62,7 +63,7 @@ public abstract class ValorConcreto<T> implements Valor {
 	 * @return <code>true</code> se os tipos da expressao sao validos;
 	 *          <code>false</code> caso contrario.
 	 */
-	public boolean checaTipo() {
+	public boolean checaTipo(AmbienteCompilacao amb) {
 		return true;
 	}
 }

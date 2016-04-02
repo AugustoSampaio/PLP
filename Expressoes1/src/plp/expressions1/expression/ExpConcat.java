@@ -2,6 +2,8 @@ package plp.expressions1.expression;
 
 import plp.expressions1.util.Tipo;
 import plp.expressions1.util.TipoPrimitivo;
+import plp.expressions2.memory.AmbienteCompilacao;
+import plp.expressions2.memory.AmbienteExecucao;
 
 /**
 * Um objeto desta classe representa uma Expressao de Concatenacao entre
@@ -23,31 +25,37 @@ public class ExpConcat extends ExpBinaria{
 	} 
 
 	/**
-	 * Retorna o valor da Expressao de Concatenacao
+	 * Retorna o valor da Expressao de Conjuncao Logica
+	 * 
+	 * @param amb o ambiente de execução.
 	 */
-	public Valor avaliar(){
+	 public Valor avaliar(AmbienteExecucao amb){
 		return new ValorString(
-					( (ValorString) getEsq().avaliar()).valor() +
-					( (ValorString) getDir().avaliar()).valor()
+					( (ValorString) getEsq().avaliar(amb)).valor() +
+					( (ValorString) getDir().avaliar(amb)).valor()
 		);
 	}
 
 	/**
 	 * Realiza a verificacao de tipos desta expressao.
 	 *
+	 * @param amb o ambiente de compilação.
+	 *
 	 * @return <code>true</code> se os tipos da expressao sao validos;
 	 *          <code>false</code> caso contrario.
 	 */
-	protected boolean checaTipoElementoTerminal() {
-		return (getEsq().getTipo().eString() && getDir().getTipo().eString());
+	protected boolean checaTipoElementoTerminal(AmbienteCompilacao amb) {
+		return (getEsq().getTipo(amb).eString() && getDir().getTipo(amb).eString());
 	}
 
 	/**
 	 * Retorna os tipos possiveis desta expressao.
-	 *
+	 * 
+	 * @param amb o ambiente de compilação.
+	 * 
 	 * @return os tipos possiveis desta expressao.
 	 */
-	public Tipo getTipo() {
+	public Tipo getTipo(AmbienteCompilacao amb) {
 		return TipoPrimitivo.STRING;
 	}
 

@@ -2,6 +2,8 @@ package plp.expressions1.expression;
 
 import plp.expressions1.util.Tipo;
 import plp.expressions1.util.TipoPrimitivo;
+import plp.expressions2.memory.AmbienteCompilacao;
+import plp.expressions2.memory.AmbienteExecucao;
 
 /**
 * Um objeto desta classe representa uma Expressao de menos unario.
@@ -19,28 +21,37 @@ public class ExpMenos extends ExpUnaria{
 	}
 
 	/**
-	 * Retorna o valor da Expressao de menos unario
+	 * Retorna o valor da Expressao de menos unario.
+	 * 
+	 * @param amb
+	 *            o ambiente de execução.
 	 */
-	public Valor avaliar(){
-		return new ValorInteiro(- ((ValorInteiro)getExp().avaliar()).valor());
+	public Valor avaliar(AmbienteExecucao amb) {
+		return new ValorInteiro(- ((ValorInteiro)getExp().avaliar(amb)).valor());
 	}
 
 	/**
 	 * Realiza a verificacao de tipos desta expressao.
 	 *
+	 * @param amb
+	 *            o ambiente de compilação.
+	 *
 	 * @return <code>true</code> se os tipos da expressao sao validos;
-	 *          <code>false</code> caso contrario.
+	 *         <code>false</code> caso contrario.
 	 */
-	protected boolean checaTipoElementoTerminal() {
-		return (getExp().getTipo().eInteiro());
+	protected boolean checaTipoElementoTerminal(AmbienteCompilacao amb) {
+		return (getExp().getTipo(amb).eInteiro());
 	}
 
 	/**
 	 * Retorna os tipos possiveis desta expressao.
-	 *
+	 * 
+	 * @param amb
+	 *            o ambiente de compilação.
+	 * 
 	 * @return os tipos possiveis desta expressao.
 	 */
-	public Tipo getTipo() {
+	public Tipo getTipo(AmbienteCompilacao amb) {
 		return TipoPrimitivo.INTEIRO;
 	}
 }
