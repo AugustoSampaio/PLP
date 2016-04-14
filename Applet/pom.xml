@@ -36,7 +36,6 @@
   		<groupId>Funcional2</groupId>
   		<artifactId>Funcional2</artifactId>
   		<version>0.0.1</version>
-  		<type>pom</type>
   	</dependency>
   	<dependency>
   		<groupId>Funcional3</groupId>
@@ -47,25 +46,21 @@
   		<groupId>Imperativa1</groupId>
   		<artifactId>Imperativa1</artifactId>
   		<version>0.0.1</version>
-  		<type>pom</type>
   	</dependency>
   	<dependency>
   		<groupId>Imperativa2</groupId>
   		<artifactId>Imperativa2</artifactId>
   		<version>0.0.1</version>
-  		<type>pom</type>
   	</dependency>
   	<dependency>
   		<groupId>Objetos1</groupId>
   		<artifactId>Objetos1</artifactId>
   		<version>0.0.1</version>
-  		<type>pom</type>
   	</dependency>
   	<dependency>
   		<groupId>Objetos2</groupId>
   		<artifactId>Objetos2</artifactId>
   		<version>0.0.1</version>
-  		<type>pom</type>
   	</dependency>
   </dependencies>
 </project>

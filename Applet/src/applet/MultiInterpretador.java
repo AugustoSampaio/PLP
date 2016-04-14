@@ -1,4 +1,4 @@
-package plp;
+package applet;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
