@@ -1,2 +1,2 @@
-let fun dobro x = x + x in
-	dobro(5)
+let fun soma x y = x + y in
+	soma(5,4)
