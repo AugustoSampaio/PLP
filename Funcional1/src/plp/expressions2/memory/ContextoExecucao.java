@@ -1,19 +1,18 @@
 package plp.expressions2.memory;
 
 import java.util.HashMap;
-import java.util.Stack;
 import java.util.Map.Entry;
+import java.util.Stack;
 
 import plp.expressions2.expression.Id;
 import plp.expressions2.expression.Valor;
-import plp.functional1.memory.ContextoExecucaoFuncional;
 
 
 public class ContextoExecucao extends Contexto<Valor>
         implements AmbienteExecucao {
 
 	public ContextoExecucao clone() {
-		ContextoExecucaoFuncional retorno = new ContextoExecucaoFuncional();
+		ContextoExecucao retorno = new ContextoExecucao();
 		
 		Stack<HashMap<Id, Valor>> novaPilha = new Stack<HashMap<Id, Valor>>();
 		
