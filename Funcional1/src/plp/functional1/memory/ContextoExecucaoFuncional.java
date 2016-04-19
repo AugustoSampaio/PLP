@@ -1,39 +1,58 @@
 package plp.functional1.memory;
 
-import java.util.HashMap;
-import java.util.Stack;
-
 import plp.expressions2.expression.Id;
+import plp.expressions2.expression.Valor;
 import plp.expressions2.memory.ContextoExecucao;
 import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
 import plp.functional1.util.DefFuncao;
 
-public class ContextoExecucaoFuncional extends ContextoExecucao
-		implements AmbienteExecucaoFuncional {
+public class ContextoExecucaoFuncional implements AmbienteExecucaoFuncional {
 
-	/**
-	 * A pilha de blocos de funcao deste contexto.
-	 */
-	private Stack<HashMap<Id, DefFuncao>> pilhaFuncao;
-
+	private ContextoExecucao contextoExecucao;
+	private ContextoFuncional contextoFuncional;
+	
 	/**
 	 * Construtor da classe.
 	 */
 	public ContextoExecucaoFuncional() {
-		pilhaFuncao = new Stack<HashMap<Id, DefFuncao>>();
+		 contextoExecucao = new ContextoExecucao();
+		 contextoFuncional = new ContextoFuncional();
 	}
 
 	public void incrementa() {
-		super.incrementa();
-		pilhaFuncao.push(new HashMap<Id, DefFuncao>());
+		contextoExecucao.incrementa();
+		contextoFuncional.incrementa();
 	}
 
 	public void restaura() {
-		super.restaura();
-		pilhaFuncao.pop();
+		contextoExecucao.restaura();
+		contextoFuncional.restaura();
 	}
-
+	
+	/**
+	 * Mapeia o id no valor dado.
+	 * 
+	 * @exception VariavelJaDeclaradaException
+	 *                se já existir um mapeamento do identificador nesta tabela.
+	 */
+	@Override
+	public void map(Id idArg, Valor tipoId) throws VariavelJaDeclaradaException {
+		contextoExecucao.map(idArg, tipoId);
+	}
+	
+	/**
+	 * Retorna o valor mapeado ao id dado.
+	 * 
+	 * @exception VariavelNaoDeclaradaException
+	 *                se não existir nenhum valor mapeado ao id dado nesta
+	 *                tabela.
+	 */
+	@Override
+	public Valor get(Id idArg) throws VariavelNaoDeclaradaException {
+		return contextoExecucao.get(idArg);
+	}
+	
 	// Remover esse método. Já tem em ContextoExecucao
 	/**
 	 * Mapeia um identificador em uma funcao.
@@ -47,10 +66,7 @@ public class ContextoExecucaoFuncional extends ContextoExecucao
 	 */
 	public void mapFuncao(Id idArg, DefFuncao funcao)
 			throws VariavelJaDeclaradaException {
-		HashMap<Id, DefFuncao> aux = pilhaFuncao.peek();
-		if (aux.put(idArg, funcao) != null) {
-			throw new VariavelJaDeclaradaException(idArg);
-		}
+		contextoFuncional.map(idArg, funcao);
 	}
 
 	// Remover esse método. Já tem em ContextoExecucao
@@ -65,22 +81,7 @@ public class ContextoExecucaoFuncional extends ContextoExecucao
 	 *                se o id nao estiver declarado.
 	 */
 	public DefFuncao getFuncao(Id idArg) throws VariavelNaoDeclaradaException {
-		DefFuncao result = null;
-		Stack<HashMap<Id, DefFuncao>> auxStack =
-			new Stack<HashMap<Id, DefFuncao>>();
-		while (result == null && !pilhaFuncao.empty()) {
-			HashMap<Id, DefFuncao> aux = pilhaFuncao.pop();
-			auxStack.push(aux);
-			result = aux.get(idArg);
-		}
-		while (!auxStack.empty()) {
-			pilhaFuncao.push(auxStack.pop());
-		}
-		if (result == null) {
-			throw new VariavelNaoDeclaradaException(idArg);
-		}
-
-		return result;
+		return contextoFuncional.get(idArg);
 	}
 	
 	public ContextoExecucaoFuncional clone() {

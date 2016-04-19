@@ -1,2 +1,2 @@
-let var a = fn x y. x + x in
+let var a = fn x y. x + y, fun z c = c+c in
 	a(1,2)
