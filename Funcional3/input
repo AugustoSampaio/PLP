@@ -1,4 +1,4 @@
 let fun soma a b = a + b, fun map op xxs = if (xxs==[]) 
 	then [] 
 	else (let var x = head xxs, var xs = tail xxs in  op(x,x) : map(op, xs)) in
-	map(soma,[3,2])
+	map(soma,[3])
