@@ -1,4 +1,4 @@
-package plp;
+package applet;
 
 import java.awt.event.ActionEvent;
 
