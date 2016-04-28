@@ -1,3 +1,9 @@
 *.lock
 .metadata/
 .recommenders/
+
+*/target/
+
+*/.classpath
+*/.project
+*/.settings
