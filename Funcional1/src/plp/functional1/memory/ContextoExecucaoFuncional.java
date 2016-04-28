@@ -36,7 +36,6 @@ public class ContextoExecucaoFuncional implements AmbienteExecucaoFuncional {
 	 * @exception VariavelJaDeclaradaException
 	 *                se já existir um mapeamento do identificador nesta tabela.
 	 */
-	@Override
 	public void map(Id idArg, Valor tipoId) throws VariavelJaDeclaradaException {
 		contextoExecucao.map(idArg, tipoId);
 	}
@@ -48,7 +47,6 @@ public class ContextoExecucaoFuncional implements AmbienteExecucaoFuncional {
 	 *                se não existir nenhum valor mapeado ao id dado nesta
 	 *                tabela.
 	 */
-	@Override
 	public Valor get(Id idArg) throws VariavelNaoDeclaradaException {
 		return contextoExecucao.get(idArg);
 	}
