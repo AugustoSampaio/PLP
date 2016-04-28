@@ -1,0 +1,11 @@
+{ 
+   var a  =  0 ,
+   proc incA ()  {
+     a := a + 1
+   };
+   call incA();
+   call incA();
+   write(a);
+   read(a);
+   write(a)
+}

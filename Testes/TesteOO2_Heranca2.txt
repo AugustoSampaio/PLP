@@ -1,0 +1,67 @@
+{
+	classe Eletrodomestico{
+		boolean ligado = false,
+		int voltagem = 220;
+		
+		Eletrodomestico(boolean ligado, int voltagem){
+			this.ligado := ligado;
+			this.voltagem := voltagem
+		},			
+		proc ligar(){
+			this.ligado := true
+		},
+		proc desligar(){
+			this.ligado := false
+		},
+		proc imprimeEstado(){
+			write("Ligado: " ++ this.ligado);
+			write("Voltagem: " ++ this.voltagem)
+		}			
+	},
+	classe Tv extends Eletrodomestico{
+		int canal = 3,
+		int volume = 0;
+		
+		Tv(boolean ligado, int voltagem, int canal, int volume){
+			this.ligado := ligado;
+			this.voltagem := voltagem;
+			this.canal := canal;
+			this.volume := volume
+		},
+		proc aumentarVolume(){
+			this.volume := this.volume + 1
+		},
+		proc diminuirVolume(){
+			if(not (this.volume == 0)) then {
+				this.volume := this.volume - 1
+			}
+		},
+		proc imprimeEstadoTv(){
+			write("Ligado: " ++ this.ligado);
+			write("Voltagem: " ++ this.voltagem);
+			write("Canal: " ++ this.canal);
+			write("Volume: " ++ this.volume)
+		}
+	},
+	classe TvLCD extends Tv{
+		boolean fullHD = true;
+		
+		TvLCD(boolean ligado, int voltagem, int canal, int volume, boolean fullHD){
+			this.ligado := ligado;
+			this.voltagem := voltagem;
+			this.canal := canal;
+			this.volume := volume;
+			this.fullHD := fullHD
+		},
+		proc imprimeEstadoTvLCD(){
+			this.imprimeEstadoTv();
+			write("FullHD: " ++ this.fullHD)
+		}
+	};
+	{
+		TvLCD tvLCD := new TvLCD(false,110,13,20, true);	
+		tvLCD.imprimeEstado();write("------------------------");		
+		tvLCD.imprimeEstadoTv();write("------------------------");		
+		tvLCD.imprimeEstadoTvLCD()
+	}
+}

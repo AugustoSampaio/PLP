@@ -1,0 +1,26 @@
+   {
+      classe Contador {
+          int valor = 1;
+          proc print() {
+            write(this.valor)
+          }
+      }     
+      ;
+
+      {
+	int a = 2,
+	string b = "plp1",
+	boolean ok = true
+        ;
+	write("Digita uma string: ");
+	read(b);
+	write("Digite um numero inteiro: ");
+	read(a);
+	write("Digite um valor booleano: ");
+	read(ok);
+	write("O string lido foi: "++b);
+	write("O int lido foi: "++a);
+	write("O boolean lido foi: "++ok)
+     }
+
+   }
