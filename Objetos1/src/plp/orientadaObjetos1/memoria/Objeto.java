@@ -1,7 +1,5 @@
 package plp.orientadaObjetos1.memoria;
 
-import java.util.HashMap;
-
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
 import plp.orientadaObjetos1.expressao.leftExpression.Id;
 import plp.orientadaObjetos1.expressao.valor.Valor;

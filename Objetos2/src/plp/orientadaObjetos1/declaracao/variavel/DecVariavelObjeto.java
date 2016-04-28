@@ -11,7 +11,6 @@ import plp.orientadaObjetos1.expressao.leftExpression.Id;
 import plp.orientadaObjetos1.expressao.valor.ValorNull;
 import plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
-import plp.orientadaObjetos1.memoria.ContextoObjeto;
 import plp.orientadaObjetos1.util.Tipo;
 import plp.orientadaObjetos1.util.TipoClasse;
 
