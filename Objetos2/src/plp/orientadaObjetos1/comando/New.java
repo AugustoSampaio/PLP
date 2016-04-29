@@ -5,8 +5,6 @@ package plp.orientadaObjetos1.comando;
  * resultado de tal execucao é a modificação deste ambiente, i.e., comandos
  * tem efeito colateral.
  */
-import java.util.HashMap;
-
 import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
 import plp.orientadaObjetos1.declaracao.variavel.DecVariavel;
@@ -16,13 +14,12 @@ import plp.orientadaObjetos1.excecao.declaracao.ObjetoJaDeclaradoException;
 import plp.orientadaObjetos1.excecao.declaracao.ObjetoNaoDeclaradoException;
 import plp.orientadaObjetos1.expressao.leftExpression.Id;
 import plp.orientadaObjetos1.expressao.leftExpression.LeftExpression;
-import plp.orientadaObjetos1.expressao.valor.Valor;
 import plp.orientadaObjetos1.expressao.valor.ValorRef;
 import plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
 import plp.orientadaObjetos1.memoria.ContextoExecucaoOO1;
-import plp.orientadaObjetos1.memoria.DefClasse;
 import plp.orientadaObjetos1.memoria.ContextoObjeto;
+import plp.orientadaObjetos1.memoria.DefClasse;
 import plp.orientadaObjetos1.memoria.Objeto;
 import plp.orientadaObjetos1.util.TipoClasse;
 

@@ -24,7 +24,6 @@ import plp.orientadaObjetos1.memoria.DefClasse;
 import plp.orientadaObjetos1.memoria.Objeto;
 import plp.orientadaObjetos1.memoria.colecao.ListaValor;
 import plp.orientadaObjetos1.util.Tipo;
-import plp.orientadaObjetos2.memoria.AmbienteExecucaoOO2;
 import plp.orientadaObjetos2.memoria.DefClasseOO2;
 
 public class ChamadaMetodoOO2 extends ChamadaMetodo {
