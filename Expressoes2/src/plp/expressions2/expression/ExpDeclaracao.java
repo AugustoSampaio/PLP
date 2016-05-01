@@ -1,12 +1,9 @@
 package plp.expressions2.expression;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import plp.expressions1.util.Tipo;
-import plp.expressions2.declaration.DecVariavel;
 import plp.expressions2.declaration.Declaracao;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.AmbienteExecucao;
@@ -63,15 +60,6 @@ public class ExpDeclaracao implements Expressao {
 		boolean resposta = declaracao.checaTipo(ambiente) && expressao.checaTipo(ambiente);
 		ambiente.restaura();
 		return resposta;
-	}
-
-	private void includeTypeBindings(AmbienteCompilacao ambiente,
-			Map<Id, Tipo> resolvedTypes) throws VariavelJaDeclaradaException {
-
-		for (Id id : resolvedTypes.keySet()) {
-			Tipo type = resolvedTypes.get(id);
-			ambiente.map(id, type);
-		}
 	}
 
 	/**
