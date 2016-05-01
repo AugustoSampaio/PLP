@@ -1,12 +1,10 @@
 package plp.expressions2.expression;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import plp.expressions1.util.Tipo;
-import plp.expressions2.declaration.DecVariavel;
+import plp.expressions2.declaration.Declaracao;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.AmbienteExecucao;
 import plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -14,20 +12,21 @@ import plp.expressions2.memory.VariavelNaoDeclaradaException;
 
 public class ExpDeclaracao implements Expressao {
 
-	private List<DecVariavel> seqdecVariavel;
+	private Declaracao declaracao;
 	private Expressao expressao;
 
-	public ExpDeclaracao(List<DecVariavel> declarations, Expressao expressaoArg) {
-		seqdecVariavel = declarations;
-		expressao = expressaoArg;
+	public ExpDeclaracao(Declaracao declaracao, Expressao expressaoArg) {
+		this.declaracao = declaracao;
+		this.expressao = expressaoArg;
 	}
 
 	public Valor avaliar(AmbienteExecucao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 
 		ambiente.incrementa();
-		Map<Id, Valor> resolvedValues = resolveValueBindings(ambiente);
-		includeValueBindings(ambiente, resolvedValues);
+		Map<Id, Valor> declaracoes = new HashMap<Id,Valor>();
+		declaracao.elabora(ambiente, declaracoes);
+		includeValueBindings(ambiente, declaracoes);
 		Valor result = expressao.avaliar(ambiente);
 		ambiente.restaura();
 
@@ -40,18 +39,6 @@ public class ExpDeclaracao implements Expressao {
 			Valor valor = resolvedValues.get(id);
 			ambiente.map(id, valor);
 		}
-	}
-
-	private Map<Id, Valor> resolveValueBindings(AmbienteExecucao ambiente)
-			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-
-		Map<Id, Valor> resolvedValues = new HashMap<Id, Valor>();
-
-		for (DecVariavel declaration : this.seqdecVariavel) {
-			resolvedValues.put(declaration.getId(), declaration.getExpressao()
-					.avaliar(ambiente));
-		}
-		return resolvedValues;
 	}
 
 	/**
@@ -70,58 +57,9 @@ public class ExpDeclaracao implements Expressao {
 	public boolean checaTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		ambiente.incrementa();
-		Map<Id, Tipo> resolvedTypes;
-		boolean result = false;
-		try {
-			if (this.checkTypeBindings(ambiente)) {
-				resolvedTypes = this.resolveTypeBindings(ambiente);
-				this.includeTypeBindings(ambiente, resolvedTypes);
-				result = expressao.checaTipo(ambiente);
-			} else {
-				result = false;
-			}
-		} finally {
-			ambiente.restaura();
-		}
-		return result;
-	}
-
-	private void includeTypeBindings(AmbienteCompilacao ambiente,
-			Map<Id, Tipo> resolvedTypes) throws VariavelJaDeclaradaException {
-
-		for (Id id : resolvedTypes.keySet()) {
-			Tipo type = resolvedTypes.get(id);
-			ambiente.map(id, type);
-		}
-	}
-
-	private Map<Id, Tipo> resolveTypeBindings(AmbienteCompilacao ambiente)
-			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-
-		Map<Id, Tipo> resolvedTypes = new HashMap<Id, Tipo>();
-
-		for (DecVariavel declaration : this.seqdecVariavel) {
-			if (resolvedTypes.put(declaration.getId(), declaration
-					.getExpressao().getTipo(ambiente)) != null)
-				throw new VariavelJaDeclaradaException(declaration.getId());
-
-		}
-
-		return resolvedTypes;
-	}
-
-	private boolean checkTypeBindings(AmbienteCompilacao ambiente)
-			throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException {
-
-		boolean result = true;
-
-		for (DecVariavel declaration : this.seqdecVariavel) {
-			if (!declaration.getExpressao().checaTipo(ambiente)) {
-				result = false;
-				break;
-			}
-		}
-		return result;
+		boolean resposta = declaracao.checaTipo(ambiente) && expressao.checaTipo(ambiente);
+		ambiente.restaura();
+		return resposta;
 	}
 
 	/**
@@ -138,24 +76,14 @@ public class ExpDeclaracao implements Expressao {
 	 */
 	public Tipo getTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		ambiente.incrementa();
-
-		Map<Id, Tipo> resolvedTypes = this.resolveTypeBindings(ambiente);
-		this.includeTypeBindings(ambiente, resolvedTypes);
 		Tipo result = expressao.getTipo(ambiente);
-
-		ambiente.restaura();
 		return result;
 	}
 
 	public Expressao reduzir(AmbienteExecucao ambiente) {
 		ambiente.incrementa();
-		
-		for(DecVariavel dec : this.seqdecVariavel){
-			ambiente.map(dec.getId(), null);
-		}
+		declaracao.reduzir(ambiente);
 		this.expressao = expressao.reduzir(ambiente);
-		
 		ambiente.restaura();
 		
 		return this;
@@ -163,14 +91,7 @@ public class ExpDeclaracao implements Expressao {
 
 	public ExpDeclaracao clone(){
 		ExpDeclaracao retorno;		
-		List<DecVariavel> novaLista = new ArrayList<DecVariavel>(this.seqdecVariavel.size());
-		
-		for (DecVariavel dec : this.seqdecVariavel){
-			novaLista.add(new DecVariavel(dec.getId().clone(), dec.getExpressao().clone()));
-		}
-		
-		retorno = new ExpDeclaracao(novaLista, this.expressao.clone());
-		
+		retorno = new ExpDeclaracao(declaracao, this.expressao.clone());
 		return retorno;
 	}
 }
