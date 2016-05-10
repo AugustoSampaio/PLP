@@ -231,7 +231,9 @@ public class ExpDeclaracao implements Expressao {
 				decFuncao.setValorFuncao(novoValorFuncao);
 			}
 		}
-		this.expressao = expressao.reduzir(ambiente);
+		
+		//Comentado, pois fazia com que uma recursão de lista entrasse em loop.
+		//this.expressao = expressao.reduzir(ambiente);
 		
 		ambiente.restaura();
 		

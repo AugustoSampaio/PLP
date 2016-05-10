@@ -48,6 +48,7 @@ public class Aplicacao implements Expressao {
 			ambiente.map(funcao.getId(), funcao.clone());
 		}
 		Expressao exp = funcao.getExp().clone();
+
 		exp.reduzir(ambiente);
 		
 		Valor vresult = exp.avaliar(ambiente);
