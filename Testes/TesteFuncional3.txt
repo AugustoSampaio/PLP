@@ -7,4 +7,22 @@ else let var x = head xxs, var xs = tail xxs in
 (if p(x) then x : filter(p, xs)
   else filter(p,xs)) in 
   let fun positivo x = x > 0 in
-  	filter(positivo, [1,-1, 0,-3,2,3,4])	
+  	filter(positivo, [1,-1, 0,-3,2,3,4])
+
+
+  	let fun filter p xxs =
+  if xxs == [] then [] 
+else let var x = head xxs, var xs = tail xxs in
+(if p(x) then x : filter(p, xs)
+  else filter(p,xs)) in 
+  let fun positivo x = x > -1, fun getNum i = i in
+  	filter(positivo, [getNum(2), getNum(3)])	
+
+
+
+  	let fun dobro a = a + a, 
+fun apply val xxs = 
+if (xxs==[]) 
+then [] 
+else (let var x = head xxs, var xs = tail xxs in  x(val) : apply(x(val), xs)) in
+	apply(3,[dobro,dobro,dobro,dobro,dobro])
