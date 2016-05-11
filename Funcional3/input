@@ -1,6 +1,7 @@
-let fun filter p xxs =
+  	let fun filter p xxs =
   if xxs == [] then [] 
 else let var x = head xxs, var xs = tail xxs in
 (if p(x) then x : filter(p, xs)
   else filter(p,xs)) in 
-  	filter(positivo, [1,-1, 0,-3,2,3,4])	
+  let fun positivo x = x > 0 in
+  	filter(positivo, [1,2,5,0,-2,-3])	
