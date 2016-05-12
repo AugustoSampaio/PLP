@@ -6,7 +6,7 @@ Repositório do projeto da disciplina Paradigmas de Linguagens de Programação 
 
 * Luana Martins (lms7@cin.ufpe.br)
 * Marcel Rebouças (mscr@cin.ufpe.br)
-* Renato Oliveira (rso3@cin.ufpe.br)
+* Renato Oliveira (ros3@cin.ufpe.br)
 
 ## Contribuições (até o momento - 10/05)
 
