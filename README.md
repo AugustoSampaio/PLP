@@ -15,7 +15,7 @@ Repositório do projeto da disciplina Paradigmas de Linguagens de Programação 
 * Correção de problemas relativos à quantidade de argumentos em funções nas LFs
 * Separar ContextoExecucaoFuncional entre ContextoExecucao[Valor] e ContextoFuncional[DefFuncao], na LF1
 * Geração/atualização automática do Applet através do Maven
-* Refactoring na LE2 e LFs: aplicar o padrão Interpreter na avaliação de Declarações
+* Refactoring na LE2 e LFs: aplicar o padrão composite na avaliação de Declarações
 * Correção da Linguagem Funcional 3
 
 ## Em andamento
