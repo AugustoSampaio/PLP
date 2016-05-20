@@ -2,9 +2,11 @@ package plp.expressions2.declaration;
 
 import java.util.Map;
 
+import plp.expressions1.util.Tipo;
 import plp.expressions2.expression.Expressao;
 import plp.expressions2.expression.Id;
 import plp.expressions2.expression.Valor;
+import plp.expressions2.memory.Ambiente;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.AmbienteExecucao;
 import plp.expressions2.memory.VariavelJaDeclaradaException;
@@ -30,14 +32,25 @@ public class DecVariavel implements Declaracao {
 			throw new VariavelJaDeclaradaException(getId());
 	}
 	
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		if(tipos.put(getId(), getExpressao().getTipo(amb))!=null)
+			throw new VariavelJaDeclaradaException(getId());
+	}
+	
 	public boolean checaTipo(AmbienteCompilacao amb){
-		boolean resultado = getExpressao().checaTipo(amb);
-		if(resultado)
-			amb.map(getId(), getExpressao().getTipo(amb));
-		return resultado;
+		return getExpressao().checaTipo(amb);
 	}
 	
 	public void reduzir(AmbienteExecucao amb){
 		amb.map(getId(), null);
 	}
+
+	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes) throws VariavelJaDeclaradaException {
+		amb.map(getId(), declaracoes.get(getId()));
+	}
+
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		amb.map(getId(), tipos.get(getId()));
+	}
+
 }
