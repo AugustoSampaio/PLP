@@ -26,19 +26,11 @@ public class ExpDeclaracao implements Expressao {
 		ambiente.incrementa();
 		Map<Id, Valor> declaracoes = new HashMap<Id,Valor>();
 		declaracao.elabora(ambiente, declaracoes);
-		includeValueBindings(ambiente, declaracoes);
+		declaracao.incluir(ambiente, declaracoes);
 		Valor result = expressao.avaliar(ambiente);
 		ambiente.restaura();
 
 		return result;
-	}
-
-	private void includeValueBindings(AmbienteExecucao ambiente,
-			Map<Id, Valor> resolvedValues) throws VariavelJaDeclaradaException {
-		for (Id id : resolvedValues.keySet()) {
-			Valor valor = resolvedValues.get(id);
-			ambiente.map(id, valor);
-		}
 	}
 
 	/**
@@ -57,9 +49,19 @@ public class ExpDeclaracao implements Expressao {
 	public boolean checaTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		ambiente.incrementa();
-		boolean resposta = declaracao.checaTipo(ambiente) && expressao.checaTipo(ambiente);
-		ambiente.restaura();
-		return resposta;
+		boolean result = false;
+		try{
+			if(declaracao.checaTipo(ambiente)){
+				Map<Id, Tipo> tipos = new HashMap<Id, Tipo>();
+				declaracao.elabora(ambiente, tipos);
+				declaracao.incluir(ambiente, tipos);
+				result = expressao.checaTipo(ambiente);
+			} else
+				result = false;
+		} finally {
+			ambiente.restaura();
+		}
+		return result;
 	}
 
 	/**

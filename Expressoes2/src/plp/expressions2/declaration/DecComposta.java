@@ -2,10 +2,12 @@ package plp.expressions2.declaration;
 
 import java.util.Map;
 
+import plp.expressions1.util.Tipo;
 import plp.expressions2.expression.Id;
 import plp.expressions2.expression.Valor;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.AmbienteExecucao;
+import plp.expressions2.memory.VariavelJaDeclaradaException;
 
 public class DecComposta implements Declaracao {
 	private Declaracao d1;
@@ -16,9 +18,14 @@ public class DecComposta implements Declaracao {
 		this.d2=d2;
 	}
 	
-	public void elabora(AmbienteExecucao amb, Map<Id, Valor> novasDeclaracoes) {
-		d1.elabora(amb, novasDeclaracoes);
-		d2.elabora(amb, novasDeclaracoes);
+	public void elabora(AmbienteExecucao amb, Map<Id, Valor> declaracoes) {
+		d1.elabora(amb, declaracoes);
+		d2.elabora(amb, declaracoes);
+	}
+	
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) {
+		d1.elabora(amb, tipos);
+		d2.elabora(amb, tipos);
 	}
 	
 	public boolean checaTipo(AmbienteCompilacao amb){
@@ -28,5 +35,15 @@ public class DecComposta implements Declaracao {
 	public void reduzir(AmbienteExecucao amb){
 		d1.reduzir(amb);
 		d2.reduzir(amb);
+	}
+
+	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes) throws VariavelJaDeclaradaException {
+		d1.incluir(amb,declaracoes);
+		d2.incluir(amb,declaracoes);
+	}
+
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		d1.incluir(amb,tipos);
+		d2.incluir(amb,tipos);
 	}
 }
