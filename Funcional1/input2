@@ -1,0 +1,2 @@
+let var a = 1, var b = (2+3), var c = 1, var d = 2, fun doido a b = a+b, fun boa a b = a+b+b 
+	in doido(boa(a,b),doido(c,d))

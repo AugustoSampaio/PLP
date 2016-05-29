@@ -4,13 +4,16 @@ import static plp.expressions1.util.ToStringProvider.listToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import plp.expressions1.util.Tipo;
 import plp.expressions2.expression.Expressao;
 import plp.expressions2.expression.Id;
+import plp.expressions2.expression.Valor;
 import plp.expressions2.memory.AmbienteCompilacao;
 import plp.expressions2.memory.VariavelJaDeclaradaException;
 import plp.expressions2.memory.VariavelNaoDeclaradaException;
+import plp.functional1.memory.AmbienteExecucaoFuncional;
 import plp.functional1.util.DefFuncao;
 import plp.functional1.util.TipoFuncao;
 import plp.functional1.util.TipoPolimorfico;
@@ -127,4 +130,24 @@ public class DecFuncao implements DeclaracaoFuncional {
 		DefFuncao aux = this.funcao.clone();
 		return new DecFuncao(this.id.clone(), aux.getListaId(), aux.getExp());
 	}
+
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		tipos.put(getId(), getTipo(amb));
+	}
+
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		amb.map(getId(), tipos.get(getId()));
+		
+	}
+
+	public void elabora(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
+			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		declaracoesFuncoes.put(getId(), getFuncao());
+	}
+
+	public void incluir(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
+			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		amb.mapFuncao(getId(), declaracoesFuncoes.get(getId()));
+	}
+
 }
