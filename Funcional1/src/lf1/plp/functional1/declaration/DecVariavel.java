@@ -1,11 +1,17 @@
 package lf1.plp.functional1.declaration;
 
+
+import java.util.Map;
+
 import lf1.plp.expressions1.util.Tipo;
 import lf1.plp.expressions2.expression.Expressao;
 import lf1.plp.expressions2.expression.Id;
+import lf1.plp.expressions2.expression.Valor;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
 import lf1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf1.plp.expressions2.memory.VariavelNaoDeclaradaException;
+import lf1.plp.functional1.memory.AmbienteExecucaoFuncional;
+import lf1.plp.functional1.util.DefFuncao;
 
 public class DecVariavel implements DeclaracaoFuncional {
 	private Id id;
@@ -14,10 +20,6 @@ public class DecVariavel implements DeclaracaoFuncional {
 	public DecVariavel(Id idArg, Expressao expressaoArg) {
 		id = idArg;
 		expressao = expressaoArg;
-	}
-
-	public int getAridade() {
-		return 0;
 	}
 
 	/**
@@ -79,4 +81,23 @@ public class DecVariavel implements DeclaracaoFuncional {
 	public DecVariavel clone() {
 		return new DecVariavel(this.id.clone(), this.expressao.clone());
 	}
+
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		tipos.put(getId(), getTipo(amb));
+	}
+
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		amb.map(getId(), tipos.get(getId()));
+	}
+
+	public void elabora(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
+			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		declaracoes.put(getId(), getExpressao().avaliar(amb));
+	}
+
+	public void incluir(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
+			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		amb.map(getId(), declaracoes.get(getId()));
+	}
+	
 }
