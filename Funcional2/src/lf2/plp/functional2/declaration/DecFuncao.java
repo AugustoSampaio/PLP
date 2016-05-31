@@ -163,7 +163,7 @@ public class DecFuncao implements DeclaracaoFuncional {
 
 	@Override
 	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
-		boolean ehCuringa = (getFuncao().getTipo(amb) == TipoPolimorfico.CURINGA);
+		boolean ehCuringa = (tipos.get(getId()) == TipoPolimorfico.CURINGA);
 		boolean incluir = (ehCuringa&&incluirCuringa) || (!ehCuringa);
 		if(incluir) amb.map(getId(), tipos.get(getId()));
 	}
