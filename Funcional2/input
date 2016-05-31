@@ -1,2 +1,3 @@
 let var a = fn x y. x + y, fun z c = c+c in
-	a(1,2)
+	let var b = a(3,3)
+		in a(1,2)+z(1)+b

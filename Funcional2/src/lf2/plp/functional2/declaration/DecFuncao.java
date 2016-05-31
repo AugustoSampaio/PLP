@@ -4,11 +4,14 @@ import static lf2.plp.expressions1.util.ToStringProvider.listToString;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import lf2.plp.expressions1.util.Tipo;
 import lf2.plp.expressions2.expression.Expressao;
 import lf2.plp.expressions2.expression.Id;
+import lf2.plp.expressions2.expression.Valor;
 import lf2.plp.expressions2.memory.AmbienteCompilacao;
+import lf2.plp.expressions2.memory.AmbienteExecucao;
 import lf2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf2.plp.functional1.declaration.DeclaracaoFuncional;
@@ -60,7 +63,7 @@ public class DecFuncao implements DeclaracaoFuncional {
 	 * 
 	 * @return a aridade da funcao declarada.
 	 */
-	public int getAridade() {
+	private int getAridade() {
 		return valorFuncao.getAridade();
 	}
 
@@ -131,5 +134,42 @@ public class DecFuncao implements DeclaracaoFuncional {
 
 	public DecFuncao clone() {
 		return new DecFuncao(this.id.clone(), this.valorFuncao.clone());
+	}
+
+	@Override
+	public void elabora(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
+			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		declaracoesFuncoes.put(getId(), getFuncao());
+		
+		//passos a mais
+		AmbienteExecucao ambienteClone = amb.clone();
+		ambienteClone.incrementa();
+		ambienteClone.map(getId(), getFuncao());
+		getFuncao().setId(getId());
+	}
+
+	@Override
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		tipos.put(getId(), getTipo(amb));
+		
+	}
+
+	@Override
+	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
+			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		amb.map(getId(), declaracoesFuncoes.get(getId()));
+		
+	}
+
+	@Override
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
+		boolean ehCuringa = (getFuncao().getTipo(amb) == TipoPolimorfico.CURINGA);
+		boolean incluir = (ehCuringa&&incluirCuringa) || (!ehCuringa);
+		if(incluir) amb.map(getId(), tipos.get(getId()));
+	}
+
+	@Override
+	public void reduzir(AmbienteExecucao amb) {
+		setValorFuncao((ValorFuncao)getFuncao().reduzir(amb));
 	}
 }

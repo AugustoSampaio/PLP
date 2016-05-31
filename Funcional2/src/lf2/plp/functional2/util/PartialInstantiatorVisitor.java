@@ -158,36 +158,36 @@ public class PartialInstantiatorVisitor {
 		return resultado;
 	}
 
-	public Expressao _visitExpDeclaracao(ExpDeclaracao expressao,
-			AmbienteExecucao ambiente, Set<Id> localVariables) {
-
-		// Adicionando as variaveis locais da declaracao funcional
-		Set<Id> novasVariaveisLocais = new HashSet<Id>(localVariables);
-		List<DeclaracaoFuncional> novaListaDeclaracao = new ArrayList<DeclaracaoFuncional>(
-				expressao.getSeqdecFuncional().size());
-		for (Object element : expressao.getSeqdecFuncional()) {
-			DeclaracaoFuncional declaracao = (DeclaracaoFuncional) element;
-			if (declaracao instanceof DecFuncao) {
-				DecFuncao novaDec = visitDecFuncao((DecFuncao) declaracao,
-						ambiente, localVariables);
-				novaListaDeclaracao.add(novaDec);
-			} else if (declaracao instanceof DecVariavel) {
-				DecVariavel novaDec = visitDecVariavel(
-						(DecVariavel) declaracao, ambiente, localVariables);
-				novaListaDeclaracao.add(novaDec);
-			} else
-				throw new IllegalStateException(
-						"DeclaracaoFuncional desconhecida em PartialInstantiatorVisitor");
-			Id idAtual = declaracao.getId();
-			novasVariaveisLocais.add(idAtual);
-		}
-
-		Expressao novaExpressao = visit(expressao.getExpressao(), ambiente,
-				novasVariaveisLocais);
-		ExpDeclaracao resultado = new ExpDeclaracao(novaListaDeclaracao,
-				novaExpressao);
-		return resultado;
-	}
+//	public Expressao _visitExpDeclaracao(ExpDeclaracao expressao,
+//			AmbienteExecucao ambiente, Set<Id> localVariables) {
+//
+//		// Adicionando as variaveis locais da declaracao funcional
+//		Set<Id> novasVariaveisLocais = new HashSet<Id>(localVariables);
+//		List<DeclaracaoFuncional> novaListaDeclaracao = new ArrayList<DeclaracaoFuncional>(
+//				expressao.getSeqdecFuncional().size());
+//		for (Object element : expressao.getSeqdecFuncional()) {
+//			DeclaracaoFuncional declaracao = (DeclaracaoFuncional) element;
+//			if (declaracao instanceof DecFuncao) {
+//				DecFuncao novaDec = visitDecFuncao((DecFuncao) declaracao,
+//						ambiente, localVariables);
+//				novaListaDeclaracao.add(novaDec);
+//			} else if (declaracao instanceof DecVariavel) {
+//				DecVariavel novaDec = visitDecVariavel(
+//						(DecVariavel) declaracao, ambiente, localVariables);
+//				novaListaDeclaracao.add(novaDec);
+//			} else
+//				throw new IllegalStateException(
+//						"DeclaracaoFuncional desconhecida em PartialInstantiatorVisitor");
+//			Id idAtual = declaracao.getId();
+//			novasVariaveisLocais.add(idAtual);
+//		}
+//
+//		Expressao novaExpressao = visit(expressao.getExpressao(), ambiente,
+//				novasVariaveisLocais);
+//		ExpDeclaracao resultado = new ExpDeclaracao(novaListaDeclaracao,
+//				novaExpressao);
+//		return resultado;
+//	}
 
 	private DecFuncao visitDecFuncao(DecFuncao declaracao,
 			AmbienteExecucao ambiente, Set<Id> localVariables) {
