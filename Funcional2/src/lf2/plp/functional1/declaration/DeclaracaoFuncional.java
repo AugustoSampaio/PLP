@@ -1,29 +1,19 @@
 package lf2.plp.functional1.declaration;
 
+import java.util.Map;
+
 import lf2.plp.expressions1.util.Tipo;
-import lf2.plp.expressions2.expression.Expressao;
 import lf2.plp.expressions2.expression.Id;
+import lf2.plp.expressions2.expression.Valor;
 import lf2.plp.expressions2.memory.AmbienteCompilacao;
+import lf2.plp.expressions2.memory.AmbienteExecucao;
 import lf2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf2.plp.expressions2.memory.VariavelNaoDeclaradaException;
+import lf2.plp.functional2.expression.ValorFuncao;
 
 public interface DeclaracaoFuncional {
 
-	public Id getId();
-
-	/**
-	 * Retorna a aridade da funcao declarada. Variaveis tem aridade 0.
-	 *
-	 * @return a aridade da funcao declarada.
-	 */
-	public int getAridade();
-
-	/**
-	 * Retorna a expressao associada.
-	 *
-	 * @return a expressao associada.
-	 */
-	public Expressao getExpressao();
+	
 
 	/**
 	 * Realiza a verificacao de tipos desta declara��o.
@@ -36,23 +26,12 @@ public interface DeclaracaoFuncional {
 	 * @exception VariavelNaoDeclaradaException se existir um identificador
 	 *          declarado mais de uma vez no mesmo bloco do ambiente.
 	 */
-	public boolean checaTipo(AmbienteCompilacao ambiente)
-		throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException;
-
-	/**
-	 * Retorna os tipos possiveis desta declara��o.
-	 *
-	 * @param amb o ambiente que contem o mapeamento entre identificadores
-	 *          e tipos.
-	 * @return os tipos possiveis desta declara��o.
-	 * @exception VariavelNaoDeclaradaException se houver uma vari&aacute;vel
-	 *          n&atilde;o declarada no ambiente.
-	 * @exception VariavelJaDeclaradaException se houver uma mesma
-	 *           vari&aacute;vel declarada duas vezes no mesmo bloco do
-	 *           ambiente.
-	 */
-	Tipo getTipo(AmbienteCompilacao amb)
-		throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException;
+	public boolean checaTipo(AmbienteCompilacao ambiente) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException;
+	public void elabora(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException;
+	public void reduzir(AmbienteExecucao amb);
 
 	public DeclaracaoFuncional clone();
 }
