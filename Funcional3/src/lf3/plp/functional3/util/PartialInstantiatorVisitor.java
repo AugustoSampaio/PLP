@@ -29,10 +29,8 @@ import lf3.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf3.plp.functional1.declaration.DecVariavel;
 import lf3.plp.functional1.declaration.DeclaracaoFuncional;
 import lf3.plp.functional1.expression.IfThenElse;
-import lf3.plp.functional3.declaration.DecFuncao;
 import lf3.plp.functional3.declaration.DecPadrao;
 import lf3.plp.functional3.expression.Aplicacao;
-import lf3.plp.functional3.expression.ExpDeclaracao;
 import lf3.plp.functional3.expression.ExpMaiorQue;
 import lf3.plp.functional3.expression.ExpMenorQue;
 import lf3.plp.functional3.expression.ExpMult;
@@ -142,7 +140,7 @@ public class PartialInstantiatorVisitor {
 		return resultado;
 	}
 	
-	public Expressao _visitExpDeclaracao(ExpDeclaracao expressao,
+	/*public Expressao _visitExpDeclaracao(ExpDeclaracao expressao,
 			AmbienteExecucao ambiente, Set<Id> localVariables) {
 		
 		// Adicionando as variaveis locais da declaracao funcional
@@ -189,7 +187,7 @@ public class PartialInstantiatorVisitor {
 		}
 		
 		return new DecFuncao(visited);
-	}
+	}*/
 	
 	private DecPadrao _visitDecPadrao(DecPadrao decPadrao, AmbienteExecucao ambiente,
 			Set<Id> localVariables) {

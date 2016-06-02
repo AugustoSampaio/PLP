@@ -4,4 +4,4 @@ else let var x = head xxs, var xs = tail xxs in
 (if p(x) then x : filter(p, xs)
   else filter(p,xs)) in 
   let fun positivo x = x > 0 in
-  	filter(positivo, [1,2,5,0,-2,-3])	
+  	filter(positivo, [1,2,5,0,-2,-3,7,8,6,4,6,5])	
