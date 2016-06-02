@@ -1,11 +1,16 @@
 package lf3.plp.functional1.declaration;
 
+import java.util.Map;
+
 import lf3.plp.expressions1.util.Tipo;
 import lf3.plp.expressions2.expression.Expressao;
 import lf3.plp.expressions2.expression.Id;
+import lf3.plp.expressions2.expression.Valor;
 import lf3.plp.expressions2.memory.AmbienteCompilacao;
+import lf3.plp.expressions2.memory.AmbienteExecucao;
 import lf3.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf3.plp.expressions2.memory.VariavelNaoDeclaradaException;
+import lf3.plp.functional2.expression.ValorFuncao;
 
 public class DecVariavel implements DeclaracaoFuncional {
 	private Id id;
@@ -14,10 +19,6 @@ public class DecVariavel implements DeclaracaoFuncional {
 	public DecVariavel(Id idArg, Expressao expressaoArg) {
 		id = idArg;
 		expressao = expressaoArg;
-	}
-
-	public int getAridade() {
-		return 0;
 	}
 
 	/**
@@ -76,6 +77,32 @@ public class DecVariavel implements DeclaracaoFuncional {
 		return expressao.checaTipo(ambiente);
 	}
 
+
+	public void elabora(AmbienteExecucao amb, Map<Id, Valor> declaracoes, Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		declaracoes.put(getId(), getExpressao().avaliar(amb));
+	}
+
+
+	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
+		tipos.put(getId(), getTipo(amb));
+	}
+
+
+	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
+			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
+		amb.map(getId(), declaracoes.get(getId()));
+	}
+
+
+	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
+		amb.map(getId(), tipos.get(getId()));
+	}
+
+
+	public void reduzir(AmbienteExecucao amb) {
+		amb.map(getId(), null);
+	}
+	
 	public DecVariavel clone() {
 		return new DecVariavel(this.id.clone(), this.expressao.clone());
 	}
