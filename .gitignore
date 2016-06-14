@@ -2,8 +2,6 @@
 .metadata/
 .recommenders/
 
-*/target/
-
 */bin/
 */.classpath
 */.project
