@@ -1,3 +1,1 @@
-let var a = fn x y. x + y, fun z c = c+c in
-	let var b = a(3,3)
-		in a(1,2)+z(1)+b
+(let fun dec n = if (n==0) then 0 else n + dec(n-1) in dec)(5)

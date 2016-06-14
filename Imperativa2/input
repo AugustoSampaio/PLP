@@ -1,1 +1,9 @@
-write(1+1); write("abc")
+{ 
+   var a  =  1 ,
+   proc incA (int z)  {
+     a := a + z
+   };
+   call incA(3);
+   call incA(5);
+   write(a)
+}
