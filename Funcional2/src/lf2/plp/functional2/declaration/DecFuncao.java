@@ -137,9 +137,8 @@ public class DecFuncao implements DeclaracaoFuncional {
 	}
 
 	@Override
-	public void elabora(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
-			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		declaracoesFuncoes.put(getId(), getFuncao());
+	public void elabora(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		aux.map(getId(), getFuncao());
 		
 		//passos a mais
 		AmbienteExecucao ambienteClone = amb.clone();
@@ -149,23 +148,22 @@ public class DecFuncao implements DeclaracaoFuncional {
 	}
 
 	@Override
-	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
-		tipos.put(getId(), getTipo(amb));
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		aux.map(getId(), getTipo(amb));
 		
 	}
 
 	@Override
-	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
-			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		amb.map(getId(), declaracoesFuncoes.get(getId()));
+	public void incluir(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		amb.map(getId(), aux.get(getId()));
 		
 	}
 
 	@Override
-	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
-		boolean ehCuringa = (tipos.get(getId()) == TipoPolimorfico.CURINGA);
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux, boolean incluirCuringa) throws VariavelJaDeclaradaException {
+		boolean ehCuringa = (aux.get(getId()) == TipoPolimorfico.CURINGA);
 		boolean incluir = (ehCuringa&&incluirCuringa) || (!ehCuringa);
-		if(incluir) amb.map(getId(), tipos.get(getId()));
+		if(incluir) amb.map(getId(), aux.get(getId()));
 	}
 
 	@Override

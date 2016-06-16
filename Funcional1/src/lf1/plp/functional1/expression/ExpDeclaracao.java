@@ -11,10 +11,12 @@ import lf1.plp.expressions2.expression.Id;
 import lf1.plp.expressions2.expression.Valor;
 import lf1.plp.expressions2.memory.AmbienteCompilacao;
 import lf1.plp.expressions2.memory.AmbienteExecucao;
+import lf1.plp.expressions2.memory.ContextoCompilacao;
 import lf1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf1.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf1.plp.functional1.declaration.DeclaracaoFuncional;
 import lf1.plp.functional1.memory.AmbienteExecucaoFuncional;
+import lf1.plp.functional1.memory.ContextoExecucaoFuncional;
 import lf1.plp.functional1.util.DefFuncao;
 
 public class ExpDeclaracao implements Expressao {
@@ -53,10 +55,11 @@ public class ExpDeclaracao implements Expressao {
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		AmbienteExecucaoFuncional amb = (AmbienteExecucaoFuncional)ambienteFuncional;
 		amb.incrementa();
-		Map<Id, Valor> declaracoes = new HashMap<Id, Valor>();
-		Map<Id, DefFuncao> declaracoesFuncoes = new HashMap<Id, DefFuncao>();
-		declaracao.elabora(amb, declaracoes, declaracoesFuncoes);
-		declaracao.incluir(amb, declaracoes, declaracoesFuncoes);
+		AmbienteExecucaoFuncional aux = new ContextoExecucaoFuncional();
+		aux.incrementa();
+		declaracao.elabora(amb, aux);
+		declaracao.incluir(amb, aux);
+		aux.restaura();
 		Valor vresult = expressao.avaliar(amb);
 		amb.restaura();
 		return vresult;
@@ -83,9 +86,11 @@ public class ExpDeclaracao implements Expressao {
 		try {
 			result = declaracao.checaTipo(ambiente);
 			if (result) {
-				Map<Id, Tipo> tipos = new HashMap<Id, Tipo>();
-				declaracao.elabora(ambiente, tipos);
-				declaracao.incluir(ambiente, tipos);
+				AmbienteCompilacao aux = new ContextoCompilacao();
+				aux.incrementa();
+				declaracao.elabora(ambiente, aux);
+				declaracao.incluir(ambiente, aux);
+				aux.restaura();
 				result = expressao.checaTipo(ambiente);
 			}
 		} finally {
@@ -110,9 +115,11 @@ public class ExpDeclaracao implements Expressao {
 	public Tipo getTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		ambiente.incrementa();
-		Map<Id, Tipo> tipos = new HashMap<Id, Tipo>();
-		declaracao.elabora(ambiente, tipos);
-		declaracao.incluir(ambiente, tipos);
+		AmbienteCompilacao aux = new ContextoCompilacao();
+		aux.incrementa();
+		declaracao.elabora(ambiente, aux);
+		declaracao.incluir(ambiente, aux);
+		aux.restaura();
 		Tipo vresult = expressao.getTipo(ambiente);
 		ambiente.restaura();
 		return vresult;

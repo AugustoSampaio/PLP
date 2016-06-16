@@ -83,24 +83,23 @@ public class DecVariavel implements DeclaracaoFuncional {
 	}
 
 
-	public void elabora(AmbienteExecucao amb, Map<Id, Valor> declaracoes, Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		declaracoes.put(getId(), getExpressao().avaliar(amb));
+	public void elabora(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		aux.map(getId(), getExpressao().avaliar(amb));
 	}
 
 
-	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
-		tipos.put(getId(), getTipo(amb));
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		aux.map(getId(), getTipo(amb));
 	}
 
 
-	public void incluir(AmbienteExecucao amb, Map<Id, Valor> declaracoes,
-			Map<Id, ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		amb.map(getId(), declaracoes.get(getId()));
+	public void incluir(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		amb.map(getId(), aux.get(getId()));
 	}
 
 
-	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
-		amb.map(getId(), tipos.get(getId()));
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux, boolean incluirCuringa) throws VariavelJaDeclaradaException {
+		amb.map(getId(), aux.get(getId()));
 	}
 
 

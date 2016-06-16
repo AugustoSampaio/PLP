@@ -26,24 +26,24 @@ public class DecComposta implements DeclaracaoFuncional {
 		return (d1.checaTipo(ambiente) && d2.checaTipo(ambiente));
 	}
 
-	public void elabora(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		d1.elabora(amb, declaracoes,declaracoesFuncoes);
-		d2.elabora(amb, declaracoes,declaracoesFuncoes);
+	public void elabora(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		d1.elabora(amb, aux);
+		d2.elabora(amb, aux);
 	}
 
-	public void elabora(AmbienteCompilacao amb, Map<Id,Tipo> tipos) throws VariavelJaDeclaradaException {
-		d1.elabora(amb, tipos);
-		d2.elabora(amb, tipos);
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		d1.elabora(amb, aux);
+		d2.elabora(amb, aux);
 	}
 
-	public void incluir(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		d1.incluir(amb, declaracoes,declaracoesFuncoes);
-		d2.incluir(amb, declaracoes,declaracoesFuncoes);
+	public void incluir(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException {
+		d1.incluir(amb, aux);
+		d2.incluir(amb, aux);
 	}
 
-	public void incluir(AmbienteCompilacao amb, Map<Id,Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException {
-		d1.incluir(amb, tipos, incluirCuringa);
-		d2.incluir(amb, tipos, incluirCuringa);
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux, boolean incluirCuringa) throws VariavelJaDeclaradaException {
+		d1.incluir(amb, aux, incluirCuringa);
+		d2.incluir(amb, aux, incluirCuringa);
 	}
 
 	public DeclaracaoFuncional clone() {
