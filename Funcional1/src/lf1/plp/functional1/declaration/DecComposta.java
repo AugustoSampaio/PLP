@@ -26,27 +26,27 @@ public class DecComposta implements DeclaracaoFuncional {
 		return (d1.checaTipo(ambiente) && d2.checaTipo(ambiente));
 	}
 
-	public void elabora(AmbienteExecucaoFuncional amb, Map<Id,Valor> declaracoes, Map<Id,DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		d1.elabora(amb, declaracoes,declaracoesFuncoes);
-		d2.elabora(amb, declaracoes,declaracoesFuncoes);
+	public void elabora(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException {
+		d1.elabora(amb, aux);
+		d2.elabora(amb, aux);
 	}
 
 	@Override
-	public void elabora(AmbienteCompilacao amb, Map<Id,Tipo> tipos) throws VariavelJaDeclaradaException {
-		d1.elabora(amb, tipos);
-		d2.elabora(amb, tipos);
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		d1.elabora(amb, aux);
+		d2.elabora(amb, aux);
 	}
 
 	@Override
-	public void incluir(AmbienteExecucaoFuncional amb, Map<Id,Valor> declaracoes, Map<Id,DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		d1.incluir(amb, declaracoes,declaracoesFuncoes);
-		d2.incluir(amb, declaracoes,declaracoesFuncoes);
+	public void incluir(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException {
+		d1.incluir(amb, aux);
+		d2.incluir(amb, aux);
 	}
 
 	@Override
-	public void incluir(AmbienteCompilacao amb, Map<Id,Tipo> tipos) throws VariavelJaDeclaradaException {
-		d1.incluir(amb, tipos);
-		d2.incluir(amb, tipos);
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		d1.incluir(amb, aux);
+		d2.incluir(amb, aux);
 	}
 
 	@Override

@@ -131,23 +131,20 @@ public class DecFuncao implements DeclaracaoFuncional {
 		return new DecFuncao(this.id.clone(), aux.getListaId(), aux.getExp());
 	}
 
-	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
-		tipos.put(getId(), getTipo(amb));
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		aux.map(getId(), getTipo(amb));
 	}
 
-	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException {
-		amb.map(getId(), tipos.get(getId()));
-		
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException {
+		amb.map(getId(), aux.get(getId()));
 	}
 
-	public void elabora(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
-			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		declaracoesFuncoes.put(getId(), getFuncao());
+	public void elabora(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException {
+		aux.mapFuncao(getId(), getFuncao());
 	}
 
-	public void incluir(AmbienteExecucaoFuncional amb, Map<Id, Valor> declaracoes,
-			Map<Id, DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException {
-		amb.mapFuncao(getId(), declaracoesFuncoes.get(getId()));
+	public void incluir(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException {
+		amb.mapFuncao(getId(), aux.getFuncao(getId()));
 	}
 
 }

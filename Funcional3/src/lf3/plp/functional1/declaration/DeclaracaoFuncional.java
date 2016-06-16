@@ -28,10 +28,10 @@ public interface DeclaracaoFuncional {
 	 */
 	
 	public boolean checaTipo(AmbienteCompilacao ambiente) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException;
-	public void elabora(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
-	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException;
-	public void incluir(AmbienteExecucao amb, Map<Id,Valor> declaracoes, Map<Id,ValorFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
-	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos, boolean incluirCuringa) throws VariavelJaDeclaradaException;
+	public void elabora(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException;
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteExecucao amb, AmbienteExecucao aux) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux, boolean incluirCuringa) throws VariavelJaDeclaradaException;
 	public void reduzir(AmbienteExecucao amb);
 	
 

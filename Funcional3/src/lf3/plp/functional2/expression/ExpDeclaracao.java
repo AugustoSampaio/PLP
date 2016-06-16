@@ -13,6 +13,8 @@ import lf3.plp.expressions2.expression.Id;
 import lf3.plp.expressions2.expression.Valor;
 import lf3.plp.expressions2.memory.AmbienteCompilacao;
 import lf3.plp.expressions2.memory.AmbienteExecucao;
+import lf3.plp.expressions2.memory.ContextoCompilacao;
+import lf3.plp.expressions2.memory.ContextoExecucao;
 import lf3.plp.expressions2.memory.VariavelJaDeclaradaException;
 import lf3.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf3.plp.functional1.declaration.DeclaracaoFuncional;
@@ -46,14 +48,13 @@ public class ExpDeclaracao implements Expressao {
 		ambiente.incrementa();
 
 		// Como declaracoes feitas neste nivel nao devem ter influencia
-		// mutua, armazenamos os valores em uma tabela auxiliar, para depois
+		// mutua, armazenamos os valores em um ambiente auxiliar, para depois
 		// fazer o mapeamento.
-		Map<Id, Valor> auxIdValor = new HashMap<Id, Valor>();
-		Map<Id, ValorFuncao> auxIdValorFuncao = new HashMap<Id, ValorFuncao>();
-
-		declaracao.elabora(ambiente, auxIdValor, auxIdValorFuncao);
-		declaracao.incluir(ambiente, auxIdValor, auxIdValorFuncao);
-
+		AmbienteExecucao aux = new ContextoExecucao();
+		aux.incrementa();
+		declaracao.elabora(ambiente, aux);
+		declaracao.incluir(ambiente, aux);
+		aux.restaura();
 		Valor vresult = expressao.avaliar(ambiente);
 		
 		if(vresult instanceof ValorFuncao)
@@ -84,9 +85,11 @@ public class ExpDeclaracao implements Expressao {
 		try {
 			result = declaracao.checaTipo(ambiente);
 			if (result) {
-				Map<Id, Tipo> tipos = new HashMap<Id,Tipo>();
-				declaracao.elabora(ambiente, tipos);
-				declaracao.incluir(ambiente, tipos,true);
+				AmbienteCompilacao aux = new ContextoCompilacao();
+				aux.incrementa();
+				declaracao.elabora(ambiente, aux);
+				declaracao.incluir(ambiente, aux,true);
+				aux.restaura();
 				result = expressao.checaTipo(ambiente);
 			}
 		} finally {
@@ -113,10 +116,11 @@ public class ExpDeclaracao implements Expressao {
 		ambiente.incrementa();
 
 		Tipo vresult = null;
-
-		Map<Id, Tipo> tipos = new HashMap<Id,Tipo>();
-		declaracao.elabora(ambiente, tipos);
-		declaracao.incluir(ambiente, tipos,false);
+		AmbienteCompilacao aux = new ContextoCompilacao();
+		aux.incrementa();
+		declaracao.elabora(ambiente, aux);
+		declaracao.incluir(ambiente, aux,false);
+		aux.restaura();
 		vresult = expressao.getTipo(ambiente);
 		ambiente.restaura();
 		return vresult;

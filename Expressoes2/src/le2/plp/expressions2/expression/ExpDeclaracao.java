@@ -1,12 +1,11 @@
 package le2.plp.expressions2.expression;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import le2.plp.expressions1.util.Tipo;
 import le2.plp.expressions2.declaration.Declaracao;
 import le2.plp.expressions2.memory.AmbienteCompilacao;
 import le2.plp.expressions2.memory.AmbienteExecucao;
+import le2.plp.expressions2.memory.ContextoCompilacao;
+import le2.plp.expressions2.memory.ContextoExecucao;
 import le2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import le2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 
@@ -24,9 +23,11 @@ public class ExpDeclaracao implements Expressao {
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 
 		ambiente.incrementa();
-		Map<Id, Valor> declaracoes = new HashMap<Id,Valor>();
-		declaracao.elabora(ambiente, declaracoes);
-		declaracao.incluir(ambiente, declaracoes);
+		AmbienteExecucao aux = new ContextoExecucao();
+		aux.incrementa();
+		declaracao.elabora(ambiente, aux);
+		declaracao.incluir(ambiente, aux);
+		aux.restaura();
 		Valor result = expressao.avaliar(ambiente);
 		ambiente.restaura();
 
@@ -52,9 +53,11 @@ public class ExpDeclaracao implements Expressao {
 		boolean result = false;
 		try{
 			if(declaracao.checaTipo(ambiente)){
-				Map<Id, Tipo> tipos = new HashMap<Id, Tipo>();
-				declaracao.elabora(ambiente, tipos);
-				declaracao.incluir(ambiente, tipos);
+				AmbienteCompilacao aux = new ContextoCompilacao();
+				aux.incrementa();
+				declaracao.elabora(ambiente, aux);
+				declaracao.incluir(ambiente, aux);
+				aux.restaura();
 				result = expressao.checaTipo(ambiente);
 			} else
 				result = false;

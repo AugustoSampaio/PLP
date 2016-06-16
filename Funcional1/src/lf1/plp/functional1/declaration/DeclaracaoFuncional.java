@@ -26,10 +26,10 @@ public interface DeclaracaoFuncional {
 	 *          declarado mais de uma vez no mesmo bloco do ambiente.
 	 */
 	public boolean checaTipo(AmbienteCompilacao ambiente) throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException;
-	public void elabora(AmbienteExecucaoFuncional amb, Map<Id,Valor> declaracoes, Map<Id,DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
-	public void elabora(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException;
-	public void incluir(AmbienteExecucaoFuncional amb, Map<Id,Valor> declaracoes, Map<Id,DefFuncao> declaracoesFuncoes) throws VariavelJaDeclaradaException;
-	public void incluir(AmbienteCompilacao amb, Map<Id, Tipo> tipos) throws VariavelJaDeclaradaException;
+	public void elabora(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException;
+	public void elabora(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteExecucaoFuncional amb, AmbienteExecucaoFuncional aux) throws VariavelJaDeclaradaException;
+	public void incluir(AmbienteCompilacao amb, AmbienteCompilacao aux) throws VariavelJaDeclaradaException;
 
 	public DeclaracaoFuncional clone();
 }
