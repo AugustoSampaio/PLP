@@ -107,17 +107,18 @@ public class ExpCompreensaoLista implements Expressao {
 		ExpCompreensaoLista retorno = new ExpCompreensaoLista(this.expressao.clone());
 		retorno.setFiltro(this.filtro.clone());
 		
-		if (this.gerador != null) {
-			List<Gerador> listaGer = new ArrayList<Gerador>();
-			
-			Gerador ger = this.gerador;
-			do {
-				listaGer.add(ger);
+		List<Gerador> listaGer = new ArrayList<Gerador>();
+		
+		Gerador ger = this.gerador;
+		if (ger != null) {
+			listaGer.add(ger);
+			while(ger.temProximoGerador()) {
 				ger = ger.getProximoGerador();
-			} while(ger.temProximoGerador());
-			
-			retorno.setGeradores(listaGer);
+				listaGer.add(ger);
+			}
 		}
+		
+		retorno.setGeradores(listaGer);
 		
 		return retorno;
 	}
