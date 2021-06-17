@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.    apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>plp</groupId>
+    <artifactId>plp</artifactId>
+    <packaging>pom</packaging>
+    <version>1</version>
+    <modules>
+        <module>Expressoes1</module>
+        <module>Expressoes2</module>
+        <module>Funcional1</module>
+        <module>Funcional2</module>
+        <module>Funcional3</module>
+        <module>Imperativa1</module>
+        <module>Imperativa2</module>
+        <module>Objetos1</module>
+        <module>Objetos2</module>
+        <module>Applet</module>
+    </modules>
+</project>
