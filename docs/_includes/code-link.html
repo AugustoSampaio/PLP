@@ -1,0 +1,2 @@
+{%- assign filename = include.path | split: "/" | last | split: "." | first -%}
+<a href="https://raw.githubusercontent.com/{{ site.github.owner_name }}/{{site.github.repository_name}}/refs/heads/master/{{ include.path }}" target="_blank" rel="noopener noreferrer">{{ filename }}</a>
