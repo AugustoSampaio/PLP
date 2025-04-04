@@ -2,6 +2,7 @@
 layout: linguagem
 permalink: /linguagens/expressoes2
 linguagem: Expressões 2
+short: Exp2
 order: 2
 ---
 

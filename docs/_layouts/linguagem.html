@@ -2,14 +2,16 @@
 layout: default
 ---
 
-<nav class="site-nav" style="margin-top: -2.5em">
+<nav class="site-nav" style="float: none; text-align: center; margin-top: -2em">
     <div class="trigger">
         {% assign sorted_pages = site.pages | where_exp: "page", "page.linguagem" | sort: "order" %}
         {% for page in sorted_pages %}
-        <a class="page-link" href="{{ page.url | relative_url }}" style="color: rgb(153, 1, 0)">{{ page.linguagem }}</a>
+        <a class="page-link" href="{{ page.url | relative_url }}" style="color: rgb(153, 1, 0)">{{ page.short }}</a>
         {% endfor %}
     </div>
 </nav>
 
-<h2>{{page.linguagem}}</h2>
-{{ content }}
+<div style="clear: both;">
+    <h2>{{page.linguagem}}</h2>
+    {{ content }}
+</div>

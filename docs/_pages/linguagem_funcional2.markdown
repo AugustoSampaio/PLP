@@ -2,6 +2,7 @@
 layout: linguagem
 permalink: /linguagens/funcional2
 linguagem: Funcional 2
+short: Func2
 order: 4
 ---
 
