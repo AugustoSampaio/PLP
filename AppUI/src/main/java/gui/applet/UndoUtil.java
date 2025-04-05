@@ -1,4 +1,4 @@
-package applet;
+package gui.applet;
 
 import java.awt.event.ActionEvent;
 

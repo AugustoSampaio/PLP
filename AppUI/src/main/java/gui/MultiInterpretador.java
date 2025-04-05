@@ -1,12 +1,10 @@
-package applet;
+package gui;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import javax.swing.JTextArea;
 
 import le1.plp.expressions1.parser.Exp1Parser;
 import le1.plp.expressions1.parser.ParseException;
@@ -29,25 +27,22 @@ import loo2.plp.orientadaObjetos2.parser.OO2Parser;
 
 public class MultiInterpretador {
 
+	public interface MessageBoard {
+		void setText(String text);
+		void append(String text);
+	}
+
 	private static final int EXP1 = 0;
-
 	private static final int EXP2 = 1;
-
 	private static final int FUNC1 = 2;
-
 	private static final int FUNC2 = 3;
-
 	private static final int FUNC3 = 4;
-
 	private static final int IMP1 = 5;
-
 	private static final int IMP2 = 6;
-
 	private static final int OO1 = 7;
-
 	private static final int OO2 = 8;
 
-	private JTextArea messageBoard;
+	private MessageBoard messageBoard;
 
 	private Exp1Parser exp1Parser = null;
 	private Exp2Parser exp2Parser = null;
@@ -59,7 +54,7 @@ public class MultiInterpretador {
 	private OO1Parser oo1Parser = null;
 	private OO2Parser oo2Parser = null;
 
-	public MultiInterpretador(JTextArea textAreaMensagens) {
+	public MultiInterpretador(MessageBoard textAreaMensagens) {
 		super();
 		messageBoard = textAreaMensagens;
 	}

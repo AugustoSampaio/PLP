@@ -1,47 +1,49 @@
-package applet;
+package gui.applet;
 
-import java.applet.Applet;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Panel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AppletInterpretadorPLP extends Applet {
+import gui.MultiInterpretador;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7398656423050674702L;
+public class SwingInterpretadorPLP extends JFrame {
 
+	private static final long serialVersionUID = -7647474898074642286L;
 	private static final Font COURIER_NEW = new Font("Courier New", Font.PLAIN,
 			12);
 
 	private JPanel jContentPane = null;
-	private JTextArea jTextAreaCodigo = null;
+	JTextArea jTextAreaCodigo = null;
 	private JScrollPane jScrollPaneMensagens = null;
-	private JTextArea jTextAreaMensagens = null;
+	JTextArea jTextAreaMensagens = null;
 	private JLabel jLabelCodigo = null;
 	private JLabel jLabelMasg = null;
 	private JScrollPane jScrollPaneCodigo = null;
-	private JComboBox jComboBoxLinguagens = null;
+	JComboBox jComboBoxLinguagens = null;
 	private JLabel jLabelExecutar = null;
 
-	private JButton jButtonExecutar = null;
-	private JTextField jTextFieldListaEntrada = null;
-	private JLabel jLabelListaEntrada = null;
+	MultiInterpretador interpreter;
 
-	private MultiInterpretador interpreter;
+	private JButton jButtonExecutar = null;
+	JTextField jTextFieldListaEntrada = null;
+	private JLabel jLabelListaEntrada = null;
+	private InterpreterKeyListener listener;
 
 	/**
 	 * This is the default constructor
 	 */
-	public AppletInterpretadorPLP() {
+	public SwingInterpretadorPLP() {
 		super();
 		initialize();
 	}
@@ -52,10 +54,34 @@ public class AppletInterpretadorPLP extends Applet {
 	 * @return void
 	 */
 	private void initialize() {
-		getJContentPane();
-		this.setBounds(new java.awt.Rectangle(300, 200, 389, 429));
+		this.setContentPane(getJContentPane());
+		this.setTitle("Interpretador PLP V 0.3");
+		this.setResizable(false);
+		this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		this.listener = new InterpreterKeyListener(this);
+		this.addKeyListener(this.listener);
+		this.jTextAreaCodigo.addKeyListener(this.listener);
+		this.jTextAreaMensagens.addKeyListener(this.listener);
+		this.jTextFieldListaEntrada.addKeyListener(this.listener);
 		this.jTextFieldListaEntrada.setEnabled(false);
-		interpreter = new MultiInterpretador(this.jTextAreaMensagens);
+
+		interpreter = new MultiInterpretador( new MultiInterpretador.MessageBoard() {
+			public void setText(String text) { jTextAreaMensagens.setText(text); }
+			public void append(String text) { jTextAreaMensagens.append(text); }
+		});
+		Dimension d;
+		int w, h;
+
+		w = 390;
+		h = 480;
+
+		d = Toolkit.getDefaultToolkit().getScreenSize();
+		d.height /= 2;
+		d.width /= 2;
+		d.height -= h / 2 + 15;
+		d.width -= w / 2;
+
+		this.setBounds(d.width, d.height, w, h);
 
 	}
 
@@ -64,13 +90,13 @@ public class AppletInterpretadorPLP extends Applet {
 	 * 
 	 * @return javax.swing.JPanel
 	 */
-	private Panel getJContentPane() {
+	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabelListaEntrada = new JLabel();
 			jLabelListaEntrada.setBounds(new java.awt.Rectangle(20, 194, 127,
 					20));
 			jLabelListaEntrada
-					.setToolTipText("informe os valores da lista de entrada separados por espaços");
+					.setToolTipText("informe os valores da lista de entrada separados por espaï¿½os");
 			jLabelListaEntrada.setText("Lista de Entrada");
 			jLabelExecutar = new JLabel();
 			jLabelExecutar.setBounds(new java.awt.Rectangle(19, 434, 157, 17));
@@ -80,21 +106,20 @@ public class AppletInterpretadorPLP extends Applet {
 			jLabelMasg.setText("Mensagens");
 			jLabelCodigo = new JLabel();
 			jLabelCodigo.setBounds(new java.awt.Rectangle(20, 33, 70, 16));
-			jLabelCodigo.setText("Código");
+			jLabelCodigo.setText("Cï¿½digo");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			this.setLayout(null);
-			this.add(getJScrollPaneMensagens(), null);
-			this.add(jLabelCodigo, null);
-			this.add(jLabelMasg, null);
-			this.add(getJScrollPaneCodigo(), null);
-			this.add(getJTextFieldListaEntrada(), null);
-			this.add(getJComboBoxLinguagens(), null);
-			this.add(jLabelExecutar, null);
-			this.add(getJButton(), null);
-			this.add(jLabelListaEntrada, null);
+			jContentPane.add(getJScrollPaneMensagens(), null);
+			jContentPane.add(jLabelCodigo, null);
+			jContentPane.add(jLabelMasg, null);
+			jContentPane.add(getJScrollPaneCodigo(), null);
+			jContentPane.add(getJTextFieldListaEntrada(), null);
+			jContentPane.add(getJComboBoxLinguagens(), null);
+			jContentPane.add(jLabelExecutar, null);
+			jContentPane.add(getJButton(), null);
+			jContentPane.add(jLabelListaEntrada, null);
 		}
-		return this;
+		return jContentPane;
 	}
 
 	/**
@@ -108,7 +133,6 @@ public class AppletInterpretadorPLP extends Applet {
 			jTextAreaCodigo.setFont(COURIER_NEW);
 			jTextAreaCodigo.setTabSize(2);
 			UndoUtil.registerUndoManager(jTextAreaCodigo);
-
 		}
 		return jTextAreaCodigo;
 	}
@@ -190,7 +214,6 @@ public class AppletInterpretadorPLP extends Applet {
 			jComboBoxLinguagens.addItem("Imperativa 2");
 			jComboBoxLinguagens.addItem("Orientada a Objetos 1");
 			jComboBoxLinguagens.addItem("Orientada a Objetos 2");			
-			
 
 		}
 		return jComboBoxLinguagens;
@@ -208,7 +231,6 @@ public class AppletInterpretadorPLP extends Applet {
 			jButtonExecutar.setText("executar");
 			jButtonExecutar
 					.addActionListener(new java.awt.event.ActionListener() {
-
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							String sourceCode = jTextAreaCodigo.getText();
 							String listaEntrada = jTextFieldListaEntrada
@@ -233,26 +255,38 @@ public class AppletInterpretadorPLP extends Applet {
 			jTextFieldListaEntrada.setBounds(new java.awt.Rectangle(20, 218,
 					350, 20));
 			jTextFieldListaEntrada
-					.setToolTipText("informe os valores da lista de entrada separados por espaços");
+					.setToolTipText("informe os valores da lista de entrada separados por espaï¿½os");
 		}
 		return jTextFieldListaEntrada;
 	}
 
 	public static void main(String[] args) {
-		(new InterpretadorPLP()).setVisible(true);
+		(new SwingInterpretadorPLP()).setVisible(true);
 	}
 
-	@Override
-	public void start() {
-		super.start();
-		this.setVisible(true);
-	}
-
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		super.init();
-		this.initialize();
-	}
 } // @jve:decl-index=0:visual-constraint="10,10"
 
+class InterpreterKeyListener implements KeyListener {
+
+	SwingInterpretadorPLP frame;
+
+	public InterpreterKeyListener(SwingInterpretadorPLP frm) {
+		super();
+		this.frame = frm;
+	}
+
+	public void keyPressed(java.awt.event.KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_F1) {
+			String sourceCode = this.frame.jTextAreaCodigo.getText();
+			String listaEntrada = this.frame.jTextFieldListaEntrada.getText();
+			this.frame.interpreter.interpretarCodigo(sourceCode, listaEntrada,
+					this.frame.jComboBoxLinguagens.getSelectedIndex());
+		}
+	}
+
+	public void keyReleased(KeyEvent arg0) {
+	}
+
+	public void keyTyped(KeyEvent arg0) {
+	}
+}

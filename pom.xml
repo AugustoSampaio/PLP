@@ -15,6 +15,6 @@
         <module>Imperativa2</module>
         <module>Objetos1</module>
         <module>Objetos2</module>
-        <module>Applet</module>
+        <module>AppUI</module>
     </modules>
 </project>

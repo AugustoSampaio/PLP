@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Applet</groupId>
-  <artifactId>Applet</artifactId>
+  <groupId>AppGUI</groupId>
+  <artifactId>AppGUI</artifactId>
   <version>0.0.1</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -28,7 +28,7 @@
       <archive>
         <manifest>
           <addClasspath>true</addClasspath>
-          <mainClass>applet.AppletInterpretadorPLP</mainClass>
+          <mainClass>gui.applet.SwingInterpretadorPLP</mainClass>
         </manifest>
       </archive>
       <descriptorRefs>
@@ -36,9 +36,7 @@
       </descriptorRefs>
     </configuration>
   </plugin>
-  <build>
-    <plugins>
-      <plugin>
+  <plugin>
         <groupId>org.teavm</groupId>
         <artifactId>teavm-maven-plugin</artifactId>
         <version>0.11.0</version>
@@ -57,17 +55,28 @@
             </goals>
             <phase>process-classes</phase>
             <configuration>
-              <mainClass>org.teavm.samples.HelloWorld</mainClass>
-              <mainPageIncluded>true</mainPageIncluded>
+              <mainClass>gui.web.TeaVMInterpretadorPLP</mainClass>
               <debugInformationGenerated>true</debugInformationGenerated>
               <sourceMapsGenerated>true</sourceMapsGenerated>
+              <minifying>false</minifying>
+              <optimizationLevel>SIMPLE</optimizationLevel>
             </configuration>
           </execution>
         </executions>
       </plugin>
-    </plugins>
-  </build> 
+  </plugins>
+  </build>
   <dependencies>
+  <dependency>
+    <groupId>org.teavm</groupId>
+    <artifactId>teavm-core</artifactId>
+    <version>0.11.0</version>
+  </dependency>
+  <dependency>
+      <groupId>org.teavm</groupId>
+      <artifactId>teavm-classlib</artifactId>
+      <version>0.11.0</version>
+  </dependency>
   	<dependency>
   		<groupId>Expressoes1</groupId>
   		<artifactId>Expressoes1</artifactId>
