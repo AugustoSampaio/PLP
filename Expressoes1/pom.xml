@@ -2,7 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Expressoes1</groupId>
   <artifactId>Expressoes1</artifactId>
-  <version>0.0.1</version>
+  <version>${revision}</version>
+
+  <properties>
+    <revision>0.0.1</revision>
+  </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>

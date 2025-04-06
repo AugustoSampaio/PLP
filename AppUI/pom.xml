@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>AppGUI</groupId>
-  <artifactId>AppGUI</artifactId>
-  <version>0.0.1</version>
+  <groupId>PLPAppUI</groupId>
+  <artifactId>PLPAppUI</artifactId>
+  <version>${revision}</version>
+
+  <properties>
+    <revision>0.0.1</revision>
+  </properties>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -80,47 +85,47 @@
   	<dependency>
   		<groupId>Expressoes1</groupId>
   		<artifactId>Expressoes1</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Expressoes2</groupId>
   		<artifactId>Expressoes2</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Funcional1</groupId>
   		<artifactId>Funcional1</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Funcional2</groupId>
   		<artifactId>Funcional2</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Funcional3</groupId>
   		<artifactId>Funcional3</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Imperativa1</groupId>
   		<artifactId>Imperativa1</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Imperativa2</groupId>
   		<artifactId>Imperativa2</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Objetos1</groupId>
   		<artifactId>Objetos1</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   	<dependency>
   		<groupId>Objetos2</groupId>
   		<artifactId>Objetos2</artifactId>
-  		<version>0.0.1</version>
+  		<version>${revision}</version>
   	</dependency>
   </dependencies>
 </project>
