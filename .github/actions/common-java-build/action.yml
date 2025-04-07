@@ -11,7 +11,7 @@ runs:
 
     - name: Build with Maven
       shell: bash
-      run: mvn package
+      run: mvn -Dversion=${{ github.ref_name }} package
 inputs:
   java_version:
     description: "The Java version to set up"
