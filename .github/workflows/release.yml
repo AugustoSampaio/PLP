@@ -1,0 +1,21 @@
+name: Maven Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    <<: *build_defaults
+    steps:
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: target/*.jar
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          Release of ${{ github.ref_name }}

@@ -1,0 +1,21 @@
+name: Build, Generate docs, and Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+    <<: *build_defaults
+    steps:
+    - name: Copy files to docs/
+      run: |
+        mkdir -p docs/
+        cp AppUI/target/classes/index.html docs/interpretador.html
+        cp AppUI/target/javascript/classes.js* docs/
+    - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .
