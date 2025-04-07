@@ -3,9 +3,6 @@ description: "Common steps for building Java projects with Maven"
 runs:
   using: "composite"
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
     - name: Set up JDK ${{ inputs.java_version }}
       uses: actions/setup-java@v3
       with:
