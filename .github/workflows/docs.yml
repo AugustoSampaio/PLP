@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: "Use Common Java Build"
       uses: ./.github/actions/common-java-build
     - name: Copy files to docs/
