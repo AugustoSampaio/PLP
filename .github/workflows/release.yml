@@ -11,6 +11,8 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+    - name: "Use Common Java Build"
+      uses: ./.github/actions/common-java-build
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
