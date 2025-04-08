@@ -10,6 +10,7 @@ title: "Início"
 Augusto Sampaio
 
 ##  Material Didático
-* [Cronograma de aulas](/cronograma)
-* [Linguagens e interpretadores](/linguagens)
-* Provas passadas
+* [Cronograma de aulas]({{site.baseurl}}/cronograma)
+* [Linguagens e interpretadores]({{site.baseurl}}/linguagens)
+* [Projetos]({{site.baseurl}}/projetos)
+* [Interpretador (Versão web)]({{site.baseurl}}/interpretador.html)

@@ -13,4 +13,4 @@ A linguagem será apresentada de forma incremental:
 - Orientada a Objetos
 - Funcional Imperativa OO
 
-![Imagem adicional](/assets/img/linguagens.gif)
+![Imagem adicional]({{site.baseurl}}/assets/img/linguagens.gif)

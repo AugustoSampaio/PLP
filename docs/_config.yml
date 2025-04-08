@@ -23,7 +23,7 @@ title: Paradigmas de Linguagens de Programação
 author: Prof. Augusto Sampaio
 email: acas@cin.ufpe.br
 description: "IN1007 - Centro de Informática - UFPE"
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/PLP" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings

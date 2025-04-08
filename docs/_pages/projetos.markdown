@@ -1,7 +1,8 @@
 ---
 permalink: /projetos
-title: "Projetos"
+title: ""
 ---
+## Projetos
 
 ### 2023.1
 
