@@ -507,7 +507,7 @@ title: ""
 * Marcela Balbino - marcelabalbinosm@gmail.com
 
 #### [Equipe 3 Compiladores para LE1, LE2 e LF1 em .NET usando o Microsoft Phoenix](http://www.cin.ufpe.br/~ejcfn/PLP/)
-
+Juliano Iyoda
 * Edgar José César de Figueiredo Neto . ejcfn@cin.ufpe.br
 
 #### [Equipe 4 Inserção dos conceitos de Interface e Classe Abstrata em LOO2](http://www.cin.ufpe.br/~lmt/plp/html/index.html)
