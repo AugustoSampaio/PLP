@@ -1,0 +1,23 @@
+name: "Common Java Build"
+description: "Common steps for building Java projects with Maven"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up JDK ${{ inputs.java_version }}
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ inputs.java_version }}
+        distribution: ${{ inputs.java_distribution }}
+
+    - name: Build with Maven
+      shell: bash
+      run: mvn -Dversion=${{ github.ref_name }} package
+inputs:
+  java_version:
+    description: "The Java version to set up"
+    required: false
+    default: '17'
+  java_distribution:
+    description: "The Java distribution to use"
+    required: false
+    default: 'temurin'

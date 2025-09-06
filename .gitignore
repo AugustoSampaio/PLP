@@ -6,3 +6,8 @@
 */.classpath
 */.project
 */.settings
+
+*/target
+
+Gemfile.lock
+.bundle

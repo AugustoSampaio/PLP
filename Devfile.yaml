@@ -1,0 +1,78 @@
+metadata:
+  name: PLP_CIn
+projects:
+  - name: PLP
+    source:
+      location: 'https://github.com/fmca/PLP.git'
+      type: github
+      branch: master
+components:
+  - id: redhat/java11/latest
+    type: chePlugin
+  - mountSources: true
+    memoryLimit: 512Mi
+    type: dockerimage
+    volumes:
+      - name: m2
+        containerPath: /home/user/.m2
+    alias: maven
+    image: 'quay.io/eclipse/che-java11-maven:nightly'
+    env:
+      - value: ''
+        name: MAVEN_CONFIG
+apiVersion: 1.0.0
+commands:
+  - name: Run Expressoes1
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Expressoes1'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Expressoes2
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Expressoes2'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Funcional1
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Funcional1'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Funcional2
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Funcional2'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Funcional3
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Funcional3'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Imperativa1
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Imperativa1'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Imperativa2
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Imperativa2'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Objetos1
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Objetos1'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven
+  - name: Run Objetos2
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/PLP/Objetos2'
+        type: exec
+        command: mvn clean generate-sources compile exec:java
+        component: maven

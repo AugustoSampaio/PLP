@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Interpretador PLP</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    textarea, input, select { width: 100%; margin-bottom: 1em; }
+    #mensagens { height: 150px; border: 0px; margin-top: 1em; }
+    #codigo { height: 120px; font-family: "Courier New", monospace; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body onload="main()">
+  <select id="linguagens">
+    <option>Expressoes 1</option>
+    <option>Expressoes 2</option>
+    <option>Funcional 1</option>
+    <option>Funcional 2</option>
+    <option>Funcional 3</option>
+    <option>Imperativa 1</option>
+    <option>Imperativa 2</option>
+    <option>Orientada a Objetos 1</option>
+    <option>Orientada a Objetos 2</option>
+  </select>
+
+  <textarea id="codigo" placeholder="Digite o código aqui..."></textarea>
+  <input id="entrada" placeholder="Lista de entrada (valores separados por espaço)" disabled>
+  <button id="executar">Executar</button>
+  <textarea id="mensagens" readonly></textarea>
+
+  <script src="classes.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<nav class="site-nav menu-linguagem" style="float: none; text-align: center; margin-top: -2em">
+    <div class="trigger">
+        {% assign sorted_pages = site.pages | where_exp: "page", "page.linguagem" | sort: "order" %}
+        {% for page in sorted_pages %}
+        <a class="page-link" href="{{ page.url | relative_url }}" style="color: rgb(153, 1, 0)">{{ page.short }}</a>
+        {% endfor %}
+    </div>
+</nav>
+
+<style>
+
+@media (max-width: 767px) {
+    .menu-linguagem {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .menu-linguagem .trigger a {
+        margin-left: 0px;
+    }
+}
+    
+</style>
+
+<div style="clear: both;">
+    <h2>{{page.linguagem}}</h2>
+    {{ content }}
+</div>
