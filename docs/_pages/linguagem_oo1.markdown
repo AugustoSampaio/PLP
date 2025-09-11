@@ -15,7 +15,7 @@ order: 8
 
 ## Fontes
 
-Programa ::= "{" {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasse.java" %} ";" {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Comando.java" %} "}"
+{% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/Programa.java" %} ::= "{" {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasse.java" %} ";" {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Comando.java" %} "}"
 
 Comando ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Atribuicao.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/ComDeclaracao.java" %}\
