@@ -17,7 +17,7 @@ order: 7
 
 ## Fontes
 
-Programa ::= {% include code-link.html path="Imperativa2/src/li2/plp/imperative1/command/Comando.java" %}
+{% include code-link.html path="Imperativa2/src/li2/plp/imperative2/Programa.java" %} ::= {% include code-link.html path="Imperativa2/src/li2/plp/imperative1/command/Comando.java" %}
 
 Comando ::= {% include code-link.html path="Imperativa2/src/li2/plp/imperative1/command/Atribuicao.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Imperativa2/src/li2/plp/imperative1/command/ComandoDeclaracao.java" %}\

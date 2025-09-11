@@ -11,7 +11,7 @@ order: 1
 - Um programa é uma expressão
 
 ## Fontes
-Programa ::= {% include code-link.html path="Expressoes1/src/le1/plp/expressions1/expression/Expressao.java" %}
+{% include code-link.html path="Expressoes1/src/le1/plp/expressions1/Programa.java" %} ::= {% include code-link.html path="Expressoes1/src/le1/plp/expressions1/expression/Expressao.java" %}
 
 Expressao ::= {% include code-link.html path="Expressoes1/src/le1/plp/expressions1/expression/Valor.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Expressoes1/src/le1/plp/expressions1/expression/ExpUnaria.java" %}\

@@ -14,7 +14,7 @@ order: 2
 
 ## Fontes
 
-Programa ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/Expressao.java" %}
+{% include code-link.html path="Expressoes2/src/le2/plp/expressions2/Programa.java" %} ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/Expressao.java" %}
 
 Expressao ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/Valor.java" %}\
 {% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpUnaria.java" %}\
