@@ -23,7 +23,7 @@ Comando ::= {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/While.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/IfThenElse.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/IO.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/SequenciaComando.java" %} ";" Comando\
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/SequenciaComando.java" content='Comando ";" Comando' %}\
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/Skip.java" %}
 
 Skip ::=
@@ -41,16 +41,16 @@ ValorConcreto ::= {% include code-link.html path="Imperativa1/src/li1/plp/expres
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ValorBooleano.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ValorString.java" %}
 
-ExpUnaria ::= {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpMenos.java" %} "-" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpNot.java" %} "not" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpLength.java" %} "length" Expressao
+ExpUnaria ::= {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpMenos.java" content=' "-" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpNot.java" content=' "not" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpLength.java" content=' "length" Expressao ' %}
 
-ExpBinaria ::= {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpSoma.java" %} Expressao "+" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpSub.java" %} Expressao "-" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpAnd.java" %} Expressao "and" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpOr.java" %} Expressao "or" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpEquals.java" %} Expressao "==" Expressao\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpConcat.java" %} Expressao "++" Expressao
+ExpBinaria ::= {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpSoma.java" content=' Expressao "+" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpSub.java" content=' Expressao "-" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpAnd.java" content=' Expressao "and" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpOr.java" content=' Expressao "or" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpEquals.java" content=' Expressao "==" Expressao ' %} \
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/expressions2/expression/ExpConcat.java" content=' Expressao "++" Expressao ' %}
 
 ComandoDeclaracao ::= "{" {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/declaration/Declaracao.java" %} ";" Comando "}"
 
@@ -65,8 +65,8 @@ While ::= "while" Expressao "do" Comando
 
 IfThenElse ::= "if" Expressao "then" Comando "else" Comando
 
-IO ::= {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/Write.java" %} "write" "(" Expressao ")"\
-{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/Read.java" %} "read" "(" Id ")"
+IO ::= {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/Write.java" content='"write" "(" Expressao ")"' %}\
+{% include code-indent.html %} | {% include code-link.html path="Imperativa1/src/li1/plp/imperative1/command/Read.java" content='"read" "(" Id ")"'%}
 
 ## Classes Auxiliares
 

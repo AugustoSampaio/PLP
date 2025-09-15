@@ -7,7 +7,7 @@ order: 9
 ---
 
 
-* Estende a Linguagem OO1 com construtores e herança
+* Estende a Linguagem OO1 com construtores e herança
 * Construtores são métodos especiais, com o mesmo nome da classe e sem valor de retorno, chamados automaticamente a cada criação de um objeto (através do comando new)
 * Herança simples
 * Não permite overloading, redefinição de métodos, super e nem modificadores de acesso
@@ -21,10 +21,10 @@ Comando ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjet
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/While.java" %} \
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/IfThenElse.java" %} \
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/IO.java" %} \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Sequencial.java" %} Comando ";" Comando \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Sequencial.java" content='Comando ";" Comando'%} \
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Skip.java" %} \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/comando/NewOO2.java" %} \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/comando/ChamadaMetodoOO2.java" %}
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/comando/NewOO2.java" content="New" %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/comando/ChamadaMetodoOO2.java" content="ChamadaMetodo" %}
 
 Skip ::=
 
@@ -43,8 +43,8 @@ New ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/
 
 Atribuicao ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/leftExpression/LeftExpression.java" %} ":=" {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/Expressao.java" %}
 
-IO ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Write.java" %} "write" "(" Expressao ")" \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Read.java" %} "read" "(" Id ")"
+IO ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Write.java" content='"write" "(" Expressao ")"'%} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/comando/Read.java" content='"read" "(" Id ")"'%}
 
 Expressao ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/valor/Valor.java" %} \
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpUnaria.java" %} \
@@ -59,43 +59,43 @@ ValorConcreto ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientad
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/valor/ValorString.java" %} \
 {% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/valor/ValorNull.java" %}
 
-ExpUnaria ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpMenos.java" %} "-" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpNot.java" %} "not" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpLength.java" %} "length" Expressao
+ExpUnaria ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpMenos.java" content='- Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpNot.java" content='not Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/unaria/ExpLength.java" content='length Expressao' %}
 
-ExpBinaria ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpSoma.java" %} Expressao "+" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpSub.java" %} Expressao "-" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpAnd.java" %} Expressao "and" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpOr.java" %} Expressao "or" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpEquals.java" %} Expressao "==" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpConcat.java" %} Expressao "++" Expressao
+ExpBinaria ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpSoma.java" content='Expressao + Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpSub.java" content='Expressao - Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpAnd.java" content='Expressao and Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpOr.java" content='Expressao or Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpEquals.java" content='Expressao == Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/binaria/ExpConcat.java" content='Expressao ++ Expressao' %}
 
 LeftExpression ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/leftExpression/Id.java" %} \| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributo.java" %}
 
-AcessoAtributo ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/expressao/leftExpression/AcessoAtributoIdOO2.java" %} LeftExpression.Id \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/expressao/leftExpression/AcessoAtributoThisOO2.java" %} this.Id
+AcessoAtributo ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/expressao/leftExpression/AcessoAtributoIdOO2.java" content='LeftExpression.Id' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/expressao/leftExpression/AcessoAtributoThisOO2.java" content='this.Id' %} 
 
-ListaDeclaracaoOO ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" %} \
-{% include code-indent.html %} \| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" %} "," {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/ListaDeclaracaoOO.java" %}
+ListaDeclaracaoOO ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" content='DecClasse' %} \
+{% include code-indent.html %} \| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" content='DecClasse' %} "," {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/ListaDeclaracaoOO.java" %}
 
-DecClasse ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" %} "classe" Id ["extends" Id] "{" DecVariavel ";" DecConstrutor "," DecProcedimento "}"
+DecClasse ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/classe/DecClasseSimplesOO2.java" content='"classe" Id ["extends" Id] "{" DecVariavel ";" DecConstrutor "," DecProcedimento "}"' %}
 
-DecConstrutor ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/DecConstrutor.java" %} Id "(" ListaDeclaracaoParametro ")" "{" Comando "}"
+DecConstrutor ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/DecConstrutor.java" content='Id "(" ListaDeclaracaoParametro ")" "{" Comando "}"' %}
 
-DecVariavel ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/variavel/SimplesDecVariavel.java" %} Tipo Id "=" Expressao \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/variavel/CompostaDecVariavel.java" %} DecVariavel "," DecVariavel \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/variavel/DecVariavelObjetoOO2.java" %} Tipo Id ":=" "new" Id
+DecVariavel ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/variavel/SimplesDecVariavel.java" content='Tipo Id "=" Expressao' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/variavel/CompostaDecVariavel.java" content='DecVariavel "," DecVariavel' %} \
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos2/declaracao/variavel/DecVariavelObjetoOO2.java" content='Tipo Id ":=" "new" Id' %}
 
-DecProcedimento ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimento.java" %} "proc" Id "(" ListaDeclaracaoParametro ")" "{" Comando "}" \
-{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimentoComposta.java" %} DecProcedimento "," DecProcedimento
+DecProcedimento ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimento.java" content='"proc" Id "(" ListaDeclaracaoParametro ")" "{" Comando "}"' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimentoComposta.java" content='DecProcedimento "," DecProcedimento' %}
 
-ListaDeclaracaoParametro ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecParametro.java" %} Tipo Id \| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/ListaDeclaracaoParametro.java" %} Tipo Id "," ListaDeclaracaoParametro
+ListaDeclaracaoParametro ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/DecParametro.java" content='Tipo Id ' %}\| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/declaracao/procedimento/ListaDeclaracaoParametro.java" content='Tipo Id "," ListaDeclaracaoParametro' %}
 
 Tipo ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/util/TipoClasse.java" %} \| {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/util/TipoPrimitivo.java" %}
 
 TipoClasse ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/expressao/leftExpression/Id.java" %}
 
-TipoPrimitivo ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/util/TipoPrimitivo.java" %} "string" \| "int" \| "boolean"
+TipoPrimitivo ::= {% include code-link.html path="Objetos2/src/loo2/plp/orientadaObjetos1/util/TipoPrimitivo.java" content='"string" \| "int" \| "boolean"' %}
 
 ## Parser
 

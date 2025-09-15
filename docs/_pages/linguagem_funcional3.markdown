@@ -35,11 +35,11 @@ ValorConcreto ::= {% include code-link.html path="Funcional3/src/lf3/plp/express
 
 ValorFuncao ::= "fn" {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/Id.java" %} {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/Id.java" %} "." {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/Expressao.java" %}
 
-ExpUnaria ::= {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpMenos.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpNot.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpLength.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpHead.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpTail.java" %}\
+ExpUnaria ::= {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpMenos.java" content='"-" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpNot.java" content='"not" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpLength.java" content='"length" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpHead.java" content='head(Expressao)' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpTail.java" content='tail(Expressao)' %}\
 {% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpCompreensaoLista.java" %}
 
 ExpCompreensaoLista ::= Expressao {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/Gerador.java" %}\
@@ -50,18 +50,19 @@ Gerador ::= "for" {% include code-link.html path="Funcional3/src/lf3/plp/express
 
 Filtro ::= "if" {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/Expressao.java" %}
 
-ExpBinaria ::= Expressao "+" Expressao  
-{% include code-indent.html %} | Expressao "-" Expressao  
-{% include code-indent.html %} | Expressao "*" Expressao  
-{% include code-indent.html %} | Expressao ">" Expressao  
-{% include code-indent.html %} | Expressao "<" Expressao  
-{% include code-indent.html %} | Expressao "and" Expressao  
-{% include code-indent.html %} | Expressao "or" Expressao  
-{% include code-indent.html %} | Expressao "==" Expressao  
-{% include code-indent.html %} | Expressao "++" Expressao  
-{% include code-indent.html %} | Expressao ".." Expressao  
-{% include code-indent.html %} | Expressao ":" Expressao  
-{% include code-indent.html %} | Expressao "^^" Expressao
+ExpBinaria ::= {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpSoma.java" content='Expressao "+" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpSub.java" content='Expressao "-" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpMult.java" content='Expressao "*" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpMaiorQue.java" content='Expressao ">" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpMenorQue.java" content='Expressao "<" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpAnd.java" content='Expressao "and" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpOr.java" content='Expressao "or" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpEquals.java" content='Expressao "==" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/ExpConcat.java" content='Expressao "++" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpSequencia.java" content='Expressao ".." Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpCons.java" content='Expressao ":" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Funcional3/src/lf3/plp/functional3/expression/ExpConcatLista.java" content='Expressao "^^" Expressao' %}
+
 
 ExpDeclaracao ::= "let" {% include code-link.html path="Funcional3/src/lf3/plp/functional1/declaration/DeclaracaoFuncional.java" %} "in" {% include code-link.html path="Funcional3/src/lf3/plp/expressions2/expression/Expressao.java" %}
 

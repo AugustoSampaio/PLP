@@ -22,7 +22,7 @@ Comando ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjet
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/While.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/IfThenElse.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/IO.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Sequencial.java" %} ";" {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Comando.java" %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Sequencial.java" content='Comando ";" Comando' %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/Skip.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/New.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/comando/ChamadaMetodo.java" %}
@@ -59,32 +59,33 @@ ValorConcreto ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientad
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/valor/ValorString.java" %}\
 {% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/valor/ValorNull.java" %}
 
-ExpUnaria ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpMenos.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpNot.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpLength.java" %}
+ExpUnaria ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpMenos.java" content='"-" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpNot.java" content='"not" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/unaria/ExpLength.java" content='"length" Expressao' %}
 
-ExpBinaria ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpSoma.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpSub.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpAnd.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpOr.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpEquals.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpConcat.java" %}
+ExpBinaria ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpSoma.java" content='Expressao "+" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpSub.java" content='Expressao "-" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpAnd.java" content='Expressao "and" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpOr.java" content='Expressao "or" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpEquals.java" content='Expressao "==" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/binaria/ExpConcat.java" content='Expressao "++" Expressao' %}
+
 
 LeftExpression ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/Id.java" %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributo.java" %}
 
-AcessoAtributo ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributoId.java" %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributoThis.java" %}
+AcessoAtributo ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributoId.java" content='LeftExpression.Id' %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/expressao/leftExpression/AcessoAtributoThis.java" content='this.Id' %}
 
-DecClasse ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasseSimples.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasseComposta.java" %}
+DecClasse ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasseSimples.java" content='"classe" Id "{" DecVariavel ";" DecProcedimento "}" '%}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/classe/DecClasseComposta.java" content='DecClasse "," DecClasse' %}
 
-DecVariavel ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/SimplesDecVariavel.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/CompostaDecVariavel.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/DecVariavelObjeto.java" %}
+DecVariavel ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/SimplesDecVariavel.java" content='Tipo Id "=" Expressao' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/CompostaDecVariavel.java" content='DecVariavel "," DecVariavel' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/variavel/DecVariavelObjeto.java" content='Tipo Id ":=" "new" Id' %}
 
-{% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/DecProcedimento.java" %} ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimento.java" %}\
-{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimentoComposta.java" %}
+{% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/DecProcedimento.java" %} ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimento.java" content='"proc" Id "(" ListaDeclaracaoParametro ")" "{" Comando "}"' %}\
+{% include code-indent.html %} | {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecProcedimentoComposta.java" content='DecProcedimento "," DecProcedimento' %}
 
-ListaDeclaracaoParametro ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecParametro.java" %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/ListaDeclaracaoParametro.java" %}
+ListaDeclaracaoParametro ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/DecParametro.java" content='Tipo Id' %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/declaracao/procedimento/ListaDeclaracaoParametro.java" content='Tipo Id "," ListaDeclaracaoParametro' %}
 
 Tipo ::= {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/util/TipoClasse.java" %} \| {% include code-link.html path="Objetos1/src/loo1/plp/orientadaObjetos1/util/TipoPrimitivo.java" %}
 
