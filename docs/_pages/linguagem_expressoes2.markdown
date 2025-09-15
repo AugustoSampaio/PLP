@@ -28,16 +28,16 @@ ValorConcreto ::= {% include code-link.html path="Expressoes2/src/le2/plp/expres
 {% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ValorBooleano.java" %}\
 {% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ValorString.java" %}
 
-ExpUnaria ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpMenos.java" %} "-" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpNot.java" %} "not" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpLength.java" %} "length" Expressao
+ExpUnaria ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpMenos.java" content='"-" Expressao' %} 
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpNot.java" content='"not" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpLength.java" content='"length" Expressao' %}
 
-ExpBinaria ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpSoma.java" %} Expressao "+" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpSub.java" %} Expressao "-" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpAnd.java" %} Expressao "and" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpOr.java" %} Expressao "or" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpEquals.java" %} Expressao "==" Expressao  
-{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpConcat.java" %} Expressao "++" Expressao
+ExpBinaria ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpSoma.java" content='Expressao "+" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpSub.java" content='Expressao "-" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpAnd.java" content='Expressao "and" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpOr.java" content='Expressao "or" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpEquals.java" content='Expressao "==" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpConcat.java" content='Expressao "++" Expressao' %}
 
 
 ## Classes Auxiliares

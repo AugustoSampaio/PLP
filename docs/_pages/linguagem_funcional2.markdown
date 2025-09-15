@@ -36,16 +36,16 @@ ValorConcreto ::= {% include code-link.html path="Funcional2/src/lf2/plp/express
 
 ValorFuncao ::= "fn" ListId "." Expressao
 
-ExpUnaria ::= {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpMenos.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpNot.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpLength.java" %}
+ExpUnaria ::= {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpMenos.java" content='"-" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpNot.java" content='"not" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpLength.java" content='"length" Expressao' %}
 
-ExpBinaria ::= {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpSoma.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpSub.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpAnd.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpOr.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpEquals.java" %}\
-{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpConcat.java" %}
+ExpBinaria ::= {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpSoma.java" content='Expressao "+" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpSub.java" content='Expressao "-" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpAnd.java" content='Expressao "and" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpOr.java" content='Expressao "or" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpEquals.java" content='Expressao "==" Expressao' %}  
+{% include code-indent.html %}| {% include code-link.html path="Funcional2/src/lf2/plp/expressions2/expression/ExpConcat.java" content='Expressao "++" Expressao' %}
 
 ExpDeclaracao ::= "let" {% include code-link.html path="Funcional2/src/lf2/plp/functional1/declaration/DeclaracaoFuncional.java" %} "in" Expressao
 
