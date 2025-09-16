@@ -39,6 +39,16 @@ ExpBinaria ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressio
 {% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpEquals.java" content='Expressao "==" Expressao' %}  
 {% include code-indent.html %}| {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/expression/ExpConcat.java" content='Expressao "++" Expressao' %}
 
+ExpDeclaracao ::= "let" {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/declaration/Declaracao.java" content='Declaracao' %} "in" Expressao  
+
+Declaracao ::= {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/declaration/DecVariavel.java" content='DecVariavel' %}\
+{% include code-indent.html %} | {% include code-link.html path="Expressoes2/src/le2/plp/expressions2/declaration/DecComposta.java" content='DecComposta' %}
+
+DecVariavel ::= "var" Id "=" Expressao  
+
+DecComposta ::= Declaracao "," Declaracao
+
+
 
 ## Classes Auxiliares
 
