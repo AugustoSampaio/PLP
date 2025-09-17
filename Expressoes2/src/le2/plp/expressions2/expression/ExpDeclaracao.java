@@ -81,8 +81,16 @@ public class ExpDeclaracao implements Expressao {
 	 */
 	public Tipo getTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		Tipo result = expressao.getTipo(ambiente);
-		return result;
+			ambiente.incrementa();
+		Tipo tipo = null;
+		AmbienteCompilacao aux = new ContextoCompilacao();
+		aux.incrementa();
+		declaracao.elabora(ambiente, aux);
+		declaracao.incluir(ambiente, aux);
+		aux.restaura();
+		tipo = expressao.getTipo(ambiente);
+		ambiente.restaura();
+		return tipo;
 	}
 
 	public Expressao reduzir(AmbienteExecucao ambiente) {
