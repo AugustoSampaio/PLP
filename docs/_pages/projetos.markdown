@@ -4,6 +4,60 @@ title: ""
 ---
 ## Projetos
 
+### 2025.1
+
+#### [Equipe 1: Programação Reativa](https://github.com/Gustanascimento/IN1007-PLP-2025.1)
+
+* Bruna Alves Wanderley de Siqueira - baws
+* Matheus Frej Lemos Cavalcanti - mflc
+* Gustavo Prazeres Paz do Nascimento - gppn
+
+#### [Equipe 2: Decorators](https://github.com/larialbu/PLP-2025.1)
+
+* Larissa Azevedo Marques Cavalcanti de Albuquerque - lamca
+* Pedro Henrique Lopes dos Santos - phls2
+
+#### [Equipe 3: DSL Pandas](https://github.com/PedroDidier/PLP-projeto-1)
+
+* Pedro Didier Maranhão - pdm
+* Nicole Charron - nc
+
+#### [Equipe 4: Operador Splat(*)](https://github.com/MariaGabrielaAlvesZuppardo/PLPCIn)
+
+* Letícia Rose de Santana Lopes - lrsl
+* Maria Gabriela Alves Zuppardo - mgaz
+
+#### [Equipe 5: ValorMapa](https://github.com/devpedromonteiro/PLP-PROJECT)
+
+* João Pedro Monteiro Pereira - jpmp2
+* André Souza - alssg
+
+#### [Equipe 6: Anotações de Tipo](https://github.com/amandascm/PLP)
+
+* Amanda Moraes - ascm
+* Tales Alves - tta
+
+#### [Equipe 7: Ownership](https://github.com/heitorado/plp-2025/)
+
+* Heitor Sammuel Carvalho Souza - hscs
+* Bruno da Silva Ramos - bsr
+* Giovanna Ily Farias Ramalho - gifr
+
+#### [Equipe 8: Manipulação de String](https://github.com/therzaetc/IN1007-PLP2025)
+
+* Maria Luisa Barreto de Gois - mlbg
+* Maria Thereza Carlos Rodrigues - mtcr
+
+#### [Equipe 9: Property-Based Testing](https://github.com/Eds0/ufpe-paradigmas)
+
+* Francisco Edson Gomes de Morais Júnior - fegmj
+* Dayvison Oliveira Silva - dos
+
+#### [Equipe 10: BigInt & BigFraction](https://github.com/izmcm/plp)
+
+* Izabella Melo - imcm
+
+
 ### 2023.1
 
 #### [Equipe 1: OptParams](https://github.com/joaotiagofsp/optparams)
