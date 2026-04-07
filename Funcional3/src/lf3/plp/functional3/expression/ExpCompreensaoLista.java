@@ -105,7 +105,9 @@ public class ExpCompreensaoLista implements Expressao {
 	
 	public ExpCompreensaoLista clone() {
 		ExpCompreensaoLista retorno = new ExpCompreensaoLista(this.expressao.clone());
-		retorno.setFiltro(this.filtro.clone());
+		if (this.filtro != null) {
+			retorno.setFiltro(this.filtro.clone());
+		} 
 		
 		List<Gerador> listaGer = new ArrayList<Gerador>();
 		
