@@ -4,6 +4,83 @@ title: ""
 ---
 ## Projetos
 
+### 2025.2
+
+#### [Equipe 1: CemPilha](https://github.com/fernandasales27/cemPilha)
+
+* Maria Fernanda de Lima Oliveira Sales - mflos
+* Jóison Oliveira Pereira - jop
+* Ricardo Pereira Lins - rpl3
+
+#### [Equipe 2: Linguagem SetExpr](https://github.com/joycetalmeida/projeto-plp-setexpr)
+
+* Joyce Almeida - jta
+* Ricardo Azevedo - rams
+* Rafael Moura - rnm4
+
+#### [Equipe 3: Implementação da Sintaxe de Comparação Encadeada na LI2](https://github.com/w-alves/plp-2025.2)
+
+* Wesley Alves - was4
+* Weybson Alves - was5
+* Lucas Leonardo - llbs
+
+#### [Equipe 4: DualList](https://github.com/Alisson-1/dualList)
+
+* Alisson Gabriel Assunção de Oliveira
+* Emilly de Albuquerque Oliveira
+* Wanusa Araújo de Pontes
+
+#### [Equipe 5: DataScript](https://github.com/andrezzab/PLP-Projeto/)
+
+* Andrezza Bonfim - amb8
+* Athos Pugliese - amps3
+* Jordan Carvalho - jksc
+
+#### [Equipe 6: Null Safety](https://github.com/HumbertoTavora/null_safety_OO_increment)
+
+* Antonio Pedro - apnn
+* Humberto Távora - hcct
+* João Pedro Moura - jpspm
+
+#### [Equipe 7: Implementação de biblioteca de tempo](https://github.com/jefersonseverino/PLP/)
+
+* Jeferson Severino de Araujo
+* Maria Luísa dos Santos Silva
+* Tales Vinícius Alves da Cunha
+
+#### [Equipe 8: FormulaSolver](https://github.com/miggelucas/PLC)
+
+* Lucas Migge de Barros - lmb4
+* Márcio Oliveira de Brito - mob2
+* Sidney dos Santos de Araújo - ssa2
+
+#### [Equipe 9: DSL para Cadastro]()
+
+* Jose Weverton Barros da Silva
+* Larissa Ane Hora de Souza
+* Thiago Vinícius
+
+#### [Equipe 10: DSL para projetos em Arduino](https://github.com/marcusv-fs/PLP_Arduino)
+
+* Gabriel B. M. Melo - gbmm
+* Giovanna T. A. Araújo - gtaa
+* Marcus V. F. Santos - mvfs
+
+#### [Equipe 11: Operações com Vetores](https://github.com/Andrevss/escopo-projeto)
+
+* André Silva
+* Mateus Torres
+* José Otavio Maciel
+
+#### [Equipe 12: Captura de IP](https://github.com/ricardohelisson/find_ip/)
+
+* Ricardo Helisson Bezerra Amorim
+
+#### [Equipe 13: Árvore Binária de Busca Funcional](https://github.com/JoseArthurSoares/arvore_binaria_busca_funcional/)
+
+* José Arthur Soares Bezerra - jasb
+* Tiago Regis Perrelli - trp
+
 ### 2025.1
 
 #### [Equipe 1: Programação Reativa](https://github.com/Gustanascimento/IN1007-PLP-2025.1)
