@@ -1,5 +1,8 @@
 package le1.plp.expressions1;
 
+import java.util.List;
+import java.util.Map;
+
 import le1.plp.expressions1.expression.Expressao;
 import le1.plp.expressions1.expression.Valor;
 import le1.plp.expressions2.memory.AmbienteCompilacao;
@@ -10,6 +13,7 @@ import le1.plp.expressions2.memory.ContextoExecucao;
 public class Programa{
 
 	private Expressao exp;
+	private AmbienteCompilacao ambComp;
 
 	public Valor executar() {
 		AmbienteExecucao ambExec = new ContextoExecucao();
@@ -19,7 +23,7 @@ public class Programa{
  	}
 
 	public boolean checaTipo() {
-		AmbienteCompilacao ambComp = new ContextoCompilacao();
+		ambComp = new ContextoCompilacao();
 		return exp.checaTipo(ambComp);
  	}
 
@@ -29,6 +33,10 @@ public class Programa{
 
 	public Expressao getExpressao() {
 		return exp;
+	}
+
+	public List<Map<String, Object>> getAmbCompSnapshot() {
+		return ambComp == null ? null : ambComp.getPilhaSnapshot();
 	}
 
 }

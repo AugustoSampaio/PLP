@@ -1,5 +1,8 @@
 package le2.plp.expressions2;
 
+import java.util.List;
+import java.util.Map;
+
 import le2.plp.expressions2.expression.Expressao;
 import le2.plp.expressions2.expression.Valor;
 import le2.plp.expressions2.memory.AmbienteCompilacao;
@@ -12,6 +15,7 @@ import le2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 public class Programa {
 
 	private Expressao exp;
+	private AmbienteCompilacao ambComp;
 
 	public Programa(Expressao exp){
 		this.exp = exp;
@@ -23,12 +27,16 @@ public class Programa {
 	}
 
 	public boolean checaTipo() throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException {
-		AmbienteCompilacao ambComp = new ContextoCompilacao();
+		ambComp = new ContextoCompilacao();
 		return exp.checaTipo(ambComp);
 	}
 
 	public Expressao getExpressao() {
 		return exp;
+	}
+
+	public List<Map<String, Object>> getAmbCompSnapshot() {
+		return ambComp == null ? null : ambComp.getPilhaSnapshot();
 	}
 
 }

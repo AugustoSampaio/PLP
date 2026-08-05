@@ -8,6 +8,7 @@ package li1.plp.imperative1.parser;
 
 import li1.plp.expressions1.util.*;
 import li1.plp.expressions2.expression.*;
+import li1.plp.expressions2.memory.*;
 import li1.plp.imperative1.command.*;
 import li1.plp.imperative1.declaration.*;
 import li1.plp.imperative1.memory.*;
@@ -652,13 +653,19 @@ ComandoDeclaracao PComandoDeclaracao() :
 {
 	Declaracao dec;
 	Comando comando;
+	Token lbraceToken;
+	Token rbraceToken;
 }
 {
-	<LBRACE> 
+	lbraceToken = <LBRACE> 
 		dec = PDeclaracao() <SEMICOLON> comando = PComando() 
-	<RBRACE>
+	rbraceToken = <RBRACE>
  	{
- 		return new ComandoDeclaracao(dec, comando);
+	 	return new ComandoDeclaracao(
+	 		dec,
+	 		comando,
+	 		new InfoEscopo(new TrechoCodigoFonte(lbraceToken.beginLine, lbraceToken.beginColumn, rbraceToken.endLine, rbraceToken.endColumn), "block")
+	 	);
  	}
 }
 

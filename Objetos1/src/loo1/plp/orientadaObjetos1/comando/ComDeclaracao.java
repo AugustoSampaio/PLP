@@ -12,33 +12,29 @@ import loo1.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoExc
 import loo1.plp.orientadaObjetos1.excecao.execucao.EntradaInvalidaException;
 import loo1.plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import loo1.plp.orientadaObjetos1.memoria.AmbienteExecucaoOO1;
+import loo1.plp.orientadaObjetos1.memoria.InfoEscopo;
 
 /**
- * Classe que representa um comando de declara��o.
+ * Classe que representa um comando de declaração.
  */
 public class ComDeclaracao implements Comando {
-	/**
-	 * A declara��o em si.
-	 */
+
     private Declaracao declaracao;
-	/**
-	 * O comando executado ap�s a declara��o.
-	 */
     private Comando comando;
-	/**
-	 * Construtor.
-	 */
+    private InfoEscopo infoEscopo;
+
     public ComDeclaracao(Declaracao declaracao, Comando comando){
         this.declaracao = declaracao;
         this.comando = comando;
     }
 
+	public ComDeclaracao(Declaracao declaracao, Comando comando, InfoEscopo infoEscopo){
+		this(declaracao, comando);
+		this.infoEscopo = infoEscopo;
+	}
+
     /**
-     * Declara a(s) vari�vel(is) e executa o comando.
-     * @param ambiente o ambiente que contem o mapeamento entre identificadores
-     *  e valores.
-     * @return o ambiente modificado pela execu��o da declara��o e do comando.
-     *
+     * Declara a(s) variável(is) e executa o comando.
      */
     public AmbienteExecucaoOO1 executar(AmbienteExecucaoOO1 ambiente)
         throws VariavelJaDeclaradaException, VariavelNaoDeclaradaException,
@@ -52,8 +48,7 @@ public class ComDeclaracao implements Comando {
     }
 
     /**
-     * Verifica se o tipo do comando esta correto, levando em conta que
-     * o tipo de uma variavel � o tipo do valor da sua primeira atribuicao.
+     * Verifica se o tipo do comando esta correto.
      */
     public boolean checaTipo(AmbienteCompilacaoOO1 ambiente)
         throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException,
@@ -61,6 +56,7 @@ public class ComDeclaracao implements Comando {
                ClasseNaoDeclaradaException, ClasseJaDeclaradaException{
         boolean resposta;
         ambiente.incrementa();
+		ambiente.registraEscopo(infoEscopo);
         resposta = declaracao.checaTipo(ambiente) && comando.checaTipo(ambiente);
         ambiente.restaura();
         return resposta;

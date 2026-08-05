@@ -1,53 +1,37 @@
 package li2.plp.imperative2.declaration;
 
 import li2.plp.expressions1.util.Tipo;
+import li2.plp.expressions2.memory.InfoEscopo;
 import li2.plp.imperative1.command.Comando;
 import li2.plp.imperative2.util.TipoProcedimento;
 
 /**
- * Uma defini�ao de procedimento � uma declara�ao de comando e parametrosFormais
- * uma declara��o de procedimento.
+ * Uma definição de procedimento é uma declaração de comando e parâmetros formais.
  */
 public class DefProcedimento {
 
-	/**
-	 * Declara��o dos parametrosFormais
-	 */
 	private ListaDeclaracaoParametro parametrosFormais;
-
-	/**
-	 * Declara�ao de Comando
-	 */
 	private Comando comando;
+	private InfoEscopo infoEscopo;
 
-	/**
-	 * Construtor
-	 * 
-	 * @param parametrosFormais
-	 *            Declara��o de ListaDeclaracaoParametro
-	 * @param comando
-	 *            Declara�ao de Comando.
-	 */
-	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais,
-			Comando comando) {
+	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais, Comando comando) {
 		this.parametrosFormais = parametrosFormais;
 		this.comando = comando;
 	}
 
-	/**
-	 * Obt�m o comando do Procedimento.
-	 * 
-	 * @return o comando
-	 */
+	public DefProcedimento(ListaDeclaracaoParametro parametrosFormais, Comando comando, InfoEscopo infoEscopo) {
+		this(parametrosFormais, comando);
+		this.infoEscopo = infoEscopo;
+	}
+
 	public Comando getComando() {
 		return comando;
 	}
 
-	/**
-	 * Obt�m os parametrosFormais do Procedimento.
-	 * 
-	 * @return a ListaDeclaracaoParametro
-	 */
+	public InfoEscopo getInfoEscopo() {
+		return infoEscopo;
+	}
+
 	public ListaDeclaracaoParametro getParametrosFormais() {
 		return parametrosFormais;
 	}

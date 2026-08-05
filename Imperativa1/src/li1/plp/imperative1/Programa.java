@@ -1,5 +1,8 @@
 package li1.plp.imperative1;
 
+import java.util.List;
+import java.util.Map;
+
 import li1.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li1.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li1.plp.imperative1.command.Comando;
@@ -12,6 +15,7 @@ import li1.plp.imperative1.memory.ListaValor;
 public class Programa {
 
     private Comando comando;
+    private AmbienteCompilacaoImperativa ambComp;
 
     public Programa(Comando comando){
         this.comando = comando;
@@ -49,7 +53,12 @@ public class Programa {
      */
     public boolean checaTipo(AmbienteCompilacaoImperativa ambienteCompilacao)
         throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException  {
+        ambComp = ambienteCompilacao;
         return comando.checaTipo(ambienteCompilacao);
+    }
+
+    public List<Map<String, Object>> getAmbCompSnapshot() {
+        return ambComp == null ? null : ambComp.getPilhaSnapshot();
     }
 
 }
