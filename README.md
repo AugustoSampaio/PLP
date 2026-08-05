@@ -66,6 +66,8 @@ npm start
 * Adicionar javacc sources para debug ([commit](https://github.com/fmca/PLP/commit/9606652f1f48717e75bc1a480c8ad8bff1bf5c3c))
 * Corrigir problemas da LF3 ao executar quicksort ([commit](https://github.com/fmca/PLP/commit/31ea41c48fb3a7df3ac9e8ea4fbb980e08a66c78))
 * Atualizar geração do applet ([commit](https://github.com/fmca/PLP/commit/9a9927f73eb57911ffbf46e3d60a0998e3842601))
+* Incluir os módulos WebAPI e WebUI (nova IDE web) ([commit](https://github.com/AugustoSampaio/PLP/pull/25/commits/ca77ecd51e395adb066b3ce01b8471551463e9eb))
+* Adicionar suporte à depuração nas linguagens, expondo o snapshot do ambiente de compilação ([commit](https://github.com/AugustoSampaio/PLP/pull/25/commits/a45521837356525c512ec353389f79b65602bf5a))
 
 ## Observações
 
@@ -78,3 +80,8 @@ Baseado no projeto da equipe:
 * Luana Martins (lms7@cin.ufpe.br)
 * Marcel Rebouças (mscr@cin.ufpe.br)
 * Renato Oliveira (ros3@cin.ufpe.br)
+
+A nova IDE web (`WebUI`) foi desenvolvida por:
+
+* Matheus Andrade (mvtna@cin.ufpe.br)
+* Uanderson Silva (urfs@cin.ufpe.br)
