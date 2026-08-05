@@ -18,14 +18,38 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v5
     - name: "Use Common Java Build"
       uses: ./.github/actions/common-java-build
-    - name: Copy files to docs/
+    - name: Copy the classic UI to docs/
       run: |
         cp AppUI/target/classes/index.html docs/interpretador.html
         cp AppUI/target/javascript/classes.js* docs/
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: npm
+        cache-dependency-path: WebUI/package-lock.json
+    - name: Build the web IDE (WebUI)
+      working-directory: WebUI
+      run: |
+        # Publish under <Pages base path>/ide/; falls back to the default in vite.config.ts
+        base_path="${{ steps.pages.outputs.base_path }}"
+        if [ -n "$base_path" ]; then
+          export WEBUI_BASE="${base_path%/}/ide/"
+        fi
+        # plp.js is the WebAPI module compiled to JS by TeaVM
+        cp -r ../WebAPI/target/javascript/. public/
+        # `npm install` (and not `npm ci`) until package-lock.json is regenerated
+        npm install --no-audit --no-fund
+        npm run build
+    - name: Copy the web IDE to docs/ide/
+      run: |
+        mkdir -p docs/ide
+        cp -r WebUI/dist/. docs/ide/
     - name: Build with Jekyll
       uses: actions/jekyll-build-pages@v1
       with:
