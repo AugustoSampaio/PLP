@@ -11,13 +11,22 @@ import loo2.plp.orientadaObjetos1.excecao.declaracao.ClasseNaoDeclaradaException
 import loo2.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoJaDeclaradoException;
 import loo2.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoException;
 import loo2.plp.orientadaObjetos1.expressao.leftExpression.Id;
+import loo2.plp.orientadaObjetos1.memoria.InfoEscopo;
 import loo2.plp.orientadaObjetos2.memoria.AmbienteCompilacaoOO2;
 
+/**
+ * Declaração de construtor de uma classe OO2.
+ */
 public class DecConstrutor extends DecProcedimentoSimples {
 	private Id nomeClasse;
 	
 	public DecConstrutor(Id nomeClasse, Id nome, ListaDeclaracaoParametro parametrosFormais, Comando comando) {
 		super(nome, parametrosFormais, comando);
+		this.nomeClasse = nomeClasse;
+	}
+
+	public DecConstrutor(Id nomeClasse, Id nome, ListaDeclaracaoParametro parametrosFormais, Comando comando, InfoEscopo infoEscopo) {
+		super(nome, parametrosFormais, comando, infoEscopo);
 		this.nomeClasse = nomeClasse;
 	}
 

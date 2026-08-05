@@ -6,6 +6,7 @@ import le2.plp.expressions2.memory.AmbienteCompilacao;
 import le2.plp.expressions2.memory.AmbienteExecucao;
 import le2.plp.expressions2.memory.ContextoCompilacao;
 import le2.plp.expressions2.memory.ContextoExecucao;
+import le2.plp.expressions2.memory.InfoEscopo;
 import le2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import le2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 
@@ -13,10 +14,16 @@ public class ExpDeclaracao implements Expressao {
 
 	private Declaracao declaracao;
 	private Expressao expressao;
+	private InfoEscopo infoEscopo;
 
 	public ExpDeclaracao(Declaracao declaracao, Expressao expressaoArg) {
+		this(declaracao, expressaoArg, null);
+	}
+
+	public ExpDeclaracao(Declaracao declaracao, Expressao expressaoArg, InfoEscopo infoEscopo) {
 		this.declaracao = declaracao;
 		this.expressao = expressaoArg;
+		this.infoEscopo = infoEscopo;
 	}
 
 	public Valor avaliar(AmbienteExecucao ambiente)
@@ -50,6 +57,7 @@ public class ExpDeclaracao implements Expressao {
 	public boolean checaTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 		ambiente.incrementa();
+		ambiente.registraEscopo(infoEscopo);
 		boolean result = false;
 		try{
 			if(declaracao.checaTipo(ambiente)){
@@ -81,7 +89,8 @@ public class ExpDeclaracao implements Expressao {
 	 */
 	public Tipo getTipo(AmbienteCompilacao ambiente)
 			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-			ambiente.incrementa();
+		ambiente.incrementa();
+		ambiente.registraEscopo(infoEscopo);
 		Tipo tipo = null;
 		AmbienteCompilacao aux = new ContextoCompilacao();
 		aux.incrementa();
@@ -103,8 +112,6 @@ public class ExpDeclaracao implements Expressao {
 	}
 
 	public ExpDeclaracao clone(){
-		ExpDeclaracao retorno;		
-		retorno = new ExpDeclaracao(declaracao, this.expressao.clone());
-		return retorno;
+		return new ExpDeclaracao(declaracao, this.expressao.clone());
 	}
 }
