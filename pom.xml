@@ -16,5 +16,6 @@
         <module>Objetos1</module>
         <module>Objetos2</module>
         <module>AppUI</module>
+        <module>WebAPI</module>
     </modules>
 </project>

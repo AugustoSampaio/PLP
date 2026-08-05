@@ -2,6 +2,23 @@
 
 Repositório do projeto da disciplina Paradigmas de Linguagens de Programação ([in1007](https://www.cin.ufpe.br/~in1007/)) da pós-graduação em Ciência da Computação da UFPE, ministrada pelo Prof.Dr. Augusto Sampaio.
 
+## Estrutura
+
+| Diretório | Descrição |
+|-----------|-----------|
+| `Expressoes1`, `Expressoes2`, `Funcional1-3`, `Imperativa1-2`, `Objetos1-2` | Interpretadores das linguagens, em Java |
+| `Testes` | Programas de exemplo de cada linguagem |
+| `AppUI` | Interface clássica (Swing e versão web via TeaVM) |
+| `WebAPI` | Ponto de entrada único das linguagens, compilado para JavaScript com TeaVM (`plp.js`) |
+| `WebUI` | A nova IDE web (notebooks, execução e depuração no navegador) |
+| `docs` | Página da disciplina (Jekyll/GitHub Pages) |
+
+Ambas as interfaces são publicadas automaticamente pelo workflow
+[`docs.yml`](.github/workflows/docs.yml):
+
+* IDE web: <https://augustosampaio.github.io/PLP/ide/>
+* Interpretador clássico: <https://augustosampaio.github.io/PLP/interpretador.html>
+
 ## Execução
 
 * Local
@@ -11,11 +28,27 @@ cd <Linguagem>
 mvn clean generate-sources compile exec:java
 ```
 
-* Applet
+* Interface clássica (AppUI)
 
 ```bash
 mvn package
-# Jar será gerado em ./Applet/target/
+# Jar será gerado em ./AppUI/target/ e o JS (TeaVM) em ./AppUI/target/javascript/
+```
+
+* WebAPI
+
+```bash
+mvn package
+# JS será gerado em ./WebAPI/target/javascript/
+```
+
+* IDE web (WebUI)
+
+```bash
+cd WebUI
+npm install
+npm start
+# compila o WebAPI com TeaVM e sobe a IDE em http://localhost:4004
 ```
 
 ## Contribuições
