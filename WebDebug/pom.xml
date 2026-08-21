@@ -10,6 +10,26 @@
 
   <dependencies>
     <dependency>
+      <groupId>Expressoes2</groupId>
+      <artifactId>Expressoes2</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>Funcional1</groupId>
+      <artifactId>Funcional1</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>Funcional2</groupId>
+      <artifactId>Funcional2</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>Funcional3</groupId>
+      <artifactId>Funcional3</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>Imperativa1</groupId>
       <artifactId>Imperativa1</artifactId>
       <version>${revision}</version>

@@ -23,6 +23,7 @@ import li2.plp.imperative2.memory.ContextoExecucaoImperativa2;
 import li2.plp.imperative2.parser.Imp2Parser;
 import loo1.plp.orientadaObjetos1.parser.OO1Parser;
 import loo2.plp.orientadaObjetos2.parser.OO2Parser;
+import plp.debug.core.SourceRangeResolver;
 import plp.debug.imperativa1.AmbienteCompilacaoImperativaDebug;
 import plp.debug.objetos1.AmbienteCompilacaoOO1Debug;
 import plp.debug.objetos2.AmbienteCompilacaoOO2Debug;
@@ -64,19 +65,18 @@ public final class PlpWebApi {
     compilationEnv = null;
 
     try {
-      ByteArrayInputStream fis = new ByteArrayInputStream(
-          (sourceCode == null ? "" : sourceCode).getBytes()
-      );
+      String src = (sourceCode == null ? "" : sourceCode);
+      ByteArrayInputStream fis = new ByteArrayInputStream(src.getBytes());
       switch (selectedIndex) {
-        case EXP1:  interpretarExp1(fis);               break;
-        case EXP2:  interpretarExp2(fis);               break;
-        case FUNC1: interpretarFunc1(fis);              break;
-        case FUNC2: interpretarFunc2(fis);              break;
-        case FUNC3: interpretarFunc3(fis);              break;
-        case IMP1:  interpretarImp1(fis, listaEntrada); break;
-        case IMP2:  interpretarImp2(fis, listaEntrada); break;
-        case OO1:   interpretarOO1(fis, listaEntrada);  break;
-        case OO2:   interpretarOO2(fis, listaEntrada);  break;
+        case EXP1:  interpretarExp1(fis);                    break;
+        case EXP2:  interpretarExp2(fis, src);               break;
+        case FUNC1: interpretarFunc1(fis, src);              break;
+        case FUNC2: interpretarFunc2(fis, src);              break;
+        case FUNC3: interpretarFunc3(fis, src);              break;
+        case IMP1:  interpretarImp1(fis, listaEntrada, src); break;
+        case IMP2:  interpretarImp2(fis, listaEntrada, src); break;
+        case OO1:   interpretarOO1(fis, listaEntrada, src);  break;
+        case OO2:   interpretarOO2(fis, listaEntrada, src);  break;
         default:    return PlpResultImpl.create(false, null, "linguagem inválida", compilationEnv);
       }
       return PlpResultImpl.create(true, output, message, compilationEnv);
@@ -118,52 +118,68 @@ public final class PlpWebApi {
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarExp2(InputStream fis) throws Exception {
+  private void interpretarExp2(InputStream fis, String src) throws Exception {
     if (exp2Parser == null) exp2Parser = new Exp2Parser(fis);
     else Exp2Parser.ReInit(fis);
     le2.plp.expressions2.Programa prog = Exp2Parser.Input();
     message = "sintaxe verificada com sucesso!";
-    if (prog.checaTipo()) {
+    plp.debug.expressoes2.AmbienteCompilacaoDebug ambienteDebug =
+        new plp.debug.expressoes2.AmbienteCompilacaoDebug(new le2.plp.expressions2.memory.ContextoCompilacao());
+    if (prog.getExpressao().checaTipo(ambienteDebug)) {
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.expressoes2.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("exp2", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarFunc1(InputStream fis) throws Exception {
+  private void interpretarFunc1(InputStream fis, String src) throws Exception {
     if (func1Parser == null) func1Parser = new Func1Parser(fis);
     else Func1Parser.ReInit(fis);
     lf1.plp.functional1.Programa prog = Func1Parser.Input();
     message = "sintaxe verificada com sucesso!";
-    if (prog.checaTipo()) {
+    plp.debug.funcional1.AmbienteCompilacaoDebug ambienteDebug =
+        new plp.debug.funcional1.AmbienteCompilacaoDebug(new lf1.plp.expressions2.memory.ContextoCompilacao());
+    if (prog.getExpressao().checaTipo(ambienteDebug)) {
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional1.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("func1", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarFunc2(InputStream fis) throws Exception {
+  private void interpretarFunc2(InputStream fis, String src) throws Exception {
     if (func2Parser == null) func2Parser = new Func2Parser(fis);
     else Func2Parser.ReInit(fis);
     lf2.plp.functional2.Programa prog = Func2Parser.Input();
     message = "sintaxe verificada com sucesso!";
-    if (prog.checaTipo()) {
+    plp.debug.funcional2.AmbienteCompilacaoDebug ambienteDebug =
+        new plp.debug.funcional2.AmbienteCompilacaoDebug(new lf2.plp.expressions2.memory.ContextoCompilacao());
+    if (prog.getExpressao().checaTipo(ambienteDebug)) {
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional2.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("func2", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarFunc3(InputStream fis) throws Exception {
+  private void interpretarFunc3(InputStream fis, String src) throws Exception {
     if (func3Parser == null) func3Parser = new Func3Parser(fis);
     else Func3Parser.ReInit(fis);
     lf3.plp.functional3.Programa prog = Func3Parser.Input();
     message = "sintaxe verificada com sucesso!";
-    if (prog.checaTipo()) {
+    plp.debug.funcional3.AmbienteCompilacaoDebug ambienteDebug =
+        new plp.debug.funcional3.AmbienteCompilacaoDebug(new lf3.plp.expressions2.memory.ContextoCompilacao());
+    if (prog.getExpressao().checaTipo(ambienteDebug)) {
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional3.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("func3", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar().toString();
     } else {
       throw new RuntimeException("erro de tipos!");
     }
   }
 
-  private void interpretarImp1(InputStream fis, String entradaStr) throws Exception {
+  private void interpretarImp1(InputStream fis, String entradaStr, String src) throws Exception {
     if (imp1Parser == null) imp1Parser = new Imp1Parser(fis);
     else Imp1Parser.ReInit(fis);
     li1.plp.imperative1.Programa prog = Imp1Parser.Input();
@@ -172,13 +188,14 @@ public final class PlpWebApi {
     AmbienteCompilacaoImperativaDebug ambienteDebug =
         new AmbienteCompilacaoImperativaDebug(new ContextoCompilacaoImperativa(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      compilationEnv = compilationEnvJson("imp1", ambienteDebug.getRecorder().getSnapshot());
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.imperativa1.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("imp1", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar(new ContextoExecucaoImperativa(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarImp2(InputStream fis, String entradaStr) throws Exception {
+  private void interpretarImp2(InputStream fis, String entradaStr, String src) throws Exception {
     if (imp2Parser == null) imp2Parser = new Imp2Parser(fis);
     else Imp2Parser.ReInit(fis);
     li2.plp.imperative2.Programa prog = Imp2Parser.Input();
@@ -188,13 +205,14 @@ public final class PlpWebApi {
         new plp.debug.imperativa2.AmbienteCompilacaoImperativaDebug(
             new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      compilationEnv = compilationEnvJson("imp2", ambienteDebug.getRecorder().getSnapshot());
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.imperativa2.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("imp2", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar(new ContextoExecucaoImperativa2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarOO1(InputStream fis, String entradaStr) throws Exception {
+  private void interpretarOO1(InputStream fis, String entradaStr, String src) throws Exception {
     if (oo1Parser == null) oo1Parser = new OO1Parser(fis);
     else oo1Parser.ReInit(fis);
     loo1.plp.orientadaObjetos1.Programa prog = oo1Parser.processaEntrada();
@@ -203,13 +221,14 @@ public final class PlpWebApi {
     AmbienteCompilacaoOO1Debug ambienteDebug =
         new AmbienteCompilacaoOO1Debug(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      compilationEnv = compilationEnvJson("oo1", ambienteDebug.getRecorder().getSnapshot());
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.objetos1.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("oo1", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar(new loo1.plp.orientadaObjetos1.memoria.ContextoExecucaoOO1(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
-  private void interpretarOO2(InputStream fis, String entradaStr) throws Exception {
+  private void interpretarOO2(InputStream fis, String entradaStr, String src) throws Exception {
     if (oo2Parser == null) oo2Parser = new OO2Parser(fis);
     else oo2Parser.ReInit(fis);
     loo2.plp.orientadaObjetos2.Programa prog = oo2Parser.processaEntrada();
@@ -218,7 +237,8 @@ public final class PlpWebApi {
     AmbienteCompilacaoOO2Debug ambienteDebug =
         new AmbienteCompilacaoOO2Debug(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      compilationEnv = compilationEnvJson("oo2", ambienteDebug.getRecorder().getSnapshot());
+      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.objetos2.TokenReader.read(src));
+      compilationEnv = compilationEnvJson("oo2", ambienteDebug.getRecorder().getSnapshot(ranges));
       output = prog.executar(new loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
