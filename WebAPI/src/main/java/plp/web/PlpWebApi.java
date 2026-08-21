@@ -23,6 +23,9 @@ import li2.plp.imperative2.memory.ContextoExecucaoImperativa2;
 import li2.plp.imperative2.parser.Imp2Parser;
 import loo1.plp.orientadaObjetos1.parser.OO1Parser;
 import loo2.plp.orientadaObjetos2.parser.OO2Parser;
+import plp.debug.imperativa1.AmbienteCompilacaoImperativaDebug;
+import plp.debug.objetos1.AmbienteCompilacaoOO1Debug;
+import plp.debug.objetos2.AmbienteCompilacaoOO2Debug;
 
 public final class PlpWebApi {
 
@@ -110,7 +113,6 @@ public final class PlpWebApi {
     le1.plp.expressions1.Programa prog = Exp1Parser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
-      compilationEnv = compilationEnvJson("exp1", prog.getAmbCompSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -122,7 +124,6 @@ public final class PlpWebApi {
     le2.plp.expressions2.Programa prog = Exp2Parser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
-      compilationEnv = compilationEnvJson("exp2", prog.getAmbCompSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -134,7 +135,6 @@ public final class PlpWebApi {
     lf1.plp.functional1.Programa prog = Func1Parser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
-      compilationEnv = compilationEnvJson("func1", prog.getAmbCompSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -146,7 +146,6 @@ public final class PlpWebApi {
     lf2.plp.functional2.Programa prog = Func2Parser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
-      compilationEnv = compilationEnvJson("func2", prog.getAmbCompSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -158,10 +157,6 @@ public final class PlpWebApi {
     lf3.plp.functional3.Programa prog = Func3Parser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
-      // convert Func3's generic snapshot to a standardized CompilationSnapshot
-      java.util.List<java.util.Map<String,Object>> generic = prog.getAmbCompSnapshot();
-      CompilationSnapshot cs = CompilationSnapshot.fromGenericSnapshot("func3", generic);
-      compilationEnv = toJsonString(cs);
       output = prog.executar().toString();
     } else {
       throw new RuntimeException("erro de tipos!");
@@ -174,8 +169,10 @@ public final class PlpWebApi {
     li1.plp.imperative1.Programa prog = Imp1Parser.Input();
     message = "sintaxe verificada com sucesso!";
     li1.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp1(entradaStr);
-    if (prog.checaTipo(new ContextoCompilacaoImperativa(entrada))) {
-      compilationEnv = compilationEnvJson("imp1", prog.getAmbCompSnapshot());
+    AmbienteCompilacaoImperativaDebug ambienteDebug =
+        new AmbienteCompilacaoImperativaDebug(new ContextoCompilacaoImperativa(entrada));
+    if (prog.checaTipo(ambienteDebug)) {
+      compilationEnv = compilationEnvJson("imp1", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new ContextoExecucaoImperativa(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -187,8 +184,11 @@ public final class PlpWebApi {
     li2.plp.imperative2.Programa prog = Imp2Parser.Input();
     message = "sintaxe verificada com sucesso!";
     li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
-    if (prog.checaTipo(new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada))) {
-      compilationEnv = compilationEnvJson("imp2", prog.getAmbCompSnapshot());
+    plp.debug.imperativa2.AmbienteCompilacaoImperativaDebug ambienteDebug =
+        new plp.debug.imperativa2.AmbienteCompilacaoImperativaDebug(
+            new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada));
+    if (prog.checaTipo(ambienteDebug)) {
+      compilationEnv = compilationEnvJson("imp2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new ContextoExecucaoImperativa2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -200,8 +200,10 @@ public final class PlpWebApi {
     loo1.plp.orientadaObjetos1.Programa prog = oo1Parser.processaEntrada();
     message = "sintaxe verificada com sucesso!";
     loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO1(entradaStr);
-    if (prog.checaTipo(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(entrada))) {
-      compilationEnv = compilationEnvJson("oo1", prog.getAmbCompSnapshot());
+    AmbienteCompilacaoOO1Debug ambienteDebug =
+        new AmbienteCompilacaoOO1Debug(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(entrada));
+    if (prog.checaTipo(ambienteDebug)) {
+      compilationEnv = compilationEnvJson("oo1", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new loo1.plp.orientadaObjetos1.memoria.ContextoExecucaoOO1(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
@@ -213,8 +215,10 @@ public final class PlpWebApi {
     loo2.plp.orientadaObjetos2.Programa prog = oo2Parser.processaEntrada();
     message = "sintaxe verificada com sucesso!";
     loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO2(entradaStr);
-    if (prog.checaTipo(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(entrada))) {
-      compilationEnv = compilationEnvJson("oo2", prog.getAmbCompSnapshot());
+    AmbienteCompilacaoOO2Debug ambienteDebug =
+        new AmbienteCompilacaoOO2Debug(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(entrada));
+    if (prog.checaTipo(ambienteDebug)) {
+      compilationEnv = compilationEnvJson("oo2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");

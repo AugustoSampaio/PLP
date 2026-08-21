@@ -59,6 +59,11 @@
       <artifactId>Objetos2</artifactId>
       <version>${revision}</version>
     </dependency>
+    <dependency>
+      <groupId>WebDebug</groupId>
+      <artifactId>WebDebug</artifactId>
+      <version>${revision}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.teavm</groupId>
