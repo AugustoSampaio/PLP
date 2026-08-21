@@ -6,6 +6,8 @@ import li1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li1.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import li1.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li1.plp.imperative1.memory.EntradaVaziaException;
+import plp.debug.core.InfoEscopo;
+import plp.debug.core.ScopeAware;
 import plp.debug.core.SnapshotRecorder;
 
 /**
@@ -13,7 +15,7 @@ import plp.debug.core.SnapshotRecorder;
  * chamadas a um ambiente real, sem alterar Imperativa1. Observa
  * incrementa()/restaura()/map() para alimentar um {@link SnapshotRecorder}.
  */
-public class AmbienteCompilacaoImperativaDebug implements AmbienteCompilacaoImperativa {
+public class AmbienteCompilacaoImperativaDebug implements AmbienteCompilacaoImperativa, ScopeAware {
 
 	private final AmbienteCompilacaoImperativa target;
 	private final SnapshotRecorder recorder = new SnapshotRecorder();
@@ -24,6 +26,11 @@ public class AmbienteCompilacaoImperativaDebug implements AmbienteCompilacaoImpe
 
 	public SnapshotRecorder getRecorder() {
 		return recorder;
+	}
+
+	@Override
+	public void registraEscopo(InfoEscopo info) {
+		recorder.registraEscopo(info);
 	}
 
 	@Override
@@ -41,7 +48,7 @@ public class AmbienteCompilacaoImperativaDebug implements AmbienteCompilacaoImpe
 	@Override
 	public void map(Id idArg, Tipo tipoId) throws VariavelJaDeclaradaException {
 		target.map(idArg, tipoId);
-		recorder.recordBinding(idArg, tipoId);
+		recorder.recordBinding(idArg, tipoId, tipoId == null ? null : tipoId.getNome());
 	}
 
 	@Override

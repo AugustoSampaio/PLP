@@ -10,6 +10,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>Expressoes1</groupId>
+      <artifactId>Expressoes1</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
       <groupId>Expressoes2</groupId>
       <artifactId>Expressoes2</artifactId>
       <version>${revision}</version>
@@ -69,6 +74,100 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
+      </plugin>
+
+      <!--
+        Gramáticas próprias do WebDebug: cópias das gramáticas das linguagens
+        cujas ações constroem subclasses Debug com a faixa exata de
+        código-fonte. As gramáticas das linguagens não são alteradas.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javacc-maven-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>javacc-expressoes1</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/expressoes1/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-expressoes2</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/expressoes2/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-funcional1</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/funcional1/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-funcional2</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/funcional2/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-funcional3</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/funcional3/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-imperativa1</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/imperativa1/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-imperativa2</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/imperativa2/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-objetos1</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/objetos1/parser</sourceDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>javacc-objetos2</id>
+            <goals><goal>javacc</goal></goals>
+            <configuration>
+              <sourceDirectory>${basedir}/src/plp/debug/objetos2/parser</sourceDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals><goal>add-source</goal></goals>
+            <configuration>
+              <sources>
+                <source>target/generated-sources/javacc</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

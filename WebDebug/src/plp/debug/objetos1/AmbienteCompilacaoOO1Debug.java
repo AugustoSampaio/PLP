@@ -10,6 +10,8 @@ import loo1.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoExc
 import loo1.plp.orientadaObjetos1.memoria.AmbienteCompilacaoOO1;
 import loo1.plp.orientadaObjetos1.memoria.DefClasse;
 import loo1.plp.orientadaObjetos1.util.Tipo;
+import plp.debug.core.InfoEscopo;
+import plp.debug.core.ScopeAware;
 import plp.debug.core.SnapshotRecorder;
 
 /**
@@ -17,7 +19,7 @@ import plp.debug.core.SnapshotRecorder;
  * ambiente real, sem alterar Objetos1. Observa incrementa()/restaura()/
  * map() para alimentar um {@link SnapshotRecorder}.
  */
-public class AmbienteCompilacaoOO1Debug implements AmbienteCompilacaoOO1 {
+public class AmbienteCompilacaoOO1Debug implements AmbienteCompilacaoOO1, ScopeAware {
 
 	private final AmbienteCompilacaoOO1 target;
 	private final SnapshotRecorder recorder = new SnapshotRecorder();
@@ -28,6 +30,11 @@ public class AmbienteCompilacaoOO1Debug implements AmbienteCompilacaoOO1 {
 
 	public SnapshotRecorder getRecorder() {
 		return recorder;
+	}
+
+	@Override
+	public void registraEscopo(InfoEscopo info) {
+		recorder.registraEscopo(info);
 	}
 
 	@Override
@@ -45,7 +52,7 @@ public class AmbienteCompilacaoOO1Debug implements AmbienteCompilacaoOO1 {
 	@Override
 	public void map(Id idArg, Tipo tipoId) throws loo1.plp.expressions2.memory.VariavelJaDeclaradaException {
 		target.map(idArg, tipoId);
-		recorder.recordBinding(idArg, tipoId);
+		recorder.recordBinding(idArg, tipoId, null);
 	}
 
 	@Override

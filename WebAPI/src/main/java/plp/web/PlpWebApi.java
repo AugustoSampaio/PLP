@@ -10,12 +10,6 @@ import java.util.StringTokenizer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import le1.plp.expressions1.parser.Exp1Parser;
-import le1.plp.expressions1.parser.ParseException;
-import le2.plp.expressions2.parser.Exp2Parser;
-import lf1.plp.functional1.parser.Func1Parser;
-import lf2.plp.functional2.parser.Func2Parser;
-import lf3.plp.functional3.parser.Func3Parser;
 import li1.plp.imperative1.memory.ContextoCompilacaoImperativa;
 import li1.plp.imperative1.memory.ContextoExecucaoImperativa;
 import li1.plp.imperative1.parser.Imp1Parser;
@@ -23,7 +17,6 @@ import li2.plp.imperative2.memory.ContextoExecucaoImperativa2;
 import li2.plp.imperative2.parser.Imp2Parser;
 import loo1.plp.orientadaObjetos1.parser.OO1Parser;
 import loo2.plp.orientadaObjetos2.parser.OO2Parser;
-import plp.debug.core.SourceRangeResolver;
 import plp.debug.imperativa1.AmbienteCompilacaoImperativaDebug;
 import plp.debug.objetos1.AmbienteCompilacaoOO1Debug;
 import plp.debug.objetos2.AmbienteCompilacaoOO2Debug;
@@ -44,15 +37,15 @@ public final class PlpWebApi {
   private String message;
   private String compilationEnv;
 
-  private static Exp1Parser  exp1Parser;
-  private static Exp2Parser  exp2Parser;
-  private static Func1Parser func1Parser;
-  private static Func2Parser func2Parser;
-  private static Func3Parser func3Parser;
-  private static Imp1Parser  imp1Parser;
-  private static Imp2Parser  imp2Parser;
-  private static OO1Parser   oo1Parser;
-  private static OO2Parser   oo2Parser;
+  private static plp.debug.expressoes1.parser.Exp1DebugParser exp1DebugParser;
+  private static plp.debug.expressoes2.parser.Exp2DebugParser exp2DebugParser;
+  private static plp.debug.imperativa1.parser.Imp1DebugParser imp1DebugParser;
+  private static plp.debug.imperativa2.parser.Imp2DebugParser imp2DebugParser;
+  private static plp.debug.objetos1.parser.OO1DebugParser oo1DebugParser;
+  private static plp.debug.objetos2.parser.OO2DebugParser oo2DebugParser;
+  private static plp.debug.funcional1.parser.Func1DebugParser func1DebugParser;
+  private static plp.debug.funcional2.parser.Func2DebugParser func2DebugParser;
+  private static plp.debug.funcional3.parser.Func3DebugParser func3DebugParser;
 
   @JSExport
   public static PlpResult __runCode(String language, String sourceCode, String input) {
@@ -107,10 +100,10 @@ public final class PlpWebApi {
     return toJsonString(CompilationSnapshot.fromGenericSnapshot(languageId, frames));
   }
 
-  private void interpretarExp1(InputStream fis) throws ParseException {
-    if (exp1Parser == null) exp1Parser = new Exp1Parser(fis);
-    else Exp1Parser.ReInit(fis);
-    le1.plp.expressions1.Programa prog = Exp1Parser.Input();
+  private void interpretarExp1(InputStream fis) throws Exception {
+    if (exp1DebugParser == null) exp1DebugParser = new plp.debug.expressoes1.parser.Exp1DebugParser(fis);
+    else plp.debug.expressoes1.parser.Exp1DebugParser.ReInit(fis);
+    le1.plp.expressions1.Programa prog = plp.debug.expressoes1.parser.Exp1DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     if (prog.checaTipo()) {
       output = prog.executar().toString();
@@ -119,60 +112,56 @@ public final class PlpWebApi {
   }
 
   private void interpretarExp2(InputStream fis, String src) throws Exception {
-    if (exp2Parser == null) exp2Parser = new Exp2Parser(fis);
-    else Exp2Parser.ReInit(fis);
-    le2.plp.expressions2.Programa prog = Exp2Parser.Input();
+    if (exp2DebugParser == null) exp2DebugParser = new plp.debug.expressoes2.parser.Exp2DebugParser(fis);
+    else plp.debug.expressoes2.parser.Exp2DebugParser.ReInit(fis);
+    le2.plp.expressions2.Programa prog = plp.debug.expressoes2.parser.Exp2DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     plp.debug.expressoes2.AmbienteCompilacaoDebug ambienteDebug =
         new plp.debug.expressoes2.AmbienteCompilacaoDebug(new le2.plp.expressions2.memory.ContextoCompilacao());
     if (prog.getExpressao().checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.expressoes2.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("exp2", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("exp2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarFunc1(InputStream fis, String src) throws Exception {
-    if (func1Parser == null) func1Parser = new Func1Parser(fis);
-    else Func1Parser.ReInit(fis);
-    lf1.plp.functional1.Programa prog = Func1Parser.Input();
+    if (func1DebugParser == null) func1DebugParser = new plp.debug.funcional1.parser.Func1DebugParser(fis);
+    else plp.debug.funcional1.parser.Func1DebugParser.ReInit(fis);
+    lf1.plp.functional1.Programa prog = plp.debug.funcional1.parser.Func1DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     plp.debug.funcional1.AmbienteCompilacaoDebug ambienteDebug =
         new plp.debug.funcional1.AmbienteCompilacaoDebug(new lf1.plp.expressions2.memory.ContextoCompilacao());
     if (prog.getExpressao().checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional1.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("func1", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("func1", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarFunc2(InputStream fis, String src) throws Exception {
-    if (func2Parser == null) func2Parser = new Func2Parser(fis);
-    else Func2Parser.ReInit(fis);
-    lf2.plp.functional2.Programa prog = Func2Parser.Input();
+    if (func2DebugParser == null) func2DebugParser = new plp.debug.funcional2.parser.Func2DebugParser(fis);
+    else plp.debug.funcional2.parser.Func2DebugParser.ReInit(fis);
+    lf2.plp.functional2.Programa prog = plp.debug.funcional2.parser.Func2DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     plp.debug.funcional2.AmbienteCompilacaoDebug ambienteDebug =
         new plp.debug.funcional2.AmbienteCompilacaoDebug(new lf2.plp.expressions2.memory.ContextoCompilacao());
     if (prog.getExpressao().checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional2.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("func2", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("func2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar().toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarFunc3(InputStream fis, String src) throws Exception {
-    if (func3Parser == null) func3Parser = new Func3Parser(fis);
-    else Func3Parser.ReInit(fis);
-    lf3.plp.functional3.Programa prog = Func3Parser.Input();
+    if (func3DebugParser == null) func3DebugParser = new plp.debug.funcional3.parser.Func3DebugParser(fis);
+    else plp.debug.funcional3.parser.Func3DebugParser.ReInit(fis);
+    lf3.plp.functional3.Programa prog = plp.debug.funcional3.parser.Func3DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     plp.debug.funcional3.AmbienteCompilacaoDebug ambienteDebug =
         new plp.debug.funcional3.AmbienteCompilacaoDebug(new lf3.plp.expressions2.memory.ContextoCompilacao());
     if (prog.getExpressao().checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.funcional3.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("func3", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("func3", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar().toString();
     } else {
       throw new RuntimeException("erro de tipos!");
@@ -180,65 +169,61 @@ public final class PlpWebApi {
   }
 
   private void interpretarImp1(InputStream fis, String entradaStr, String src) throws Exception {
-    if (imp1Parser == null) imp1Parser = new Imp1Parser(fis);
-    else Imp1Parser.ReInit(fis);
-    li1.plp.imperative1.Programa prog = Imp1Parser.Input();
+    if (imp1DebugParser == null) imp1DebugParser = new plp.debug.imperativa1.parser.Imp1DebugParser(fis);
+    else plp.debug.imperativa1.parser.Imp1DebugParser.ReInit(fis);
+    li1.plp.imperative1.Programa prog = plp.debug.imperativa1.parser.Imp1DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     li1.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp1(entradaStr);
     AmbienteCompilacaoImperativaDebug ambienteDebug =
         new AmbienteCompilacaoImperativaDebug(new ContextoCompilacaoImperativa(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.imperativa1.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("imp1", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("imp1", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new ContextoExecucaoImperativa(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarImp2(InputStream fis, String entradaStr, String src) throws Exception {
-    if (imp2Parser == null) imp2Parser = new Imp2Parser(fis);
-    else Imp2Parser.ReInit(fis);
-    li2.plp.imperative2.Programa prog = Imp2Parser.Input();
+    if (imp2DebugParser == null) imp2DebugParser = new plp.debug.imperativa2.parser.Imp2DebugParser(fis);
+    else plp.debug.imperativa2.parser.Imp2DebugParser.ReInit(fis);
+    li2.plp.imperative2.Programa prog = plp.debug.imperativa2.parser.Imp2DebugParser.Input();
     message = "sintaxe verificada com sucesso!";
     li2.plp.imperative1.memory.ListaValor entrada = obterListaEntradaImp2(entradaStr);
     plp.debug.imperativa2.AmbienteCompilacaoImperativaDebug ambienteDebug =
         new plp.debug.imperativa2.AmbienteCompilacaoImperativaDebug(
             new li2.plp.imperative1.memory.ContextoCompilacaoImperativa(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.imperativa2.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("imp2", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("imp2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new ContextoExecucaoImperativa2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarOO1(InputStream fis, String entradaStr, String src) throws Exception {
-    if (oo1Parser == null) oo1Parser = new OO1Parser(fis);
-    else oo1Parser.ReInit(fis);
-    loo1.plp.orientadaObjetos1.Programa prog = oo1Parser.processaEntrada();
+    if (oo1DebugParser == null) oo1DebugParser = new plp.debug.objetos1.parser.OO1DebugParser(fis);
+    else oo1DebugParser.ReInit(fis);
+    loo1.plp.orientadaObjetos1.Programa prog = oo1DebugParser.processaEntrada();
     message = "sintaxe verificada com sucesso!";
     loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO1(entradaStr);
     AmbienteCompilacaoOO1Debug ambienteDebug =
         new AmbienteCompilacaoOO1Debug(new loo1.plp.orientadaObjetos1.memoria.ContextoCompilacaoOO1(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.objetos1.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("oo1", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("oo1", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new loo1.plp.orientadaObjetos1.memoria.ContextoExecucaoOO1(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");
   }
 
   private void interpretarOO2(InputStream fis, String entradaStr, String src) throws Exception {
-    if (oo2Parser == null) oo2Parser = new OO2Parser(fis);
-    else oo2Parser.ReInit(fis);
-    loo2.plp.orientadaObjetos2.Programa prog = oo2Parser.processaEntrada();
+    if (oo2DebugParser == null) oo2DebugParser = new plp.debug.objetos2.parser.OO2DebugParser(fis);
+    else oo2DebugParser.ReInit(fis);
+    loo2.plp.orientadaObjetos2.Programa prog = oo2DebugParser.processaEntrada();
     message = "sintaxe verificada com sucesso!";
     loo2.plp.orientadaObjetos1.memoria.colecao.ListaValor entrada = obterListaEntradaOO2(entradaStr);
     AmbienteCompilacaoOO2Debug ambienteDebug =
         new AmbienteCompilacaoOO2Debug(new loo2.plp.orientadaObjetos2.memoria.ContextoCompilacaoOO2(entrada));
     if (prog.checaTipo(ambienteDebug)) {
-      SourceRangeResolver ranges = new SourceRangeResolver(plp.debug.objetos2.TokenReader.read(src));
-      compilationEnv = compilationEnvJson("oo2", ambienteDebug.getRecorder().getSnapshot(ranges));
+      compilationEnv = compilationEnvJson("oo2", ambienteDebug.getRecorder().getSnapshot());
       output = prog.executar(new loo2.plp.orientadaObjetos2.memoria.ContextoExecucaoOO2(entrada)).toString();
     }
     else throw new RuntimeException("erro de tipos!");

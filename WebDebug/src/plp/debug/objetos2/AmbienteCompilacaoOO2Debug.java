@@ -11,6 +11,8 @@ import loo2.plp.orientadaObjetos1.memoria.DefClasse;
 import loo2.plp.orientadaObjetos1.util.Tipo;
 import loo2.plp.orientadaObjetos2.memoria.AmbienteCompilacaoOO2;
 import loo2.plp.orientadaObjetos2.util.SuperClasseMap;
+import plp.debug.core.InfoEscopo;
+import plp.debug.core.ScopeAware;
 import plp.debug.core.SnapshotRecorder;
 
 /**
@@ -18,7 +20,7 @@ import plp.debug.core.SnapshotRecorder;
  * ambiente real, sem alterar Objetos2. Observa incrementa()/restaura()/
  * map() para alimentar um {@link SnapshotRecorder}.
  */
-public class AmbienteCompilacaoOO2Debug implements AmbienteCompilacaoOO2 {
+public class AmbienteCompilacaoOO2Debug implements AmbienteCompilacaoOO2, ScopeAware {
 
 	private final AmbienteCompilacaoOO2 target;
 	private final SnapshotRecorder recorder = new SnapshotRecorder();
@@ -29,6 +31,11 @@ public class AmbienteCompilacaoOO2Debug implements AmbienteCompilacaoOO2 {
 
 	public SnapshotRecorder getRecorder() {
 		return recorder;
+	}
+
+	@Override
+	public void registraEscopo(InfoEscopo info) {
+		recorder.registraEscopo(info);
 	}
 
 	@Override
@@ -46,7 +53,7 @@ public class AmbienteCompilacaoOO2Debug implements AmbienteCompilacaoOO2 {
 	@Override
 	public void map(Id idArg, Tipo tipoId) throws loo2.plp.expressions2.memory.VariavelJaDeclaradaException {
 		target.map(idArg, tipoId);
-		recorder.recordBinding(idArg, tipoId);
+		recorder.recordBinding(idArg, tipoId, null);
 	}
 
 	@Override
