@@ -9,7 +9,6 @@ package li2.plp.imperative2.parser;
 
 import li2.plp.expressions1.util.*;
 import li2.plp.expressions2.expression.*;
-import li2.plp.expressions2.memory.*;
 import li2.plp.imperative1.command.*;
 import li2.plp.imperative1.declaration.*;
 import li2.plp.imperative1.memory.*;
@@ -667,19 +666,13 @@ ComandoDeclaracao PComandoDeclaracao() :
 {
 	Declaracao dec;
 	Comando comando;
-	Token lbraceToken;
-	Token rbraceToken;
 }
 {
-	lbraceToken = <LBRACE> 
+	<LBRACE> 
 		dec = PDeclaracao() <SEMICOLON> comando = PComando() 
-	rbraceToken = <RBRACE>
+	<RBRACE>
  	{
-	 	return new ComandoDeclaracao(
-	 		dec,
-	 		comando,
-	 		new InfoEscopo(new TrechoCodigoFonte(lbraceToken.beginLine, lbraceToken.beginColumn, rbraceToken.endLine, rbraceToken.endColumn), "block")
-	 	);
+ 		return new ComandoDeclaracao(dec, comando);
  	}
 }
 
@@ -721,21 +714,16 @@ DeclaracaoProcedimento PDeclaracaoProcedimento():
 {
 	Id nome;
 	DefProcedimento defProcedimento;
-	Token procToken;
 }
 {
     (
         LOOKAHEAD(<PROC> PId() <LPAREN> <RPAREN>)
-	    	procToken = <PROC> nome = PId() <LPAREN> <RPAREN> defProcedimento = PDefProcedimento()
+    	<PROC> nome = PId() <LPAREN> <RPAREN> defProcedimento = PDefProcedimento()
     	|
-	    	procToken = <PROC> nome = PId() <LPAREN> defProcedimento = PDefProcedimento()
+    	<PROC> nome = PId() <LPAREN> defProcedimento = PDefProcedimento()
     )
 	{
-	    return new DeclaracaoProcedimento (
-	     	nome,
-	     	defProcedimento,
-	     	new InfoEscopo(new TrechoCodigoFonte(procToken.beginLine, procToken.beginColumn, defProcedimento.getInfoEscopo().getTrechoCodigoFonte().getLinhaFim(), defProcedimento.getInfoEscopo().getTrechoCodigoFonte().getColunaFim()), "procedure")
-	    );
+	    return new DeclaracaoProcedimento (nome, defProcedimento);
 	}
 }
 
@@ -743,23 +731,17 @@ DefProcedimento PDefProcedimento():
 {
 	ListaDeclaracaoParametro listaPar = null;
 	Comando comando;
-	Token lbraceToken;
-	Token rbraceToken;
 }
 {
     (
-		lbraceToken = <LBRACE> comando = PComando() rbraceToken = <RBRACE>
-	    	| listaPar = PListaDeclaracaoParametro() <RPAREN> lbraceToken = <LBRACE> comando = PComando() rbraceToken = <RBRACE>
+		<LBRACE> comando = PComando() <RBRACE>
+	   	| listaPar = PListaDeclaracaoParametro() <RPAREN> <LBRACE> comando = PComando() <RBRACE>
     )
 	{
 	    if(listaPar == null) {
 	        listaPar = new ListaDeclaracaoParametro();
 	    }
-		return new DefProcedimento(
-			listaPar,
-			comando,
-			new InfoEscopo(new TrechoCodigoFonte(lbraceToken.beginLine, lbraceToken.beginColumn, rbraceToken.endLine, rbraceToken.endColumn), "procedure")
-		);
+	    return new DefProcedimento (listaPar, comando);
 	}
 	
 }

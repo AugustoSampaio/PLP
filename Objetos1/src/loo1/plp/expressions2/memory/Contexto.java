@@ -16,24 +16,20 @@ public class Contexto<T> {
 	 * A pilhaValor de blocos de contexto.
 	 */
 	protected Stack<HashMap<Id, T>> pilha;
-	protected final SnapshotPilha<T> snapshot;
 
 	/**
 	 * Construtor da classe.
 	 */
 	public Contexto() {
 		pilha = new Stack<HashMap<Id, T>>();
-		snapshot = new SnapshotPilha<T>();
 	}
 
 	public void incrementa() {
 		pilha.push(new HashMap<Id, T>());
-		snapshot.incrementa();
 	}
 
 	public void restaura() {
 		pilha.pop();
-		snapshot.restaura();
 	}
 
 	/**
@@ -47,7 +43,6 @@ public class Contexto<T> {
 			HashMap<Id, T> aux = pilha.peek();
 			if (aux.put(idArg, valorId) != null)
 				throw new IdentificadorJaDeclaradoException();
-			snapshot.map(idArg == null ? "null" : idArg.toString(), valorId);
 		} catch (IdentificadorJaDeclaradoException e) {
 			throw new VariavelJaDeclaradaException(idArg);
 		}
@@ -98,10 +93,6 @@ public class Contexto<T> {
 	 */
 	protected void setPilha(Stack<HashMap<Id, T>> pilha) {
 		this.pilha = pilha;
-	}
-
-	public java.util.List<java.util.Map<String, Object>> getPilhaSnapshot() {
-		return snapshot.getPilhaSnapshot();
 	}
 
 	/*

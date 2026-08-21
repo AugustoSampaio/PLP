@@ -13,55 +13,80 @@ import loo1.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoJaDeclaradoExce
 import loo1.plp.orientadaObjetos1.excecao.declaracao.ProcedimentoNaoDeclaradoException;
 import loo1.plp.orientadaObjetos1.memoria.colecao.ListaValor;
 import loo1.plp.orientadaObjetos1.util.Tipo;
-
 /**
- * Representa o contexto de compilação OO1.
+ * Representa o contexto de compila�ao.
  */
 public class ContextoCompilacaoOO1 implements AmbienteCompilacaoOO1 {
 
+    /**
+     * A pilha de tipos do contexto. Onde o tipo do id pode ser
+     * um tipo primitivo ou uma classe.
+     */
     private Stack<HashMap<Id, Tipo>> pilha;
+
+    /**
+     * A pilha de procedimentos do contexto.
+     */
     private Stack<HashMap<Id, ListaDeclaracaoParametro>> pilhaProcedimento;
-    private HashMap<Id, DefClasse> mapDefClasse;
-    private final MetadadosDepuracao<Tipo> metadadosDepuracao;
+
+
+    /**
+     * mapeamento de classes do contexto.
+     * nao � necessaria uma pilha, pois ha apenas um nivel de mapeamentos
+     */
+    private HashMap<Id, DefClasse> mapDefClasse;  
+
+     /**
+     * A tail de valores inicias do contexto.
+     */
     private ListaValor entrada;
 
+    /**
+     * O Construtor da classe.
+     */
     public ContextoCompilacaoOO1(ListaValor entrada){
         pilha = new Stack<HashMap<Id, Tipo>>();
         pilhaProcedimento = new Stack<HashMap<Id, ListaDeclaracaoParametro>>();
-        mapDefClasse = new HashMap<Id, DefClasse>();
+        mapDefClasse = new HashMap<Id, DefClasse>();  //cria mapeamento ids def classes
         this.entrada = entrada;
-        metadadosDepuracao = new MetadadosDepuracao<Tipo>();
     }
 
+    /**
+     * Incrementa a pilha do ambiente, passando para o pr�ximo estado.
+     */
     public void incrementa(){
         pilha.push(new HashMap<Id, Tipo>());
         pilhaProcedimento.push(new HashMap<Id, ListaDeclaracaoParametro>());
-        metadadosDepuracao.getPilhaSnapshot().incrementa();
     }
 
-    public void registraEscopo(InfoEscopo info) {
-        metadadosDepuracao.getPilhaSnapshot().registraEscopo(info);
-    }
-
-    /** Registra o escopo com um nome legível para o debugger. */
-	public void registraEscopo(InfoEscopo info, String nome) {
-		metadadosDepuracao.getPilhaSnapshot().registraEscopo(info, nome);
-	}
-
+    /**
+     * Restaura o estado do ambiente.
+     */
     public void restaura(){
         pilha.pop();
         pilhaProcedimento.pop();
-        metadadosDepuracao.getPilhaSnapshot().restaura();
     }
-
-    public void map(Id idArg, Tipo tipoId) throws VariavelJaDeclaradaException {
-        HashMap<Id, Tipo> aux = pilha.peek();
+    /**
+     * Mapeia um identificador a um tipo.
+     * @param idArg Identificador
+     * @param tipoId Tipo que deve ser associado ao identificador.
+     * @throws VariavelJaDeclaradaException quando o id j� foi declarado.
+     */
+    public void map(Id idArg, Tipo tipoId)
+        throws VariavelJaDeclaradaException {
+        HashMap<loo1.plp.expressions2.expression.Id, Tipo> aux = pilha.peek();
         if (aux.put(idArg, tipoId) != null) {
             throw new VariavelJaDeclaradaException(idArg);
         }
-        metadadosDepuracao.getPilhaSnapshot().map(idArg == null ? "null" : idArg.toString(), tipoId);
     }
 
+    /**
+     * Mapeia um identificador representando um m�todo aos seus par�metros.
+     * @param idArg identificador do m�todo.
+     * @param parametrosId Par�metros do m�todo
+     * @throws ProcedimentoJaDeclaradoException quando o procedimento j� foi
+     * declarado.
+     */
     public void mapParametrosProcedimento(Id idArg, ListaDeclaracaoParametro parametrosId)
         throws ProcedimentoJaDeclaradoException {
         HashMap<Id, ListaDeclaracaoParametro> aux = pilhaProcedimento.peek();
@@ -70,6 +95,12 @@ public class ContextoCompilacaoOO1 implements AmbienteCompilacaoOO1 {
         }
     }
 
+    /**
+     * Mapeia um identificador a um defini��o de classe.
+     * @param idArg o nome da classe
+     * @param defClasse Defini��o da Classe.
+     * @throws ClasseJaDeclaradaException quando a classe j� foi declarada.
+     */
     public void mapDefClasse(Id idArg, DefClasse defClasse)
         throws ClasseJaDeclaradaException {
         if (mapDefClasse.put(idArg, defClasse) != null) {
@@ -77,11 +108,18 @@ public class ContextoCompilacaoOO1 implements AmbienteCompilacaoOO1 {
         }
     }
 
-    public Tipo get(Id idArg) throws VariavelNaoDeclaradaException {
+    /**
+     * Obt�m o tipo associado a um dado identificador
+     * @param idArg Identificador
+     * @return Tipo associado a um dado identificador
+     * @throws VariavelNaoDeclaradaException quando id n�o foi declarado.
+     */
+    public Tipo get(Id idArg)
+        throws VariavelNaoDeclaradaException {
         Tipo result = null;
         Stack<HashMap<Id, Tipo>> auxStack = new Stack<HashMap<Id, Tipo>>();
         while (result == null && !pilha.empty()) {
-            HashMap<Id, Tipo> aux = pilha.pop();
+			HashMap<Id, Tipo> aux = pilha.pop();
             auxStack.push(aux);
             result = aux.get(idArg);
         }
@@ -90,12 +128,22 @@ public class ContextoCompilacaoOO1 implements AmbienteCompilacaoOO1 {
         }
         if (result == null) {
             throw new VariavelNaoDeclaradaException(idArg);
+        } else {
+            return result;
         }
-        return result;
     }
 
+    /**
+     * Obt�m a tail de par�metros associada a um identificador que representa
+     * nome do m�todo.
+     * @param idArg Identificador que representa o nome do m�todo.
+     * @return Lista de par�metros Lista de par�metros associada a um identificador que representa
+     * nome do m�todo.
+     * @throws ProcedimentoNaoDeclaradoException quando n�o foi declarado nenhum
+     * m�todo com esse id.
+     */
     public ListaDeclaracaoParametro getParametrosProcedimento(Id idArg)
-        throws ProcedimentoNaoDeclaradoException {
+        throws ProcedimentoNaoDeclaradoException  {
         ListaDeclaracaoParametro result = null;
         Stack<HashMap<Id, ListaDeclaracaoParametro>> auxStack = new Stack<HashMap<Id, ListaDeclaracaoParametro>>();
         while (result == null && !pilhaProcedimento.empty()) {
@@ -108,29 +156,66 @@ public class ContextoCompilacaoOO1 implements AmbienteCompilacaoOO1 {
         }
         if (result == null) {
             throw new ProcedimentoNaoDeclaradoException(idArg);
+        } else {
+            return result;
         }
-        return result;
     }
 
-    public DefClasse getDefClasse(Id idArg) throws ClasseNaoDeclaradaException {
-        DefClasse result = mapDefClasse.get(idArg);
+    /**
+     * Obt�m a defini��o da classe cujo nome � idArg
+     * @param idArg Nome da classe.
+     * @return a defini��o da classe.
+     * @throws ClasseNaoDeclaradaException quando nao foi declarada nenhuma
+     * classe com esse nome.
+     */
+    public DefClasse getDefClasse(Id idArg)
+        throws ClasseNaoDeclaradaException  {
+        DefClasse result = null;
+        result = this.mapDefClasse.get(idArg);
         if (result == null) {
             throw new ClasseNaoDeclaradaException(idArg);
+        } else {
+            return result;
         }
-        return result;
     }
 
-    public Tipo getTipoEntrada() throws VariavelNaoDeclaradaException {
-        Tipo aux = entrada.getHead().getTipo(this);
-        entrada = (ListaValor) entrada.getTail();
+    /**
+     * Obt�m o tipo da entrada atual para este ambiente.
+     * @return o tipo da entrada.
+     * @throws VariavelNaoDeclaradaException quando a entrada atual �
+     * uma vari�vel n�o declarada.
+     */
+    public Tipo getTipoEntrada()
+        throws VariavelNaoDeclaradaException {
+        Tipo aux =  entrada.getHead().getTipo(this);
+        entrada = (ListaValor)entrada.getTail();
         return aux;
     }
+    
+    /**
+     * Obt�m o tipo associado a um dado identificador
+     * @param idArg Identificador
+     * @return Tipo associado a um dado identificador
+     * @throws VariavelNaoDeclaradaException quando id n�o foi declarado.
+     */
+    public Tipo getTipo(Id idArg)
+        throws VariavelNaoDeclaradaException {
+        Tipo result = null;
+        Stack<HashMap<Id, Tipo>> auxStack = new Stack<HashMap<Id, Tipo>>();
+        while (result == null && !pilha.empty()) {
+			HashMap<Id, Tipo> aux = pilha.pop();
+            auxStack.push(aux);
+            result = aux.get(idArg);
+        }
+        while (!auxStack.empty()) {
+            pilha.push(auxStack.pop());
+        }
+        if (result == null) {
+            throw new VariavelNaoDeclaradaException(idArg);
+        } else {
+            return result;
+        }
+    }    
 
-    public Tipo getTipo(Id idArg) throws VariavelNaoDeclaradaException {
-        return get(idArg);
-    }
-
-    public java.util.List<java.util.Map<String, Object>> getPilhaSnapshot() {
-        return metadadosDepuracao.toSnapshot();
-    }
 }
+

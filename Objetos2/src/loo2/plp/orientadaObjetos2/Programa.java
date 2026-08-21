@@ -1,8 +1,5 @@
 package loo2.plp.orientadaObjetos2;
 
-import java.util.List;
-import java.util.Map;
-
 import loo2.plp.expressions2.memory.VariavelJaDeclaradaException;
 import loo2.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import loo2.plp.orientadaObjetos1.comando.Comando;
@@ -32,7 +29,6 @@ public class Programa {
      * Comando executado pos a declaracao de classes
      */
     private Comando comando;
-    private AmbienteCompilacaoOO2 ambComp;
     
     /**
      * Construtor.
@@ -88,7 +84,6 @@ public class Programa {
                ProcedimentoNaoDeclaradoException, ProcedimentoJaDeclaradoException,
                ClasseJaDeclaradaException, ClasseNaoDeclaradaException,
                EntradaNaoFornecidaException, ConstrutorNaoDeclaradoException{
-        ambComp = ambiente;
         boolean resposta;
         if(ambiente == null) {
             throw new EntradaNaoFornecidaException();
@@ -97,9 +92,5 @@ public class Programa {
         resposta = declaracoesOO.checaTipo((AmbienteCompilacaoOO2) ambiente) && comando.checaTipo(ambiente);
         ambiente.restaura();
         return resposta;
-    }
-
-    public List<Map<String, Object>> getAmbCompSnapshot() {
-        return ambComp == null ? null : ambComp.getPilhaSnapshot();
     }
 }

@@ -2,34 +2,33 @@ package li1.plp.imperative1.command;
 
 import li1.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li1.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
-import li1.plp.expressions2.memory.InfoEscopo;
 import li1.plp.imperative1.declaration.Declaracao;
 import li1.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li1.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li1.plp.imperative1.memory.EntradaVaziaException;
 import li1.plp.imperative1.memory.ErroTipoEntradaException;
 
-/**
- * Comando que introduz um bloco de declarações seguido de um comando.
- */
 public class ComandoDeclaracao implements Comando {
 
 	private Declaracao declaracao;
+
 	private Comando comando;
-	private InfoEscopo infoEscopo;
 
 	public ComandoDeclaracao(Declaracao declaracao, Comando comando) {
 		this.declaracao = declaracao;
 		this.comando = comando;
 	}
 
-	public ComandoDeclaracao(Declaracao declaracao, Comando comando, InfoEscopo infoEscopo) {
-		this(declaracao, comando);
-		this.infoEscopo = infoEscopo;
-	}
-
 	/**
-	 * Declara a(s) variável(is) e executa o comando.
+	 * Declara a(s) vari�vel(is) e executa o comando.
+	 * 
+	 * @param ambiente
+	 *            o ambiente que contem o mapeamento entre identificadores e
+	 *            valores.
+	 * 
+	 * @return o ambiente modificado pela execu��o da declara��o e do comando.
+	 * @throws ErroTipoEntradaException 
+	 * 
 	 */
 	public AmbienteExecucaoImperativa executar(
 			AmbienteExecucaoImperativa ambiente)
@@ -42,17 +41,18 @@ public class ComandoDeclaracao implements Comando {
 	}
 
 	/**
-	 * Verifica se o tipo do comando esta correto.
+	 * Verifica se o tipo do comando esta correto, levando em conta que o tipo
+	 * de uma variavel � o tipo do valor da sua primeira atribuicao.
 	 */
 	public boolean checaTipo(AmbienteCompilacaoImperativa ambiente)
 			throws IdentificadorJaDeclaradoException,
 			IdentificadorNaoDeclaradoException, EntradaVaziaException {
 		boolean resposta;
 		ambiente.incrementa();
-		ambiente.registraEscopo(infoEscopo);
 		resposta = declaracao.checaTipo(ambiente)
 				&& comando.checaTipo(ambiente);
 		ambiente.restaura();
 		return resposta;
 	}
+
 }

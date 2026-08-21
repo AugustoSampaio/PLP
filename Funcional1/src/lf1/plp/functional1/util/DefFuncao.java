@@ -47,7 +47,7 @@ public class DefFuncao {
 	 *         <code>false</code> caso contrario.
 	 * @exception VariavelNaoDeclaradaException
 	 *                se existir um identificador nao declarado no ambiente.
-	 * @exception VariavelJaDeclaradaException
+	 * @exception VariavelNaoDeclaradaException
 	 *                se existir um identificador declarado mais de uma vez no
 	 *                mesmo bloco do ambiente.
 	 */
