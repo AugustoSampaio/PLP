@@ -497,4 +497,4 @@ As seções de especificação acima descrevem a linguagem ImpSQL como definida 
 - [x] Verificação de tipos do `create-use`, incluindo a comparação com o esquema do banco
 - [x] `insert into`
 - [x] `select`
-- [ ] Tratamento de erros do banco com exceções
+- [x] Tratamento de erros do banco com exceções

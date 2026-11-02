@@ -77,10 +77,9 @@ public class SqliteManager {
                         + "' criada no SQLite.");
             }
 
-        } catch (Exception e) {
-            System.err.println(
-                "Erro ao criar tabela no SQLite: " + e.getMessage()
-            );
+        } catch (SQLException e) {
+            throw new ErroBancoException(
+                "Erro ao criar a tabela '" + id.getIdName() + "': " + e.getMessage(), e);
         }
     }
 
@@ -106,7 +105,7 @@ public class SqliteManager {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(
+            throw new ErroBancoException(
                 "Erro ao ler o esquema da tabela '" + id.getIdName() + "': " + e.getMessage(), e);
         }
 
@@ -154,7 +153,7 @@ public class SqliteManager {
 
 
         } catch (SQLException e) {
-            throw new RuntimeException(
+            throw new ErroBancoException(
                 "Erro ao inserir na tabela '" + id.getIdName() + "': " + e.getMessage(), e);
         }
     }
@@ -184,7 +183,7 @@ public class SqliteManager {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(
+            throw new ErroBancoException(
                 "Erro ao ler os registros da tabela '" + id.getIdName() + "': " + e.getMessage(), e);
         }
 
