@@ -281,17 +281,14 @@ Programa Input() :
 
 Programa PPrograma() :
 {
-	Lista<CreateUse> createUses = null;
+	ListaCreateUse createUses = new ListaCreateUse();
 	Comando comando;
 }
 {
 	( createUses = PListaCreateUse() )?
 	comando = PComando()
 	{
-		if (createUses == null){
-			return new Programa(comando);
-		}
-		return new Programa(new ComandoPersistente(createUses, comando));
+		return new Programa(createUses, comando);
 	}
 }
 
@@ -833,16 +830,16 @@ CreateUse PCreateUse() :
     }
 }
 
-Lista<CreateUse> PListaCreateUse() :
+ListaCreateUse PListaCreateUse() :
 {
     CreateUse createUse;
-    Lista<CreateUse> cauda = new Lista<CreateUse>();
+    ListaCreateUse cauda = new ListaCreateUse();
 }
 {
     createUse = PCreateUse() <SEMICOLON>
     ( cauda = PListaCreateUse() )?
     {
-        return new Lista<CreateUse>(createUse, cauda);
+        return new ListaCreateUse(createUse, cauda);
     }
 }
 
