@@ -1,4 +1,4 @@
-package li1.plp.imperative1.command;
+package li1.plp.imperative1.declaration;
 
 import li1.plp.expressions2.expression.Id;
 import li1.plp.imperative1.memory.AmbienteCompilacaoImperativa;
@@ -7,10 +7,11 @@ import li1.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li1.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li1.plp.imperative1.util.Lista;
 import li1.plp.imperative1.util.SqliteManager;
+import li1.plp.imperative1.util.Coluna;
 import java.util.HashSet;
 
 /**
- * Representa o comando {@code create-use} da linguagem ImpSQL.
+ * Representa a definicao {@code create-use} da linguagem ImpSQL.
  *
  * Cria a tabela no banco caso ela ainda não exista; se já existir,
  * a tabela existente é usada.
@@ -19,7 +20,7 @@ import java.util.HashSet;
  * A {@code colunas} representa a lista de objetos da classe {@link Coluna},
  * sendo cada objeto responsável por representar o nome e o tipo de uma coluna.
  */
-public class CreateUse implements Comando{
+public class CreateUse{
 
     private Id id;
     private Lista<Coluna> colunas;
@@ -37,8 +38,8 @@ public class CreateUse implements Comando{
         return colunas;
     }
 
-     @Override
-    public AmbienteExecucaoImperativa executar(
+    
+    public AmbienteExecucaoImperativa elabora(
             AmbienteExecucaoImperativa ambiente)
             throws IdentificadorJaDeclaradoException,
             IdentificadorNaoDeclaradoException {
@@ -101,7 +102,7 @@ public class CreateUse implements Comando{
         return fimDeclarada && fimBanco;
     }
 
-    @Override
+    
     public boolean checaTipo(
             AmbienteCompilacaoImperativa ambiente)
             throws IdentificadorJaDeclaradoException,

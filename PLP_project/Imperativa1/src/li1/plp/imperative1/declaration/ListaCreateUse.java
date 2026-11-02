@@ -1,10 +1,11 @@
-package li1.plp.imperative1.command;
+package li1.plp.imperative1.declaration;
 
 import li1.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li1.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li1.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li1.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li1.plp.imperative1.util.Lista;
+
 
 /**
  * Lista de create-use do início do programa.
@@ -24,14 +25,14 @@ public class ListaCreateUse extends Lista<CreateUse> {
     }
 
     /**
-     * Executa cada create-use, na ordem em que aparece.
+     * Elabora cada create-use, na ordem em que aparece.
      */
-    public AmbienteExecucaoImperativa executar(AmbienteExecucaoImperativa ambiente)
+    public AmbienteExecucaoImperativa elabora(AmbienteExecucaoImperativa ambiente)
             throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException {
         if (length() == 0) { // já que pode estar vazia
             return ambiente;
         }
-        return ((ListaCreateUse) getTail()).executar(getHead().executar(ambiente));
+        return ((ListaCreateUse) getTail()).elabora(getHead().elabora(ambiente));
     }
 
     /**

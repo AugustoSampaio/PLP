@@ -10,6 +10,7 @@ import li1.plp.imperative1.memory.ErroTipoEntradaException;
 import li1.plp.imperative1.util.Lista;
 import li1.plp.imperative1.util.SqliteManager;
 import java.util.List;
+import li1.plp.imperative1.util.Coluna;
 
 import li1.plp.expressions1.util.Tipo;
 import li1.plp.imperative1.memory.ListaValor;

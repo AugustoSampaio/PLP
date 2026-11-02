@@ -3,7 +3,7 @@ package li1.plp.imperative1;
 import li1.plp.expressions2.memory.IdentificadorJaDeclaradoException;
 import li1.plp.expressions2.memory.IdentificadorNaoDeclaradoException;
 import li1.plp.imperative1.command.Comando;
-import li1.plp.imperative1.command.ListaCreateUse;
+import li1.plp.imperative1.declaration.ListaCreateUse;
 import li1.plp.imperative1.memory.AmbienteCompilacaoImperativa;
 import li1.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li1.plp.imperative1.memory.EntradaVaziaException;
@@ -25,28 +25,25 @@ public class Programa {
      * @param listaCreateUse A criacao das tabelas
      * @param comando O comando executado apos a criacao das tabelas.
      */
-
     public Programa(ListaCreateUse listaCreateUse, Comando comando){
         this.listaCreateUse = listaCreateUse;
         this.comando = comando;
     }
 
     /**
-     * Executa o programa.
+     * Executa o programa: primeiro elabora os create-use, na ordem em que
+     * aparecem, e depois executa o comando.
      *
-     * @param ambienteExecucao o ambiente de execucao.
-     *
+     * @param ambienteExecucao o ambiente de execução.
+     * 
      * @return a saída produzida pelo programa.
      * 
-     * @throws ErroTipoEntradaException 
-     *
-     * @exception EntradaNaoFornecidaException se nao for fornecida
-     *  a tail de valores de entrada do programa.
-     *
-     */ 
+     * @throws ErroTipoEntradaException se um valor lido da entrada não
+     *         tiver o tipo esperado.
+     */
     public ListaValor executar(AmbienteExecucaoImperativa ambienteExecucao) 
         throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException, ErroTipoEntradaException {
-            ambienteExecucao = comando.executar(listaCreateUse.executar(ambienteExecucao));
+            ambienteExecucao = comando.executar(listaCreateUse.elabora(ambienteExecucao));
             return ambienteExecucao.getSaida();       
     }
 
@@ -59,13 +56,9 @@ public class Programa {
      * @return <code>true</code> se o programa esta bem tipado;
      *          <code>false</code> caso contrario.
      *
-     * @exception EntradaNaoFornecidaException se nao for fornecida
-     *  a tail de valores de entrada do programa.
-     *
      */
     public boolean checaTipo(AmbienteCompilacaoImperativa ambienteCompilacao)
         throws IdentificadorJaDeclaradoException, IdentificadorNaoDeclaradoException, EntradaVaziaException  {
-
             return listaCreateUse.checaTipo(ambienteCompilacao) && comando.checaTipo(ambienteCompilacao);
         
     }

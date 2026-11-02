@@ -15,6 +15,7 @@ import li1.plp.imperative1.memory.AmbienteExecucaoImperativa;
 import li1.plp.imperative1.memory.EntradaVaziaException;
 import li1.plp.imperative1.memory.ErroTipoEntradaException;
 import li1.plp.imperative1.util.Lista;
+import li1.plp.imperative1.util.Coluna;
 import li1.plp.imperative1.util.SqliteManager;
 
 /**

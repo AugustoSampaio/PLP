@@ -7,7 +7,7 @@ import li1.plp.expressions2.expression.Id;
 import li1.plp.expressions2.memory.ContextoCompilacao;
 import li1.plp.expressions2.memory.VariavelJaDeclaradaException;
 import li1.plp.expressions2.memory.VariavelNaoDeclaradaException;
-import li1.plp.imperative1.command.Coluna;
+import li1.plp.imperative1.util.Coluna;
 import li1.plp.imperative1.util.Lista;
 
 public class ContextoCompilacaoImperativa extends ContextoCompilacao 

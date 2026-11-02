@@ -3,7 +3,7 @@ package li1.plp.imperative1.memory;
 import li1.plp.expressions1.util.Tipo;
 import li1.plp.expressions2.expression.Id;
 import li1.plp.expressions2.memory.*;
-import li1.plp.imperative1.command.Coluna;
+import li1.plp.imperative1.util.Coluna;
 import li1.plp.imperative1.util.Lista;
 
 public interface AmbienteCompilacaoImperativa extends AmbienteCompilacao {

@@ -1,4 +1,4 @@
-package li1.plp.imperative1.command;
+package li1.plp.imperative1.util;
 import li1.plp.expressions2.expression.Id;
 import li1.plp.expressions1.util.Tipo;
 
