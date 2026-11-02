@@ -103,49 +103,49 @@ select nome from clientes where idade == 25
 
 ## BNF
 
-```
-Programa ::= [ListaCreateUse ";"] Comando                   [ALTERADO]
+<pre>
+<a href="PLP_project/Imperativa1/src/li1/plp/imperative1/Programa.java">Programa</a> ::= [<a href="PLP_project/Imperativa1/src/li1/plp/imperative1/declaration/ListaCreateUse.java">ListaCreateUse</a> ";"] <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Comando.java">Comando</a>                   [ALTERADO]
 
-Comando ::= Atribuicao
-          | ComandoDeclaracao
-          | While
-          | IfThenElse
-          | IO
-          | Comando ";" Comando
-          | Skip
-          | Insert                                          [NOVO]
-          | Select                                          [NOVO]
+Comando ::= <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Atribuicao.java">Atribuicao</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/ComandoDeclaracao.java">ComandoDeclaracao</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/While.java">While</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/IfThenElse.java">IfThenElse</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/IO.java">IO</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/SequenciaComando.java">Comando ";" Comando</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Skip.java">Skip</a>
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Insert.java">Insert</a>                                          [NOVO]
+          | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Select.java">Select</a>                                          [NOVO]
 
 Skip ::=
 
-Atribuicao ::= Id ":=" Expressao
+Atribuicao ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/Id.java">Id</a> ":=" <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/Expressao.java">Expressao</a>
 
-Expressao ::= Valor
-            | ExpUnaria
-            | ExpBinaria
+Expressao ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/Valor.java">Valor</a>
+            | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpUnaria.java">ExpUnaria</a>
+            | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpBinaria.java">ExpBinaria</a>
             | Id
 
-Valor ::= ValorConcreto
+Valor ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ValorConcreto.java">ValorConcreto</a>
 
-ValorConcreto ::= ValorInteiro
-                | ValorBooleano
-                | ValorString
+ValorConcreto ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ValorInteiro.java">ValorInteiro</a>
+                | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ValorBooleano.java">ValorBooleano</a>
+                | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ValorString.java">ValorString</a>
 
-ExpUnaria ::= "-" Expressao
-            | "not" Expressao
-            | "length" Expressao
+ExpUnaria ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpMenos.java">"-" Expressao</a>
+            | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpNot.java">"not" Expressao</a>
+            | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpLength.java">"length" Expressao</a>
 
-ExpBinaria ::= Expressao "+" Expressao
-             | Expressao "-" Expressao
-             | Expressao "and" Expressao
-             | Expressao "or" Expressao
-             | Expressao "==" Expressao
-             | Expressao "++" Expressao
+ExpBinaria ::= <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpSoma.java">Expressao "+" Expressao</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpSub.java">Expressao "-" Expressao</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpAnd.java">Expressao "and" Expressao</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpOr.java">Expressao "or" Expressao</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpEquals.java">Expressao "==" Expressao</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/expressions2/expression/ExpConcat.java">Expressao "++" Expressao</a>
 
-ComandoDeclaracao ::= "{" Declaracao ";" Comando "}"
+ComandoDeclaracao ::= "{" <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/declaration/Declaracao.java">Declaracao</a> ";" Comando "}"
 
-Declaracao ::= DeclaracaoVariavel
-             | DeclaracaoComposta
+Declaracao ::= <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/declaration/DeclaracaoVariavel.java">DeclaracaoVariavel</a>
+             | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/declaration/DeclaracaoComposta.java">DeclaracaoComposta</a>
 
 DeclaracaoVariavel ::= "var" Id "=" Expressao
 
@@ -156,14 +156,14 @@ While ::= "while" Expressao "do" Comando
 IfThenElse ::= "if" Expressao "then" Comando
                "else" Comando
 
-IO ::= "write" "(" Expressao ")"
-     | "read" "(" Id ")"
+IO ::= <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Write.java">"write" "(" Expressao ")"</a>
+     | <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/Read.java">"read" "(" Id ")"</a>
 
 ;-------------------------------------------------------
 ; Definição de tabelas (somente no início do programa)
 ;-------------------------------------------------------
 
-ListaCreateUse ::= CreateUse                                 [NOVO]
+ListaCreateUse ::= <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/declaration/CreateUse.java">CreateUse</a>                                 [NOVO]
                  | CreateUse ";" ListaCreateUse
 
 CreateUse ::= "create-use" Id "(" ListaColunas ")"           [NOVO]
@@ -173,7 +173,7 @@ CreateUse ::= "create-use" Id "(" ListaColunas ")"           [NOVO]
 ;-------------------------------------------------------
 
 Insert ::= "insert" "into" Id                                [NOVO]
-           "values" "(" ListaExpressao ")"
+           "values" "(" <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/command/ListaExpressao.java">ListaExpressao</a> ")"
 
 Select ::= "select" "*" "from" Id ["where" Expressao]        [NOVO]
          | "select" ListaId "from" Id ["where" Expressao]
@@ -182,10 +182,10 @@ Select ::= "select" "*" "from" Id ["where" Expressao]        [NOVO]
 ; Definições auxiliares
 ;-------------------------------------------------------
 
-ListaColunas ::= Coluna
+ListaColunas ::= <a href="PLP_project/Imperativa1/src/li1/plp/imperative1/util/Coluna.java">Coluna</a>
                | Coluna "," ListaColunas
 
-Coluna ::= Id Tipo
+Coluna ::= Id <a href="PLP_project/Imperativa1/src/li1/plp/expressions1/util/Tipo.java">Tipo</a>
 
 Tipo ::= "int"
        | "boolean"
@@ -196,9 +196,27 @@ ListaExpressao ::= Expressao
 
 ListaId ::= Id
           | Id "," ListaId
-```
+</pre>
+
 
 Na BNF, `[ ... ]` indica um elemento opcional.
+
+### Classes Auxiliares
+
+- [AmbienteCompilacaoImperativa](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/AmbienteCompilacaoImperativa.java) [ALTERADO]
+- [AmbienteExecucaoImperativa](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/AmbienteExecucaoImperativa.java)
+- [ContextoCompilacaoImperativa](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/ContextoCompilacaoImperativa.java) [ALTERADO]
+- [ContextoExecucaoImperativa](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/ContextoExecucaoImperativa.java)
+- [EntradaVaziaException](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/EntradaVaziaException.java)
+- [ListaValor](PLP_project/Imperativa1/src/li1/plp/imperative1/memory/ListaValor.java)
+- [Lista](PLP_project/Imperativa1/src/li1/plp/imperative1/util/Lista.java): também representa `ListaColunas` e `ListaId`
+- [SqliteManager](PLP_project/Imperativa1/src/li1/plp/imperative1/util/SqliteManager.java) [NOVO]
+- [SqliteHelper](PLP_project/Imperativa1/src/li1/plp/imperative1/util/SqliteHelper.java) [NOVO]
+
+### Parser
+
+- [Imperative1](PLP_project/Imperativa1/src/li1/plp/imperative1/parser/Imperative1.jj) [ALTERADO]
+
 
 ## Decisões de Projeto
 
