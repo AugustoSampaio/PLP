@@ -61,14 +61,21 @@ public class SqliteManager {
         }
 
         sql.append(");");
-
+        
+        boolean existia = lerEsquema(id) != null;
+        
         try (Connection conn = DriverManager.getConnection(URL_BANCO);
              Statement stmt = conn.createStatement()) {
 
             stmt.executeUpdate(sql.toString());
 
-            System.out.println("[ImpSQL] Tabela '" + id.getIdName()
-                    + "' criada no SQLite.");
+            if (existia) {
+                System.out.println("[ImpSQL] Tabela '" + id.getIdName()
+                        + "' ja existe no SQLite; usando a tabela existente.");
+            } else {
+                System.out.println("[ImpSQL] Tabela '" + id.getIdName()
+                        + "' criada no SQLite.");
+            }
 
         } catch (Exception e) {
             System.err.println(
