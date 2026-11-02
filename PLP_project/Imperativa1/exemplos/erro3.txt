@@ -1,0 +1,2 @@
+create-use clientes (nome string, idade int, ativo boolean);
+insert into clientes values ("Ana", 20)

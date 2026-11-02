@@ -1,0 +1,4 @@
+{ var x = 1;
+  create-use t (a int);
+  write(x)
+}

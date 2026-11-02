@@ -6,6 +6,7 @@
 
   <properties>
     <revision>0.0.1</revision>
+    <file>input</file>
   </properties>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -43,7 +44,7 @@
         <version>3.5.0</version>
         <configuration>
           <mainClass>li1.plp.imperative1.parser.Imp1Parser</mainClass>
-          <commandlineArgs>input</commandlineArgs>
+          <commandlineArgs>${file}</commandlineArgs>
         </configuration>
       </plugin>
       <plugin>

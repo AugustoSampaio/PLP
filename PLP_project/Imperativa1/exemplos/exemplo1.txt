@@ -1,0 +1,5 @@
+create-use clientes (nome string, idade int, ativo boolean);
+{ var n = "Bob", var i = 30;
+  insert into clientes values ("Alice", 25, true);
+  insert into clientes values (n, i + 1, false)
+}

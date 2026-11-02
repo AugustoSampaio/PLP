@@ -1,0 +1,2 @@
+create-use clientes (nome string, idade string, ativo boolean);
+select * from clientes
