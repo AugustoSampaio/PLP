@@ -1,0 +1,5 @@
+create-use clientes (nome string, idade int, ativo boolean);
+{ var x = 0;
+  select nome from clientes where idade == 25;
+  write(nome)
+}

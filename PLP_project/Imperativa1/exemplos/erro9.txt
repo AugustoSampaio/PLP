@@ -1,0 +1,2 @@
+create-use produtos (nome string, nome int);
+select * from produtos

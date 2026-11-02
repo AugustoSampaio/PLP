@@ -1,0 +1,6 @@
+create-use clientes (nome string, idade int, ativo boolean);
+{ var n = 0;
+  (while not (n == 3) do n := n + 1);
+  (if n == 3 then skip
+   else insert into clientes values ("Zeca", true, 10))
+}

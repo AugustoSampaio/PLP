@@ -1,0 +1,16 @@
+create-use clientes (nome string, idade int, ativo boolean);
+create-use clientes (nome string, idade int, ativo boolean);
+create-use ativos (nome string);
+create-use inativos (nome string);
+{ var n = "", var a = false, var k = 0;
+  (while not (k == 3) do (
+     read(n); read(a);
+     (if a then insert into ativos values (n)
+           else insert into inativos values (n));
+     k := k + 1
+  ));
+  write("ativos:");
+  select * from ativos;
+  write("inativos:");
+  select * from inativos
+}

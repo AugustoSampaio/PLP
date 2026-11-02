@@ -1,0 +1,3 @@
+create-use produtos (nome string, preco int);
+create-use produtos (nome string);
+select * from produtos

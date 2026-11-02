@@ -1,0 +1,2 @@
+create-use clientes (nome string, idade int, ativo boolean);
+select nome from clientes where cidade == "Recife"

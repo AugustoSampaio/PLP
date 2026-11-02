@@ -1,0 +1,1 @@
+create-use clientes (nome string, idade int, ativo boolean);

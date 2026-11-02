@@ -1,0 +1,4 @@
+create-use clientes (nome string, idade int, ativo boolean);
+{ var limite = 31;
+  select idade, nome from clientes where ((not ativo) and (idade == limite)) or (nome == "Carla")
+}

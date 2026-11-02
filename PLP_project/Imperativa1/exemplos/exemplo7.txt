@@ -1,0 +1,9 @@
+create-use clientes (nome string, idade int, ativo boolean);
+{ var n = "", var i = 0, var a = false, var k = 0;
+  (while not (k == 2) do (
+     read(n); read(i); read(a);
+     insert into clientes values (n ++ " Silva", i, a);
+     k := k + 1
+  ));
+  select nome from clientes where (idade == 40) or (idade == 19)
+}
