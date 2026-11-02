@@ -40,7 +40,7 @@ Estender a linguagem Imperativa 1 com comandos para definição de tabelas, inse
 
 ## Resumo do Projeto
 
-A extensão adiciona três comandos à linguagem Imperativa 1:
+A extensão adiciona à linguagem Imperativa 1 a definição de tabelas e dois comandos:
 
 - `create-use` — definição de uma tabela no início do programa: cria a tabela se ela não existir, ou usa a existente se o esquema for compatível.
 - `insert into` — inserção de um registro na tabela.
@@ -48,7 +48,7 @@ A extensão adiciona três comandos à linguagem Imperativa 1:
 
 ## Exemplos de Uso
 
-A seguir são apresentados exemplos simples dos novos comandos da linguagem.
+A seguir são apresentados exemplos simples das novas construções da linguagem.
 
 ### Definir tabelas
 
@@ -204,13 +204,13 @@ Na BNF, `[ ... ]` indica um elemento opcional.
 
 ### Definição das tabelas no início do programa
 
-As tabelas têm escopo global: elas existem no banco independentemente dos blocos do programa e sobrevivem ao seu término. Para que isso fique claro na própria sintaxe, as tabelas só podem ser definidas no início do programa, por meio de uma lista de `create-use`, antes de qualquer outro comando.
+As tabelas têm escopo global: elas existem no banco independentemente dos blocos do programa e sobrevivem ao seu término. Para que isso fique claro na própria sintaxe, as tabelas só podem ser definidas no início do programa, por meio de uma lista de `create-use`, antes do comando do programa.
 
 A lista de `create-use` faz parte da regra `Programa`, e não de `Comando`: `Programa ::= [ListaCreateUse ";"] Comando`. Como as produções `While`, `IfThenElse` e `ComandoDeclaracao` usam `Comando`, um `create-use` não pode aparecer dentro de blocos ou laços. Assim, a definição de uma tabela nunca aparenta ter escopo local.
 
-Na implementação, a lista de `create-use` e o comando do programa são guardados juntos na classe `ComandoPersistente`, que implementa `Comando`; a classe `Programa` não foi alterada.
+Na implementação, a classe `Programa` guarda a lista de `create-use` (classe `ListaCreateUse`) e o comando, espelhando a regra `Programa ::= [ListaCreateUse ";"] Comando`. Quando o programa não tem `create-use`, a lista é vazia. A `ListaCreateUse` segue o formato da `ListaDeclaracaoOO` da linguagem Orientada a Objetos 2.
 
-O `create-use` é um comando de definição de tabela. Na verificação de tipos, ele registra o esquema da tabela no mapa de tabelas. Na execução, ele cria a tabela no banco, caso ela ainda não exista. Como seu efeito é persistente e global, ele é o único comando que só pode aparecer no início do programa.
+O `create-use` é uma definição de tabela. Na verificação de tipos, ele registra o esquema da tabela no mapa de tabelas. Na execução, ele cria a tabela no banco, caso ela ainda não exista. Como seu efeito é persistente e global, ele só pode aparecer no início do programa.
 
 Além disso, o programa precisa definir todas as tabelas que utiliza, inclusive as que já existem no banco. Com isso, as tabelas usadas são conhecidas desde o início, sem a necessidade de percorrer o restante do programa.
 
@@ -234,7 +234,8 @@ Para evitar que o programa acredite em um esquema diferente do real, o esquema d
 
 O esquema de cada tabela definida (nome, colunas e tipos) é registrado em um **mapa de tabelas**, atributo do contexto de compilação, mantido fora da pilha de escopos das variáveis. É esse mapa que permite ao `insert` e ao `select` verificar tipos estaticamente.
 
-- **Espaço de nomes separado:** tabelas e variáveis não compartilham nomes. `var clientes = 1` e `create-use clientes (...)` podem coexistir.
+- **Espaço de nomes separado:** tabelas e variáveis não compartilham nomes. `var clientes = 1` e `create-use clientes (...)` podem coexistir: depois de `into` e `from`, um nome é sempre uma tabela; em expressões, é sempre uma variável. Dentro do `where`, as colunas escondem variáveis de mesmo nome. É o mesmo comportamento da PL/SQL, do Oracle, em que uma coluna tem precedência sobre uma variável local de mesmo nome dentro de um comando SQL.
+
 - **Escopo global:** como o mapa não faz parte da pilha, ele não é afetado pela entrada e saída de blocos.
 
 O mapa é usado apenas na verificação de tipos. Durante a execução, os comandos acessam diretamente o banco.
@@ -335,6 +336,130 @@ O `select` não produz um valor utilizável pelo programa: o resultado vai apena
 
 Falhas do banco (arquivo inacessível, erro de SQL) interrompem a execução com uma exceção. O banco fica no arquivo `banco_impSQL.db`, no diretório em que o interpretador é executado.
 
+## Como Executar
+
+O interpretador pode ser executado pela interface gráfica (`AppUI`) ou pelo terminal. Em ambos os casos, o banco é o arquivo `banco_impSQL.db`, criado no diretório em que o interpretador é executado.
+
+### Pela interface gráfica
+
+Dentro de `PLP_project/`:
+
+```bash
+mvn -q -pl AppUI -am compile
+```
+
+```bash
+java -cp "AppUI/target/classes;Expressoes1/target/classes;Expressoes2/target/classes;Funcional1/target/classes;Funcional2/target/classes;Funcional3/target/classes;Imperativa1/target/classes;Imperativa2/target/classes;Objetos1/target/classes;Objetos2/target/classes;%USERPROFILE%/.m2/repository/org/xerial/sqlite-jdbc/3.45.1.0/sqlite-jdbc-3.45.1.0.jar;%USERPROFILE%/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar" gui.applet.SwingInterpretadorPLP
+```
+
+O comando acima é para o Prompt de Comando (cmd) do Windows. No PowerShell, troque `%USERPROFILE%` por `$env:USERPROFILE`. Na janela, selecione a linguagem Imperativa 1. As mensagens da camada de persistência (`[ImpSQL] ...`) aparecem no terminal; na janela aparece o resultado do programa.
+
+O `package` da `AppUI` não é usado porque ele também gera a versão web da interface, com TeaVM, que não suporta JDBC.
+
+### Pelo terminal
+
+Para executar o programa do arquivo `input`, dentro de `PLP_project/Imperativa1/`:
+
+```bash
+mvn clean generate-sources compile exec:java
+```
+
+Para executar outro arquivo, como os exemplos da pasta `exemplos/`, compile uma vez e passe o arquivo em `-Dfile`:
+
+```bash
+mvn -q clean generate-sources compile
+```
+
+```bash
+mvn -q exec:java "-Dfile=exemplos/exemplo1.txt"
+```
+
+No terminal, a saída aparece sem o prefixo `resultado =`, e os erros de tipo aparecem como `Erro de tipo`.
+
+## Exemplos de Execução
+
+Os exemplos abaixo foram executados em sequência na `AppUI`, começando com o banco vazio. A saída é a mostrada na janela.
+
+### 1. Criar a tabela e inserir registros
+
+```text
+create-use clientes (nome string, idade int, ativo boolean);
+{ var n = "Bob", var i = 30;
+  insert into clientes values ("Alice", 25, true);
+  insert into clientes values (n, i + 1, false)
+}
+```
+
+Saída: `resultado =` (vazia). No terminal: `Tabela 'clientes' criada no SQLite.` e um aviso para cada registro inserido. A expressão `i + 1` é avaliada antes da inserção, e o valor gravado é `31`.
+
+### 2. Consultar em outra execução (persistência)
+
+```text
+create-use clientes (nome string, idade int, ativo boolean);
+select * from clientes
+```
+
+Saída: `resultado = "Alice" 25 true "Bob" 31 false`. Os registros inseridos pelo programa anterior continuam no banco.
+
+### 3. Selecionar colunas e filtrar
+
+```text
+create-use clientes (nome string, idade int, ativo boolean);
+select nome, idade from clientes where ativo
+```
+
+Saída: `resultado = "Alice" 25`
+
+### 4. Coluna e variável com o mesmo nome
+
+```text
+create-use clientes (nome string, idade int, ativo boolean);
+{ var idade = 99;
+  select nome from clientes where idade == 25;
+  write(idade)
+}
+```
+
+Saída: `resultado = "Alice" 99`. No `where`, `idade` é a coluna; no `write`, é a variável.
+
+### 5. Tabela e variável com o mesmo nome
+
+```text
+create-use clientes (nome string, idade int, ativo boolean);
+{ var clientes = 10;
+  insert into clientes values ("Carla", clientes, true);
+  select nome from clientes where idade == clientes
+}
+```
+
+Saída: `resultado = "Carla"`. Depois de `into` e `from`, `clientes` é a tabela; nas expressões, é a variável.
+
+### 6. Erros de tipo
+
+Todos os programas abaixo são rejeitados antes da execução, com `erro de tipos!`, e o banco não é alterado:
+
+| Programa | Motivo |
+|---|---|
+| `create-use clientes (nome string, idade string, ativo boolean); select * from clientes` | o esquema é diferente do que está no banco |
+| `create-use clientes (nome string, idade int, ativo boolean); insert into clientes values ("Ana", "vinte", true)` | `"vinte"` não é `int` |
+| `create-use clientes (nome string, idade int, ativo boolean); insert into clientes values ("Ana", 20)` | faltam valores |
+| `create-use clientes (nome string, idade int, ativo boolean); select email from clientes` | `email` não é coluna de `clientes` |
+| `create-use clientes (nome string, idade int, ativo boolean); select nome from clientes where idade` | a condição não é `boolean` |
+| `insert into produtos values ("caneta")` | `produtos` não foi definida por um `create-use` |
+
+Os programas desta seção estão em exemplos/erro1.txt a erro7.txt.
+
+### 7. Erro de sintaxe
+
+```text
+{ var x = 1;
+  create-use t (a int);
+  write(x)
+}
+```
+
+O parser rejeita o programa: um `create-use` só pode aparecer no início. 
+
 ## Limitações e Extensões Futuras
 
 - `update`: atualização de registros existentes.
@@ -342,6 +467,7 @@ Falhas do banco (arquivo inacessível, erro de SQL) interrompem a execução com
 - `drop table`: remoção de tabelas.
 - Iteração sobre o resultado de uma consulta (`for each ... in T where e do Comando`): o corpo é executado uma vez para cada registro, com as colunas visíveis como variáveis. Isso permite operar sobre os registros com os comandos da linguagem sem introduzir novos tipos, reaproveitando o escopo temporário usado na avaliação do `where`.
 - Valores nulos.
+- Execução na IDE web: a IDE web compila o interpretador para JavaScript com TeaVM, que não suporta JDBC. Executar a ImpSQL no navegador exigiria uma implementação das tabelas em memória, sem persistência entre execuções.
 
 ## Status da Implementação
 
